@@ -1,0 +1,326 @@
+{% include "teacher/navbar.html"%}
+
+<!-- <link rel="stylesheet" href="/static/teacher/css/answer_key.css "> -->
+
+<style>
+  * {margin:0; padding:0; box-sizing:border-box; font-family: 'Inter', 'Segoe UI', sans-serif;}
+body{ background: #f4f6f9; }
+
+/* MAIN WRAPPER - 260PX SIDEBAR SPACE */
+.main-wrapper{
+    /* margin-left: 260px; sidebar sathi space */
+    /* padding: 24px; */
+    transition: 0.3s;
+}
+/* @media(max-width: 100%){ .main-wrapper{ margin-left: 0; padding: 16px; } } */
+
+/* STATS CARDS */
+.stats-grid{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 18px;
+    margin-bottom: 20px;
+}
+.stat-card{
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+.stat-card:hover{ transform: translateY(-3px); box-shadow: 0 6px 20px rgba(0,0,0,0.08); }
+.stat-card .icon-box{
+    width: 50px; height: 48px; border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; color: #fff;
+}
+.stat-card.green .icon-box{ background: linear-gradient(135deg, #10b981 0%, #059669 100%); }
+.stat-card.purple .icon-box{ background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%); }
+.stat-card.orange .icon-box{ background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%); }
+.stat-card.blue .icon-box{ background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); }
+.stat-card p{ font-size: 13px; color: #64748b; font-weight: 500; }
+.stat-card h3{ font-size: 20px; font-weight: 700; color: #1e293b; }
+
+/* TOP BAR */
+.top-bar{
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 20px; flex-wrap: wrap; gap: 12px;
+}
+.tabs{ display: flex; gap: 8px; background: #fff; padding: 4px; border-radius: 8px; border: 1px solid #e2e8f0; }
+.tab{
+    padding: 8px 16px; border: none; background: transparent;
+    border-radius: 6px; font-size: 14px; font-weight: 600; color: #64748b; cursor: pointer;
+}
+.tab.active{ background: #6366f1; color: #fff; }
+.top-actions{ display: flex; gap: 10px; }
+.btn-secondary, .btn-primary{
+    padding: 9px 16px; border-radius: 8px; font-size: 14px; font-weight: 600;
+    border: 1px solid #cbd5e1; background: #fff; cursor: pointer; display: flex; gap: 6px; align-items: center;
+}
+.btn-primary{ background: #6366f1; color: #fff; border-color: #6366f1; }
+
+/* CONTENT GRID */
+.content-grid{
+    display: grid;
+    grid-template-columns: 320px 1fr; /* filter fixed + table flexible */
+    gap: 20px;
+}
+@media(max-width: 1200px){ .content-grid{ grid-template-columns: 1fr; } }
+
+/* FILTER CARD */
+.filter-card{
+    background: #fff; border-radius: 12px; padding: 20px;
+    border: 1px solid #e2e8f0; height: fit-content;
+}
+.filter-card h3{ font-size: 16px; font-weight: 700; margin-bottom: 16px; display: flex; gap: 8px; }
+.input-group{ margin-bottom: 14px; }
+.input-group label{ font-size: 12px; font-weight: 600; color: #64748b; display: block; margin-bottom: 6px; }
+.input-group select{
+    width: 100%; padding: 9px 12px; border: 1px solid #cbd5e1;
+    border-radius: 8px; font-size: 13px; background: #fff;
+}
+.btn-apply, .btn-reset{
+    width: 100%; padding: 10px; border-radius: 8px; font-weight: 600;
+    border: none; cursor: pointer; margin-top: 8px; display: flex; gap: 6px; justify-content: center;
+}
+.btn-apply{ background: #6366f1; color: #fff; }
+.btn-reset{ background: #f1f5f9; color: #475569; border: 1px solid #e2e8f0; }
+
+/* TABLE CARD */
+.table-card{
+    background: #fff; border-radius: 12px; padding: 20px;
+    border: 1px solid #e2e8f0;
+}
+.table-header{
+    display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;
+}
+.table-header h3{ font-size: 16px; font-weight: 700; display: flex; gap: 8px; }
+.search-box{
+    display: flex; align-items: center; gap: 8px;
+    border: 1px solid #cbd5e1; padding: 7px 12px; border-radius: 8px;
+}
+.search-box input{ border: none; outline: none; font-size: 13px; }
+.table-wrapper{ overflow-x: auto; }
+table{ width: 100%; border-collapse: collapse; }
+thead{ background: #f8fafc; }
+th{
+    text-align: left; padding: 12px; font-size: 12px;
+    font-weight: 700; color: #64748b; text-transform: uppercase;
+}
+td{ padding: 12px; font-size: 13px; color: #334155; border-top: 1px solid #f1f5f9; }
+.action-icon{ color: #6366f1; cursor: pointer; margin-right: 10px; }
+.action-icon.del{ color: #ef4444; }
+
+/* RESPONSIVE */
+@media(max-width: 1200px){ .stats-grid{ grid-template-columns: repeat(2, 1fr); } }
+@media(max-width: 600px){ .stats-grid{ grid-template-columns: 1fr; } }
+</style>
+
+    <!-- SIDEBAR ITHA YEIL - ATTA SPACE SODLA AAHE -->
+    <!-- <div class="sidebar">...</div> -->
+
+
+
+    <div class="main-wrappe">
+
+        <!-- TOP STATS CARDS -->
+        <div class="stats-grid">
+            <div class="stat-card green">
+                <div class="icon-box"><i class="fa-solid fa-list-check"></i></div>
+                <div>
+                    <p>Total Questions</p>
+                    <h3>100</h3>
+                </div>
+            </div>
+
+            <div class="stat-card purple">
+                <div class="icon-box"><i class="fa-solid fa-circle-check"></i></div>
+                <div>
+                    <p>Answered</p>
+                    <h3>100 (100%)</h3>
+                </div>
+            </div>
+
+            <div class="stat-card orange">
+                <div class="icon-box"><i class="fa-solid fa-circle-question"></i></div>
+                <div>
+                    <p>Unanswered</p>
+                    <h3>0 (0%)</h3>
+                </div>
+            </div>
+
+            <div class="stat-card blue">
+                <div class="icon-box"><i class="fa-solid fa-trophy"></i></div>
+                <div>
+                    <p>Total Marks</p>
+                    <h3>100</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- TABS -->
+        <div class="top-bar">
+            <div class="tabs">
+                <button class="tab active">Answer Key</button>
+            </div>
+        </div>
+
+        <!-- MAIN CONTENT: FILTER + TABLE -->
+        <div class="content-grid">
+
+            <!-- LEFT: FILTER CARD -->
+            <div class="filter-card">
+                <h3><i class="fa-solid fa-filter"></i> Filter Questions</h3>
+
+                <div class="input-group">
+                    <label>Select Subject</label>
+                    <select id="filterSubject">
+                        <option value="all">All Subjects</option>
+                        <option value="general studies">MPSC - General Studies</option>
+                        <option value="csat">MPSC - CSAT</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Select Exam</label>
+                    <select id="filterExam">
+                        <option value="all">All Exams</option>
+                        <option value="mock 1">MPSC Prelims Mock 1</option>
+                        <option value="mock 2">MPSC Prelims Mock 2</option>
+                    </select>
+                </div>
+
+                <div class="input-group">
+                    <label>Question Type</label>
+                    <select id="filterType">
+                        <option value="all">All Types</option>
+                        <option value="mcq">MCQ</option>
+                    </select>
+                </div>
+
+                <button class="btn-apply"><i class="fa-solid fa-filter"></i> Apply Filter</button>
+                <button class="btn-reset"><i class="fa-solid fa-rotate-left"></i> Reset</button>
+            </div>
+
+            <!-- RIGHT: TABLE CARD -->
+            <div class="table-card">
+                <div class="table-header">
+                    <h3 id="questionCount"><i class="fa-solid fa-list"></i> Answer Key List (2 Questions)</h3>
+                    <div class="search-box">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                        <input type="text" id="searchInput" placeholder="Search question...">
+                    </div>
+                </div>
+
+                <div class="table-wrapper">
+                    <table id="answerTable">
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>QUESTION</th>
+                                <th>TYPE</th>
+                                <th>CORRECT ANSWER</th>
+                                <th>MARKS</th>
+                                <th>ACTION</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- DATA ATTRIBUTE ADD KELA AAHE -->
+                            <tr data-subject="general studies" data-exam="mock 1" data-type="mcq">
+                                <td>1</td>
+                                <td>Which is the capital of Maharashtra?</td>
+                                <td>MCQ</td>
+                                <td>B. Mumbai</td>
+                                <td>1</td>
+                                <td><i class="fa-solid fa-pen action-icon"></i> <i class="fa-solid fa-trash action-icon del"></i></td>
+                            </tr>
+                            <tr data-subject="csat" data-exam="mock 2" data-type="mcq">
+                                <td>2</td>
+                                <td>Who is known as the Father of Indian Constitution?</td>
+                                <td>MCQ</td>
+                                <td>C. Dr. B.R. Ambedkar</td>
+                                <td>1</td>
+                                <td><i class="fa-solid fa-pen action-icon"></i> <i class="fa-solid fa-trash action-icon del"></i></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- HE SCRIPT SHEVATLA MAHATWACHA AAHE -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+
+    const applyBtn = document.querySelector('.btn-apply');
+    const resetBtn = document.querySelector('.btn-reset');
+    const searchInput = document.getElementById('searchInput');
+
+    const subjectSelect = document.getElementById('filterSubject');
+    const examSelect = document.getElementById('filterExam');
+    const typeSelect = document.getElementById('filterType');
+
+    const tableRows = document.querySelectorAll('#answerTable tbody tr');
+    const questionCount = document.getElementById('questionCount');
+    const totalQuestions = tableRows.length;
+
+    function filterTable() {
+        const selectedSubject = subjectSelect.value;
+        const selectedExam = examSelect.value;
+        const selectedType = typeSelect.value;
+        const searchTerm = searchInput.value.toLowerCase();
+        let visibleCount = 0;
+
+        tableRows.forEach(row => {
+            const rowSubject = row.dataset.subject;
+            const rowExam = row.dataset.exam;
+            const rowType = row.dataset.type;
+            const questionText = row.cells[1].textContent.toLowerCase();
+
+            let show = true;
+
+            if(selectedSubject!== 'all' && rowSubject!== selectedSubject) show = false;
+            if(selectedExam!== 'all' && rowExam!== selectedExam) show = false;
+            if(selectedType!== 'all' && rowType!== selectedType) show = false;
+            if(searchTerm &&!questionText.includes(searchTerm)) show = false;
+
+            if(show) {
+                row.style.display = '';
+                visibleCount++;
+            } else {
+                row.style.display = 'none';
+            }
+        });
+
+        questionCount.innerHTML = `<i class="fa-solid fa-list"></i> Answer Key List (${visibleCount} Questions)`;
+    }
+
+    // Apply Filter click
+    applyBtn.addEventListener('click', filterTable);
+
+    // Reset click
+    resetBtn.addEventListener('click', function() {
+        subjectSelect.value = 'all';
+        examSelect.value = 'all';
+        typeSelect.value = 'all';
+        searchInput.value = '';
+        filterTable();
+    });
+
+    // Live Search
+    searchInput.addEventListener('keyup', filterTable);
+
+});
+</script>
+
+
+
+
+{% include "teacher/footer.html"%}

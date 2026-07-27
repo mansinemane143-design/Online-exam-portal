@@ -1,0 +1,33 @@
+/* *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins', sans-serif;}
+body{background: linear-gradient(135deg, #0a1a4a 0%, #1e40af 50%, #2563eb 100%);min-height: 100vh;display:flex;align-items:center;justify-content:center;padding: 20px;} */
+
+/* SCREENSHOT SARKHA CARD */
+.login-card{background: #ffffff;max-width: 420px;width: 100%;padding: 30px 28px;border-radius: 20px;box-shadow: 0 20px 60px rgba(0,0,0,0.3);}
+.login-header{text-align:center; margin-bottom:22px;}
+.login-header i{font-size:38px; color:#2563eb; margin-bottom:10px;}
+.login-header h3{color:#0f172a; font-weight:800; font-size:22px; margin-bottom:8px;}
+.login-header p{color:#64748b; font-size:12px; line-height:1.6;}
+
+/* INPUT - NO ICON */
+.form-label{color:#334155; font-weight:600; font-size:13px; margin-bottom:6px;}
+.form-group{margin-bottom:16px;}
+.form-control{background:#f8fafc;border:1.5px solid #e2e8f0;color:#0f172a;border-radius:10px;height:44px;width:100%;font-size:13px;padding:0 14px;}
+.form-control:focus{border-color:#2563eb;box-shadow:0 0 0 3px rgba(37,99,235,0.1);outline:none;background:#fff;}
+
+/* BUTTON */
+.btn-login{width:100%;background: linear-gradient(90deg, #0f172a, #2563eb);color:white;border:none;padding:12px;border-radius:10px;font-weight:700;font-size:14px;margin-top:8px;transition:0.3s;cursor:pointer;}
+.btn-login:hover{transform:translateY(-2px);box-shadow: 0 6px 15px rgba(37,99,235,0.4);}
+
+/* DIVIDER */
+.divider{text-align:center;margin:18px 0;position:relative;color:#94a3b8;font-size:11px;font-weight:600;}
+.divider::before, .divider::after{content:'';position:absolute;top:50%;width:42%;height:1px;background:#e2e8f0;}
+.divider::before{ left:0; }.divider::after{ right:0; }
+
+/* GOOGLE BUTTON */
+.btn-google{width:100%;background:#ffffff;color:#334155;border:1.5px solid #e2e8f0;padding:11px;border-radius:10px;font-weight:700;font-size:13px;display:flex;align-items:center;justify-content:center;gap:8px;transition:0.3s;cursor:pointer;}
+.btn-google i{ color:#DB4437; font-size:16px; }
+.btn-google:hover{background:#f8fafc;border-color:#2563eb;}
+
+/* LINK */
+.register-link{text-align:center; margin-top:18px; color:#64748b; font-size:12px;}
+.register-link a{color:#2563eb;font-weight:700;font-size:12px;text-decoration:none;}

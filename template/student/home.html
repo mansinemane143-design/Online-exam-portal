@@ -1,0 +1,123 @@
+{% include "student/navbar.html" %}
+<link rel="stylesheet" href="/static/student/css/home.css">
+<style>
+    .hero-btnn{
+    background:linear-gradient(90deg, #2563eb, #7c3aed);
+    color:white;
+    padding:14px 35px;
+    border:none;
+    border-radius:50px;
+    font-weight:700;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    transition:.4s;
+    margin-left: 100px;
+}
+.hero-btnn:hover{
+    background:linear-gradient(90deg, #7c3aed, #2563eb);
+    transform:scale(1.05);
+    color:white;
+}
+</style>
+<!-- Hero -->
+<section class="hero" id="home">
+<div class="container">
+    <center><h1>Unlock Your Future with <br> Online Exam Portal</h1></center>
+
+<a href="/registration/" class="hero-btn mt-3"><i class="fa-solid fa-rocket"></i><span class="ms-3">Apply Now</span></a>
+<a href="@" class="hero-btn mt-3 ms-3"><i class="fa-solid fa-book-open"></i><span class="ms-3">Explore Exam</span></a>
+</div>
+</section>
+<!-- Courses Section - 8 Government Exam Cards -->
+<section id="cources">
+<div class="container py-5">
+<div class="row g-4 justify-content-center">
+
+
+  {% for exam in exams %}
+<div class="col-lg-4 col-md-6">
+  
+    <div class="course-card">
+        <div class="card-top gradient-2">
+        
+
+            <div class="status active">{{exam.status}}</div>
+            <div class="course-icon">{{exam.sub_name}}</div>
+        </div>
+        <div class="card-body">
+            <h3 class="course-title">{{exam.exam_name}}</h3>
+            
+            <!-- NAVIN: Validity -->
+            <p class="validity">⏰ Validity: {{exam.validity}}</p>
+            
+            <hr>
+            <h2 class="new-price">Exam Fees: {{exam.exam_fees}}</h2>
+    
+            <!-- EXAM FORMAT SECTION -->
+            <div class="exam-info">
+                <h4>Exam Format:</h4>
+                <p><i class="fa-solid fa-circle-check"></i> Type:{{exam.type_name}}</p>
+                <p><i class="fa-solid fa-circle-check"></i> Total Questions: {{exam.total_questions}}</p>
+                <p><i class="fa-solid fa-circle-check"></i> Duration: {{exam.exam_duration}}</p>
+                <p><i class="fa-solid fa-circle-check"></i> Negative Marking:{{exam.negative_marking}}</p>
+                <p><i class="fa-solid fa-circle-check"></i> Mode: {{exam.exam_mode}}</p>
+                <p><i class="fa-solid fa-circle-check"></i> Language: {{exam.language}}</p>
+            </div> 
+
+          <a href="/registration/" class="hero-btnn mt-3"><i class="fa-solid fa-rocket"></i><span class="ms-3">Apply Now</span></a>
+        </div>
+
+    </div>
+</div>
+
+    {% endfor %}
+
+
+
+
+</div>
+</div>
+</section>
+
+<!-- STUDENT REVIEWS SECTION -->
+
+<section class="reviews-home" id="reviews">
+<div class="container">
+    <div class="reviews-tag">SUCCESS STORIES</div>
+    <div class="reviews-title">
+        <h2>Students Who Made It</h2>
+        <p>Real stories from Online Exam Portal students selected in government jobs</p>
+    </div>
+
+    <div class="reviews-wrapper">
+
+        <div class="reviews-slider" id="reviewSlider">
+{% for i in Student_Reviews_data %}
+
+            <div class="review-box">
+                <div class="review-stars">{{i.icon}}</div>
+                <p>"{{i.dec}}"</p>
+                <div class="review-user"><div class="user-icon"></div><div><h4>{{i.fullname}}</h4><span>{{i.bharti}}</span></div></div>
+            </div>
+{% endfor %}
+
+        </div>
+
+
+        
+    </div>
+</div>
+
+</section>
+
+<!-- Contact CTA -->
+<section class="scholarship-cta" id="contact" >
+    <div class="container text-center">
+        <h2 class="cta-title">Ready to Unlock Your Online Exam Portal?</h2>
+        <p class="cta-text">Join 5000+ students building their dream careers with Online Exam Portal.</p>
+        <a href="/registration/" class="cta-btn"><i class="fa-solid fa-paper-plane"></i> Apply for Exam Now</a>
+    </div>
+</section>
+
+{% include "student/footer.html" %}

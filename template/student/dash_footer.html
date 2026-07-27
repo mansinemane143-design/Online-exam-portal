@@ -1,0 +1,46 @@
+<!-- FOOTER -->
+  <footer class="app-footer">
+    <span>&copy; 2026 Online Exam Portal Student Panel. All rights reserved.</span>
+    <span>Version 1.0.0</span>
+  </footer>
+
+</div>
+
+<!-- Bootstrap 5 JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+  // Sidebar toggle:
+  // - On desktop/tablet (>= 992px): collapses sidebar to icon-only rail
+  // - On mobile (< 992px): slides sidebar in/out as an overlay
+  const sidebarToggleBtn = document.getElementById('sidebarToggleBtn');
+  const appSidebar = document.getElementById('appSidebar');
+  const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+  function isMobileView() {
+    return window.innerWidth < 992;
+  }
+
+  function toggleSidebar() {
+    if (isMobileView()) {
+      appSidebar.classList.toggle('show');
+      sidebarBackdrop.classList.toggle('show');
+    } else {
+      document.body.classList.toggle('sidebar-collapsed');
+    }
+  }
+
+  sidebarToggleBtn.addEventListener('click', toggleSidebar);
+  sidebarBackdrop.addEventListener('click', toggleSidebar);
+
+  // Reset states cleanly when crossing the mobile/desktop breakpoint
+  window.addEventListener('resize', () => {
+    if (isMobileView()) {
+      document.body.classList.remove('sidebar-collapsed');
+    } else {
+      appSidebar.classList.remove('show');
+      sidebarBackdrop.classList.remove('show');
+    }
+  });
+</script>
+</body>
+</html>

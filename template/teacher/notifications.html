@@ -1,0 +1,236 @@
+{% include "teacher/navbar.html"%}
+
+    <link rel="stylesheet" href="/static/teacher/css/notifications.css">
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="top-bar">
+
+        <div>
+            <h2>Notifications</h2>
+            <p>Latest Updates & Activities</p>
+        </div>
+
+        <div class="header-right">
+
+            <input type="text"
+                   id="search"
+                   placeholder="Search Notification...">
+
+            <button id="markAll">
+                <i class="fa-solid fa-check-double"></i>
+                Mark All Read
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- Filter -->
+
+    <div class="filter">
+
+        <button class="active" data-filter="all">
+            All
+        </button>
+
+        <button data-filter="unread">
+            Unread
+        </button>
+
+        <button data-filter="read">
+            Read
+        </button>
+
+    </div>
+
+
+    <!-- Notification List -->
+
+    <div class="notification-list">
+
+        <!-- Notification 1 -->
+
+        <div class="notification unread success">
+
+            <div class="icon">
+                <i class="fa-solid fa-circle-check"></i>
+            </div>
+
+            <div class="content">
+
+                <h4>Python MCQ Test Published Successfully</h4>
+
+                <p>
+                    Your Python MCQ examination is now live for all students.
+                </p>
+
+                <span>Today • 10:30 AM</span>
+
+            </div>
+
+            <div class="action">
+
+                <button class="read-btn">
+                    <i class="fa-solid fa-envelope-open"></i>
+                </button>
+
+                <button class="delete-btn">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Notification 2 -->
+
+        <div class="notification unread info">
+
+            <div class="icon">
+                <i class="fa-solid fa-user-graduate"></i>
+            </div>
+
+            <div class="content">
+
+                <h4>16 Students Completed Java Quiz</h4>
+
+                <p>
+                    Students have successfully completed today's Java quiz.
+                </p>
+
+                <span>Today • 11:30 AM</span>
+
+            </div>
+
+            <div class="action">
+
+                <button class="read-btn">
+                    <i class="fa-solid fa-envelope-open"></i>
+                </button>
+
+                <button class="delete-btn">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Notification 3 -->
+
+        <div class="notification warning">
+
+            <div class="icon">
+                <i class="fa-solid fa-triangle-exclamation"></i>
+            </div>
+
+            <div class="content">
+
+                <h4>HTML Subject Updated</h4>
+
+                <p>
+                    New questions have been added in HTML Subject.
+                </p>
+
+                <span>Yesterday • 01:15 PM</span>
+
+            </div>
+
+            <div class="action">
+
+                <button class="read-btn">
+                    <i class="fa-solid fa-envelope-open"></i>
+                </button>
+
+                <button class="delete-btn">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Notification 4 -->
+
+        <div class="notification danger">
+
+            <div class="icon">
+                <i class="fa-solid fa-circle-xmark"></i>
+            </div>
+
+            <div class="content">
+
+                <h4>Exam Submission Failed</h4>
+
+                <p>
+                    One student's exam could not be submitted due to a network issue.
+                </p>
+
+                <span>Yesterday • 03:40 PM</span>
+
+            </div>
+
+            <div class="action">
+
+                <button class="read-btn">
+                    <i class="fa-solid fa-envelope-open"></i>
+                </button>
+
+                <button class="delete-btn">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Notification 5 -->
+
+        <div class="notification success">
+
+            <div class="icon">
+                <i class="fa-solid fa-file-circle-check"></i>
+            </div>
+
+            <div class="content">
+
+                <h4>Monthly Report Ready</h4>
+
+                <p>
+                    Download your latest monthly examination report.
+                </p>
+
+                <span>02:30 PM</span>
+
+            </div>
+
+            <div class="action">
+
+                <button class="read-btn">
+                    <i class="fa-solid fa-envelope-open"></i>
+                </button>
+
+                <button class="delete-btn">
+                    <i class="fa-solid fa-trash"></i>
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="/static/teacher/js/notifications.js"></script>
+
+
+{% include "teacher/footer.html"%}

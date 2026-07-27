@@ -1,0 +1,265 @@
+{% include "student/dashnavbar.html" %}
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="/static/student/css/payment_history.css">
+<script src="/static/student/js/payment_history.js"></script>
+
+
+<main class="page-wrap">
+
+<div class="page-inner">
+
+
+<div class="page-title">
+Payment History
+</div>
+
+
+<div class="page-subtitle">
+Track all your past exam fee transactions and download receipts.
+</div>
+
+
+
+<div class="main-card">
+
+
+<div class="table-scroll">
+
+
+<table class="history-table">
+
+
+<thead>
+
+<tr>
+
+<th>Transaction ID</th>
+
+<th>Full Name</th>
+
+<th>Mobile</th>
+
+<th>Payment</th>
+
+<th>Status</th>
+
+<th>Date</th>
+
+<th>Receipt</th>
+
+
+</tr>
+
+</thead>
+
+
+
+<tbody>
+
+
+
+{% for p in payments %}
+
+
+<tr>
+
+
+<td>
+#{{ p.order_id }}
+</td>
+
+
+
+<td>
+{{ p.customer_name|default:"-" }}
+</td>
+
+
+
+<td>
+{{ p.customer_phone|default:"-" }}
+</td>
+
+
+
+<td>
+₹{{ p.amount }}
+</td>
+
+
+
+
+<td>
+
+
+{% if p.status == "SUCCESS" %}
+
+
+<span class="badge bg-success">
+Success
+</span>
+
+
+
+{% elif p.status == "PENDING" %}
+
+
+<span class="badge bg-warning text-dark">
+Pending
+</span>
+
+
+
+{% else %}
+
+
+<span class="badge bg-danger">
+Failed
+</span>
+
+
+
+{% endif %}
+
+
+</td>
+
+
+
+
+<td>
+
+{{ p.created_at|date:"d M Y" }}
+
+</td>
+
+
+
+
+<td>
+
+
+
+{% if p.status == "SUCCESS" %}
+
+
+
+<a href="{% url 'download_receipt' p.order_id %}"
+class="btn btn-sm btn-primary">
+
+<i class="bi bi-download"></i>
+Receipt
+
+</a>
+
+
+
+
+{% else %}
+
+
+<span class="text-muted">
+-
+</span>
+
+
+{% endif %}
+
+
+
+</td>
+
+
+
+
+</tr>
+
+
+
+{% empty %}
+
+
+
+<tr>
+
+<td colspan="7" class="text-center">
+
+No payments found
+
+</td>
+
+
+</tr>
+
+
+
+{% endfor %}
+
+
+
+</tbody>
+
+
+</table>
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+</main>
+
+
+
+
+
+<!-- TOAST -->
+
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+
+
+<div id="downloadToast"
+class="toast align-items-center text-bg-success border-0">
+
+
+
+<div class="d-flex">
+
+
+<div class="toast-body">
+
+<i class="bi bi-check-circle-fill me-2"></i>
+
+Receipt downloaded successfully.
+
+</div>
+
+
+
+<button type="button"
+class="btn-close btn-close-white me-2 m-auto"
+data-bs-dismiss="toast">
+
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+{% include 'student/dash_footer.html' %}

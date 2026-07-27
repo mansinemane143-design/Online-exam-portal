@@ -1,0 +1,490 @@
+{% include "student/studentdashboard.html" %}
+<link rel="stylesheet" href="/static/student/css/Student_dashboard.css">
+<script src="/static/student/js/Student_dashboard.js"></script>
+
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+    <main >
+
+        <!-- Navbar -->
+
+
+        <!-- Welcome Banner -->
+
+        <section class="welcome-banner">
+
+            <div class="banner-text">
+
+                <h5>Welcome back,</h5>
+
+                <h1>Amit Sharma </h1>
+
+                <p>11 July 2026, Friday</p>
+
+            </div>
+
+           </section>
+
+        <!-- ===== Cards Section Start ===== -->
+
+        <section class="cards-section">
+
+            <!-- Part 2 मध्ये Complete Cards येतील -->
+            <!-- ================= Statistics Cards ================= -->
+
+<div class="row g-4 mt-2">
+
+    <!-- Card 1 -->
+    <div class="col-lg-3 col-md-6">
+        <div class="dashboard-card stats-card">
+            <div class="icon blue">
+                <i class="fa-solid fa-file-lines"></i>
+            </div>
+
+            <div class="card-content">
+                <span>Total Exams</span>
+                <h2>12</h2>
+                <small>All Time</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-lg-3 col-md-6">
+        <div class="dashboard-card stats-card">
+            <div class="icon green">
+                <i class="fa-solid fa-calendar-check"></i>
+            </div>
+
+            <div class="card-content">
+                <span>Completed Exams</span>
+                <h2>5</h2>
+                <small>All Time</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-lg-3 col-md-6">
+        <div class="dashboard-card stats-card">
+            <div class="icon orange">
+                <i class="fa-solid fa-hourglass-half"></i>
+            </div>
+
+            <div class="card-content">
+                <span>Pending Exams</span>
+                <h2>7</h2>
+                <small>All Time</small>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="col-lg-3 col-md-6">
+        <div class="dashboard-card stats-card">
+            <div class="icon purple">
+                <i class="fa-solid fa-trophy"></i>
+            </div>
+
+            <div class="card-content">
+                <span>Average Score</span>
+                <h2>78.5%</h2>
+                <small>All Time</small>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<!-- ================= Middle Cards ================= -->
+
+<div class="row g-4 mt-2">
+
+    <!-- Upcoming Exam -->
+
+    <div class="col-lg-4">
+
+        <div class="dashboard-card h-100">
+
+            <h5 class="mb-4">Upcoming Exam</h5>
+
+            <div class="exam-box">
+
+                <div class="exam-icon">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+
+                <div class="exam-info">
+
+                    <h6>Mathematics Test</h6>
+
+                    <p>15 July 2026</p>
+
+                    <span>10:00 AM - 11:00 AM</span>
+
+                </div>
+
+                <div class="exam-day">
+
+                    <strong>1</strong>
+
+                    <small>Day</small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Latest Result -->
+
+    <div class="col-lg-5">
+
+        <div class="dashboard-card h-100">
+
+            <h5 class="mb-4">Latest Result</h5>
+
+            <div class="d-flex align-items-center justify-content-between">
+
+                <div class="progress-circle">
+
+                    <div class="circle">
+
+                        <span>82%</span>
+
+                    </div>
+
+                </div>
+
+                <div class="result-info">
+
+                    <h6>Physics Weekly Test</h6>
+
+                    <p>Score : <strong>41 / 50</strong></p>
+
+                    <p>Rank : <strong>12 / 68</strong></p>
+
+                    <button class="btn btn-success btn-sm">
+                        Passed
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Payment Status -->
+
+    <div class="col-lg-3">
+
+        <div class="dashboard-card payment-card h-100">
+
+            <h5>Payment Status</h5>
+
+            <div class="payment-box">
+
+                <div class="check">
+
+                    <i class="fa-solid fa-circle-check"></i>
+
+                </div>
+
+                <h6>Payment Successful</h6>
+
+                <p>Valid Till : 18 July 2026</p>
+
+                <button class="btn btn-outline-primary">
+                    View Details
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= Bottom Section ================= -->
+
+<div class="row g-4 mt-3">
+
+    <!-- Available Exams -->
+
+    <div class="col-lg-8">
+
+        <div class="dashboard-card">
+
+            <div class="d-flex justify-content-between align-items-center mb-3">
+
+                <h5>Available Exams</h5>
+
+                <a href="#" class="view-all">View All</a>
+
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Exam Title</th>
+
+                            <th>Subject</th>
+
+                            <th>Questions</th>
+
+                            <th>Duration</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>Mathematics Test</td>
+
+                            <td>Mathematics</td>
+
+                            <td>50</td>
+
+                            <td>60 min</td>
+
+                            <td>
+                                <button class="btn btn-primary btn-sm px-4">
+                                    Start Exam
+                                </button>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Physics Weekly Test</td>
+
+                            <td>Physics</td>
+
+                            <td>50</td>
+
+                            <td>60 min</td>
+
+                            <td>
+                                <button class="btn btn-primary btn-sm px-4">
+                                    Start Exam
+                                </button>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Chemistry Quiz</td>
+
+                            <td>Chemistry</td>
+
+                            <td>50</td>
+
+                            <td>60 min</td>
+
+                            <td>
+                                <button class="btn btn-primary btn-sm px-4">
+                                    Start Exam
+                                </button>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>Biology Chapter Test</td>
+
+                            <td>Biology</td>
+
+                            <td>50</td>
+
+                            <td>60 min</td>
+
+                            <td>
+                                <button class="btn btn-primary btn-sm px-4">
+                                    Start Exam
+                                </button>
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>English Grammar Test</td>
+
+                            <td>English</td>
+
+                            <td>50</td>
+
+                            <td>60 min</td>
+
+                            <td>
+                                <button class="btn btn-primary btn-sm px-4">
+                                    Start Exam
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+
+    <!-- Quick Links -->
+
+    <div class="col-lg-4">
+
+        <div class="dashboard-card">
+
+            <h5 class="mb-4">Quick Links</h5>
+
+            <ul class="quick-links">
+
+                <li>
+
+                    <a href="#">
+
+                        <span>
+
+                            <i class="fa-regular fa-user"></i>
+
+                            My Profile
+
+                        </span>
+
+                        <i class="fa-solid fa-angle-right"></i>
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <span>
+
+                            <i class="fa-solid fa-book"></i>
+
+                            My Exams
+
+                        </span>
+
+                        <i class="fa-solid fa-angle-right"></i>
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <span>
+
+                            <i class="fa-solid fa-chart-column"></i>
+
+                            Result
+
+                        </span>
+
+                        <i class="fa-solid fa-angle-right"></i>
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <span>
+
+                            <i class="fa-solid fa-file-invoice-dollar"></i>
+
+                            Payment History
+
+                        </span>
+
+                        <i class="fa-solid fa-angle-right"></i>
+
+                    </a>
+
+                </li>
+
+                <li>
+
+                    <a href="#">
+
+                        <span>
+
+                            <i class="fa-regular fa-circle-question"></i>
+
+                            Help & Support
+
+                        </span>
+
+                        <i class="fa-solid fa-angle-right"></i>
+
+                    </a>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+<!-- ================= End Dashboard ================= -->
+
+        </section>
+
+    </main>
+
+</div>
+
+
+
+
+{% include "student/dashboard_footer.html" %}

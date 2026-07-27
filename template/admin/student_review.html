@@ -1,0 +1,303 @@
+{% include "admin/navbar.html" %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#eef3f9;
+    font-family:'Poppins',sans-serif;
+}
+
+/*=============================
+        MAIN CONTAINER
+==============================*/
+
+.page-wrap{
+    width:100%;
+    margin:40px auto;
+    padding:20px;
+}
+
+/*=============================
+            CARD
+==============================*/
+
+.form-card{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 15px 40px rgba(0,0,0,.08);
+}
+
+/*=============================
+          HEADER
+==============================*/
+
+.form-header{
+    background:linear-gradient(135deg,#166f8d,#166f8d);
+    padding:25px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.form-header .icon{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background:rgba(255,255,255,.18);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+    color:#fff;
+}
+
+.form-header h2{
+    color:#fff;
+    margin:0;
+    font-size:28px;
+    font-weight:600;
+}
+
+.form-header p{
+    margin:4px 0 0;
+    color:#dbeafe;
+    font-size:14px;
+}
+
+/*=============================
+            BODY
+==============================*/
+
+.form-body{
+    padding:35px;
+}
+
+/*=============================
+            GRID
+==============================*/
+
+.form-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:22px;
+}
+
+/*=============================
+            INPUT
+==============================*/
+
+.input-group{
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    margin-bottom:8px;
+    font-weight:600;
+    color:#334155;
+}
+
+.input-box{
+    position:relative;
+}
+
+.input-box i{
+    position:absolute;
+    left:15px;
+    top:50%;
+    transform:translateY(-50%);
+    color:#166f8d;
+    font-size:18px;
+}
+
+.input-box input{
+    width:100%;
+    height:50px;
+    padding-left:48px;
+    border:1px solid #d7dce5;
+    border-radius:12px;
+    font-size:15px;
+    transition:.3s;
+    background:#fafafa;
+}
+
+.input-box input:focus{
+    border-color:#2563eb;
+    background:#fff;
+    box-shadow:0 0 0 4px rgba(37,99,235,.12);
+    outline:none;
+}
+
+/*=============================
+          BUTTON
+==============================*/
+
+.btn-area{
+    margin-top:35px;
+}
+
+.save-btn{
+    width:100%;
+    height:55px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(135deg,#166f8d,#166f8d);
+    color:#fff;
+    font-size:17px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.save-btn:hover{
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(37,99,235,.35);
+}
+
+/*=============================
+        RESPONSIVE
+==============================*/
+
+@media(max-width:768px){
+
+.form-grid{
+grid-template-columns:1fr;
+}
+
+.form-header{
+flex-direction:column;
+text-align:center;
+}
+
+.form-body{
+padding:22px;
+}
+
+}
+
+</style>
+
+<div class="page-wrap">
+
+<div class="form-card">
+
+<div class="form-header">
+
+<div class="icon">
+<i class="bi bi-person-vcard-fill"></i>
+</div>
+
+<div>
+<h2> Student Reviews</h2>
+<p> Student  Information</p>
+</div>
+
+</div>
+
+<div class="form-body">
+
+<form action="{% url 'Student_Reviews_save' %}" method="POST">
+
+{% csrf_token %}
+
+<div class="form-grid">
+
+<!-- Full Name -->
+
+<div class="input-group">
+<label>Full Name</label>
+
+<div class="input-box">
+<i class="bi bi-person-fill"></i>
+<input type="text" name="fullname" placeholder="Enter Full Name" required>
+</div>
+
+</div>
+
+<!-- Bharti -->
+
+<div class="input-group">
+<label>Bharti</label>
+
+<div class="input-box">
+<i class="bi bi-bookmark-fill"></i>
+<input type="text" name="bharti" placeholder="Enter Bharti" required>
+</div>
+
+</div>
+
+<!-- Icon -->
+
+<div class="input-group">
+<label>Icon</label>
+
+<div class="input-box">
+<i class="bi bi-emoji-smile-fill"></i>
+<input type="text" name="icon" placeholder="Enter Bootstrap Icon">
+</div>
+
+</div>
+
+<!-- Description -->
+
+<div class="input-group">
+<label>Description</label>
+
+<div class="input-box">
+<i class="bi bi-chat-left-text-fill"></i>
+<input type="text" name="dec" placeholder="Enter Description">
+</div>
+
+</div>
+
+</div>
+
+<div class="btn-area">
+
+<button class="save-btn" type="submit">
+
+<i class="bi bi-check-circle-fill"></i>
+
+&nbsp; Save Profile
+
+</button>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{% if messages %}
+{% for message in messages %}
+
+<script>
+
+Swal.fire({
+icon:'success',
+title:'Success',
+text:'{{ message }}',
+confirmButtonColor:'#2563eb'
+});
+
+</script>
+
+{% endfor %}
+{% endif %}
+
+{% include "admin/footer.html" %}

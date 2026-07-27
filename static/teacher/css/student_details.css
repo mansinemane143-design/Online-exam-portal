@@ -1,0 +1,411 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+}
+
+/*=========================
+      Page Header
+=========================*/
+
+.page-header{
+    display:none;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    margin-bottom:30px;
+}
+
+.page-header h2{
+    font-size:20px;
+    font-weight:700;
+    color:#1d2463;
+}
+
+.page-header p{
+    color:#6c757d;
+    margin-top:8px;
+    margin-bottom:0;
+}
+
+/*=========================
+      Add Button
+=========================*/
+
+.add-btn{
+    background:linear-gradient(135deg,#5B4CF3,#7C5CFF);
+    color:#fff;
+    border:none;
+    padding:12px 28px;
+    border-radius:12px;
+    font-weight:60px;
+    transition:.3s;
+}
+
+.add-btn:hover{
+    color:#fff;
+    transform:translateY(-3px);
+    box-shadow:0 12px 25px rgba(91,76,243,.25);
+}
+
+/*=========================
+      Search Card
+=========================*/
+
+.search-card{
+    background:#fff;
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:30px;
+    font-size: 10px;
+    box-shadow:0 8px 25px rgba(0,0,0,.06);
+}
+
+.search-card .form-control,
+.search-card .form-select{
+    height:52px;
+    border-radius:12px;
+}
+
+.search-card .input-group-text{
+    border-radius:12px 0 0 12px;
+    background:#fff;
+}
+
+.search-card .form-control:focus,
+.search-card .form-select:focus{
+    border-color:#5B4CF3;
+    box-shadow:none;
+}
+
+.btn-search{
+    height:52px;
+    background:linear-gradient(135deg,#5B4CF3,#7C5CFF);
+    color:#fff;
+    border:none;
+    border-radius:12px;
+    font-weight:600;
+}
+
+.btn-search:hover{
+    color:#fff;
+    transform:translateY(-2px);
+}
+
+/*=========================
+      Table Card
+=========================*/
+
+.table-card{
+    background:#fff;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 10px 30px rgba(0,0,0,.06);
+    animation:fadeUp .8s ease;
+}
+
+.table{
+    margin-bottom:0;
+    border:10;
+}
+
+.table thead{
+    background:#5B4CF3;
+    color:#fff;
+}
+
+.table thead th{
+    padding:18px;
+    font-size:12px;
+    font-weight:600;
+    border:1px solid #cdcbdb;
+}
+
+.table tbody tr{
+    transition:.3s;
+}
+
+.table tbody tr:hover{
+    background:#f8f7ff;
+}
+
+.table td{
+    vertical-align:middle;
+    padding:18px;
+    border:1px solid #e9ecef;
+}
+
+/*=========================
+      Student Info
+=========================*/
+
+.student-info{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.student-info img{
+    width:45px;
+    height:45px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #5B4CF3;
+}
+
+.student-info h6{
+    margin:0;
+    font-size:12px;
+    font-weight:600;
+    color:#1d2463;
+}
+
+.student-info small{
+    color:#888;
+}
+
+/*=========================
+      Badges
+=========================*/
+
+.badge{
+    padding:8px 14px;
+    font-size:10px;
+    border-radius:20px;
+    font: weight 80px;;
+}
+
+/*=========================
+      Action Buttons
+=========================*/
+
+.btn-view,
+.btn-edit,
+.btn-delete{
+
+    width:38px;
+    height:30px;
+    border:none;
+    border-radius:10px;
+    margin-right:6px;
+    transition:.3s;
+}
+
+.btn-view{
+
+    background:#5B4CF3;
+    color:#fff;
+
+}
+
+.btn-view:hover{
+
+    background:#4737e8;
+    color:#fff;
+    transform:translateY(-1px);
+
+}
+
+.btn-edit{
+
+    background:#ffc107;
+    color:#fff;
+
+}
+
+.btn-edit:hover{
+
+    background:#e0a800;
+    color:#fff;
+    transform:translateY(-1px);
+
+}
+
+.btn-delete{
+
+    background:#dc3545;
+    color:#fff;
+
+}
+
+.btn-delete:hover{
+
+    background:#bb2d3b;
+    color:#fff;
+    transform:translateY(-1px);
+
+}
+
+/*=========================
+      Pagination
+=========================*/
+
+.pagination .page-link{
+
+    color:#5B4CF3;
+    border:none;
+    border-radius:10px;
+    margin:0 4px;
+    padding:10px 16px;
+    font-weight:600;
+
+}
+
+.pagination .page-item.active .page-link{
+
+    background:#5B4CF3;
+    color:#fff;
+
+}
+
+.pagination .page-link:hover{
+
+    background:#ece9ff;
+    color:#5B4CF3;
+
+}
+
+/*=========================
+      Animation
+=========================*/
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+        transform:translateY(30px);
+
+    }
+
+    to{
+
+        opacity:1;
+        transform:translateY(0);
+
+    }
+
+}
+
+.table-card{
+
+    animation:fadeUp .8s ease;
+
+}
+
+/*=========================
+      Responsive
+=========================*/
+
+@media(max-width:992px){
+
+.page-header{
+
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+
+}
+
+.add-btn{
+
+width:100%;
+
+}
+
+}
+
+@media(max-width:768px){
+
+.page-header h2{
+
+font-size:20px;
+
+}
+
+.search-card{
+
+padding:20px;
+
+}
+
+.table thead{
+
+display:none;
+
+}
+
+.table,
+.table tbody,
+.table tr,
+.table td{
+
+display:block;
+width:100%;
+
+}
+
+.table tr{
+
+background:#fff;
+margin-bottom:18px;
+border-radius:15px;
+padding:15px;
+box-shadow:0 8px 20px rgba(0,0,0,.06);
+
+}
+
+.table td{
+
+border:none;
+padding:8px 0;
+text-align:left;
+
+}
+
+.student-info{
+
+margin-bottom:10px;
+
+}
+
+}
+
+@media(max-width:576px){
+
+.page-header h2{
+
+font-size:12px;
+
+}
+
+.btn-view,
+.btn-edit,
+.btn-delete{
+
+width:35px;
+height:35px;
+
+}
+
+.student-info img{
+
+width:40px;
+height:40px;
+
+}
+
+.student-info h6{
+
+font-size:8px;
+
+}
+
+}

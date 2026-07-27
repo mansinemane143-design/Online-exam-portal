@@ -1,0 +1,106 @@
+{% include "student/studentdashboard.html" %}
+<link rel="stylesheet" href="/static/student/css/payment.css">
+<script src="/static/student/js/Payment.js"></script>
+<main class="page-wrap">
+  <div class="main-card">
+
+    <div class="row g-4">
+
+      <!-- LEFT : STUDENT DETAILS -->
+      <div class="col-lg-6">
+        <section class="h-100">
+          <h5 class="panel-title"><i class="bi bi-mortarboard-fill me-2"></i>Select Subject</h5>
+
+          <div class="mb-4">
+            <label class="field-label">Choose a subject to pay for</label>
+            <select class="form-select subject-select" id="subjectSelect">
+              <option selected>Mathematics</option>
+              <option>Science</option>
+              <option>English</option>
+              <option>Computer Science</option>
+            </select>
+          </div>
+
+          <h5 class="panel-title"><i class="bi bi-receipt me-2"></i>Amount Details</h5>
+
+          <div class="detail-row"><span class="detail-label">Exam Fee (For Subject)</span><span class="detail-value">₹100.00</span></div>
+          <div class="detail-row"><span class="detail-label">Platform Fee</span><span class="detail-value">₹0.00</span></div>
+          <hr class="detail-divider" />
+          <div class="detail-row total-row"><span class="detail-label">Total Amount</span><span class="detail-value total-amount">₹100.00</span></div>
+        </section>
+      </div>
+
+      <!-- RIGHT : PAYMENT METHOD -->
+      <div class="col-lg-6">
+        <section class="h-100 d-flex flex-column">
+          <h5 class="panel-title"><i class="bi bi-credit-card-2-front-fill me-2"></i>Payment Method</h5>
+          <p class="field-label" style="margin-top:-8px;">Choose how you'd like to pay</p>
+
+          <div class="payment-icons" id="paymentOptions">
+            <label class="payment-icon-btn" data-name="Credit/Debit Card" title="Credit/Debit Card">
+              <input type="radio" name="paymentMethod" value="card" class="pm-radio" />
+              <i class="bi bi-credit-card-fill"></i>
+            </label>
+            <label class="payment-icon-btn" data-name="UPI" title="UPI">
+              <input type="radio" name="paymentMethod" value="upi" class="pm-radio" />
+              <i class="bi bi-qr-code"></i>
+            </label>
+            <label class="payment-icon-btn" data-name="Net Banking" title="Net Banking">
+              <input type="radio" name="paymentMethod" value="netbanking" class="pm-radio" />
+              <i class="bi bi-bank"></i>
+            </label>
+            <label class="payment-icon-btn phonepe" data-name="PhonePe" title="PhonePe">
+              <input type="radio" name="paymentMethod" value="phonepe" class="pm-radio" />
+              <i class="bi bi-phone-fill"></i>
+            </label>
+            <label class="payment-icon-btn googlepay" data-name="Google Pay" title="Google Pay">
+              <input type="radio" name="paymentMethod" value="googlepay" class="pm-radio" />
+              <i class="bi bi-google"></i>
+            </label>
+          </div>
+
+          <div class="selected-method-label" id="selectedMethodLabel">&nbsp;</div>
+
+          <div class="mt-auto">
+            <button type="button" class="btn pay-btn" id="payButton">Pay ₹100.00</button>
+            <p class="secure-text"><i class="bi bi-shield-lock-fill me-1"></i>Your payment is completely secure.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <hr class="row-divider mt-4" />
+
+    <!-- IMPORTANT NOTE -->
+    <div class="important-note">
+      <div class="note-icon"><i class="bi bi-info-circle-fill"></i></div>
+      <div class="note-content">
+        <h6 class="note-title">Important Note</h6>
+        <ul class="note-list">
+          <li>Fees once paid cannot be refunded.</li>
+          <li>Payment verification may take 24 hours.</li>
+          <li>Keep the payment receipt safely.</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ===================== TOASTS ===================== -->
+<div class="toast-container position-fixed bottom-0 end-0 p-3">
+  <div id="paymentToast" class="toast align-items-center text-bg-danger border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body"><i class="bi bi-exclamation-triangle-fill me-2"></i>Please select a payment method before proceeding.</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+  <div id="successToast" class="toast align-items-center text-bg-success border-0" role="alert" aria-live="assertive" aria-atomic="true">
+    <div class="d-flex">
+      <div class="toast-body"><i class="bi bi-check-circle-fill me-2"></i>Payment successful! Receipt sent to your email.</div>
+      <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+    </div>
+  </div>
+</div>
+
+{% include "student/dashboard_footer.html" %}

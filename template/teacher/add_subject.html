@@ -1,0 +1,193 @@
+{% include "teacher/navbar.html" %}
+
+<link rel="stylesheet" href="/static/teacher/css/student_add.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<style>
+body{
+    background:#f4f7fb;
+}
+
+.form-container{
+    width:98%;
+    /* max-width:1000px; */
+    margin:40px auto;
+    background:#fff;
+    border-radius:12px;
+    box-shadow:0 8px 20px rgba(0,0,0,.15);
+    overflow:hidden;
+}
+
+.form-header{
+    background:#166f8d;
+    color:#fff;
+    text-align:center;
+    font-size:28px;
+    font-weight:bold;
+    padding:18px;
+}
+
+#subjectForm{
+    padding:40px;
+}
+
+.form-label{
+    font-weight:600;
+}
+
+.form-control,
+.form-select{
+    height:50px;
+    border-radius:8px;
+}
+
+.error{
+    color:red;
+    font-size:14px;
+    margin-top:5px;
+}
+
+.btn{
+    width:140px;
+    height:45px;
+    font-weight:600;
+    border-radius:8px;
+}
+
+@media(max-width:768px){
+
+    .form-container{
+        width:98%;
+    }
+
+    #subjectForm{
+        padding:20px;
+    }
+
+    .btn{
+        width:100%;
+        margin-bottom:10px;
+    }
+
+}
+</style>
+
+<div class="form-container">
+
+    <div class="form-header">
+        Subject Management
+    </div>
+
+    <form id="subjectForm" action="{% url 'save_sub' %}" method="POST">
+
+        {% csrf_token %}
+
+        <div class="mb-4">
+
+            <label class="form-label">Subject Name</label>
+
+            <input
+                type="text"
+                id="subject"
+                name="sub_name"
+                class="form-control"
+                placeholder="Enter Subject Name">
+
+            <div id="subjectError" class="error"></div>
+
+        </div>
+
+        <div class="mb-4">
+
+            <label class="form-label">Status</label>
+
+            <select
+                id="status"
+                name="status"
+                class="form-select">
+
+                <option value="">Select Status</option>
+                <option value="Active">Active</option>
+                <option value="Inactive">Inactive</option>
+
+            </select>
+
+            <div id="statusError" class="error"></div>
+
+        </div>
+
+        <div class="text-center">
+
+            <button
+                type="submit"
+                class="btn text-white"
+                style="background:#166f8d;">
+                Save
+            </button>
+
+            <button
+                type="reset"
+                class="btn btn-secondary">
+                Reset
+            </button>
+
+        </div>
+
+    </form>
+
+</div>
+
+<script>
+
+document.getElementById("subjectForm").addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    let subject=document.getElementById("subject").value.trim();
+    let status=document.getElementById("status").value;
+
+    document.getElementById("subjectError").innerHTML="";
+    document.getElementById("statusError").innerHTML="";
+
+    let valid=true;
+
+    let regex=/^[A-Za-z ]+$/;
+
+    if(subject==""){
+        document.getElementById("subjectError").innerHTML="Subject Name is required";
+        valid=false;
+    }
+    else if(subject.length<3){
+        document.getElementById("subjectError").innerHTML="Minimum 3 characters required";
+        valid=false;
+    }
+    else if(!regex.test(subject)){
+        document.getElementById("subjectError").innerHTML="Only letters allowed";
+        valid=false;
+    }
+
+    if(status==""){
+        document.getElementById("statusError").innerHTML="Please select status";
+        valid=false;
+    }
+
+    if(valid){
+
+        Swal.fire({
+            icon:'success',
+            title:'Success',
+            text:'Subject Saved Successfully',
+            confirmButtonColor:'#166f8d'
+        }).then(function(){
+
+            document.getElementById("subjectForm").submit();
+
+        });
+
+    }
+
+});
+
+</script>
+
+{% include "teacher/footer.html" %}

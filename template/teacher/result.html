@@ -1,0 +1,610 @@
+{% include "teacher/navbar.html"%}
+
+
+
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/static/teacher/css/result.css">
+</head>
+
+<body>
+
+    <div class="container-fluid py-4">
+
+        <!-- ================= Header ================= -->
+
+        <div class="d-flex justify-content-between align-items-center flex-wrap mb-4">
+
+            <div>
+
+                <h2 class="page-title">
+                    Student Results
+                </h2>
+
+               
+
+            </div>
+
+            <nav>
+
+            </nav>
+
+        </div>
+
+        <!-- ================= Statistics ================= -->
+
+        <div class="row g-4 mb-4">
+
+            <div class="col-xl col-lg-4 col-md-6">
+
+                <div class="stats-card">
+
+                    <div class="stats-icon purple">
+
+                        <i class="bi bi-people-fill"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Total Students</span>
+
+                        <h2>356</h2>
+
+                        <small>Registered Students</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-xl col-lg-4 col-md-6">
+
+                <div class="stats-card">
+
+                    <div class="stats-icon green">
+
+                        <i class="bi bi-person-check-fill"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Students Appeared</span>
+
+                        <h2>298</h2>
+
+                        <small>This Exam</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-xl col-lg-4 col-md-6">
+
+                <div class="stats-card">
+
+                    <div class="stats-icon blue">
+
+                        <i class="bi bi-trophy-fill"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Average Score</span>
+
+                        <h2>68.45%</h2>
+
+                        <small>Overall Performance</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-xl col-lg-4 col-md-6">
+
+                <div class="stats-card">
+
+                    <div class="stats-icon orange">
+
+                        <i class="bi bi-award-fill"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Highest Score</span>
+
+                        <h2>96%</h2>
+
+                        <small>By Neha Patel</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="col-xl col-lg-4 col-md-6">
+
+                <div class="stats-card">
+
+                    <div class="stats-icon red">
+
+                        <i class="bi bi-graph-up-arrow"></i>
+
+                    </div>
+
+                    <div>
+
+                        <span>Pass Percentage</span>
+
+                        <h2>84.23%</h2>
+
+                        <small>Pass Rate</small>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= Filter ================= -->
+
+        <div class="filter-card mb-4">
+
+            <div class="row g-3 align-items-end">
+
+                <div class="col-lg-3">
+
+                    <label class="form-label">
+
+                        Select Exam
+
+                    </label>
+
+                    <select class="form-select">
+
+                        <option>Data Structures Test - Unit 1</option>
+
+                        <option>Java Mock Test</option>
+
+                        <option>Python Final Test</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2">
+
+                    <label class="form-label">
+
+                        Select Subject
+
+                    </label>
+
+                    <select class="form-select">
+
+                        <option>Data Structures</option>
+
+                        <option>Java</option>
+
+                        <option>Python</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-2">
+
+                    <label class="form-label">
+
+                        Status
+
+                    </label>
+
+                    <select class="form-select">
+
+                        <option>All</option>
+
+                        <option>Pass</option>
+
+                        <option>Fail</option>
+
+                    </select>
+
+                </div>
+
+                <div class="col-lg-3">
+
+                    <label class="form-label">
+
+                        Search Student
+
+                    </label>
+
+                    <input type="text"
+                        class="form-control"
+                        placeholder="Search by name or roll number">
+
+                </div>
+
+                <div class="col-lg-2 d-grid">
+
+                    <button class="btn btn-purple">
+
+                        <i class="bi bi-funnel"></i>
+
+                        Filter
+
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= Student Table ================= -->
+
+        <div class="table-card">
+
+            <div
+                class="table-header d-flex justify-content-between align-items-center flex-wrap">
+
+                <h5>
+
+                    <i class="bi bi-people-fill"></i>
+
+                    Student Results (298)
+
+                </h5>
+
+               <button class="btn btn-outline-dark" onclick="exportTableToExcel('studentsTable', 'Students')">
+    <i class="bi bi-download"></i>
+    Export
+</button>
+            </div>
+
+            <div class="table-responsive">
+
+                <table class="table align-middle premium-table">
+
+                    <thead>
+
+                        <tr>
+
+                            <th>#</th>
+
+                            <th>Roll Number</th>
+
+                            <th>Student Name</th>
+
+                            <th>Email</th>
+
+                            <th>Marks</th>
+
+                            <th>Total</th>
+
+                            <th>%</th>
+
+                            <th>Status</th>
+
+                            <th class="text-center">Action</th>
+
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        <tr>
+
+                            <td>1</td>
+
+                            <td>CS102001</td>
+
+                            <td>Neha Patel</td>
+
+                            <td>neha@example.com</td>
+
+                            <td>96</td>
+
+                            <td>100</td>
+
+                            <td>96%</td>
+
+                            <td>
+
+                                <span class="badge bg-success-subtle text-success">
+
+                                    Pass
+
+                                </span>
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <!-- <button class="action-btn">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button> -->
+
+                               <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSuccessModal">
+    <i class="bi bi-trash"></i>
+   
+</button>
+                               
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>2</td>
+
+                            <td>CS102002</td>
+
+                            <td>Rohan Sharma</td>
+
+                            <td>rohan@example.com</td>
+
+                            <td>82</td>
+
+                            <td>100</td>
+
+                            <td>82%</td>
+
+                            <td>
+
+                                <span class="badge bg-success-subtle text-success">
+
+                                    Pass
+
+                                </span>
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <!-- <button class="action-btn">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button> -->
+
+                                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSuccessModal">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>3</td>
+
+                            <td>CS102003</td>
+
+                            <td>Aisha Khan</td>
+
+                            <td>aisha@example.com</td>
+
+                            <td>75</td>
+
+                            <td>100</td>
+
+                            <td>75%</td>
+
+                            <td>
+
+                                <span class="badge bg-success-subtle text-success">
+
+                                    Pass
+
+                                </span>
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <!-- <button class="action-btn">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button> -->
+
+                                    <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSuccessModal">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>4</td>
+
+                            <td>CS102004</td>
+
+                            <td>Vikram Singh</td>
+
+                            <td>vikram@example.com</td>
+
+                            <td>58</td>
+
+                            <td>100</td>
+
+                            <td>58%</td>
+
+                            <td>
+
+                                <span class="badge bg-success-subtle text-success">
+
+                                    Pass
+
+                                </span>
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <!-- <button class="action-btn">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button> -->
+
+                                   <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSuccessModal">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+
+                            </td>
+
+                        </tr>
+
+                        <tr>
+
+                            <td>5</td>
+
+                            <td>CS102005</td>
+
+                            <td>Priya Mehta</td>
+
+                            <td>priya@example.com</td>
+
+                            <td>42</td>
+
+                            <td>100</td>
+
+                            <td>42%</td>
+
+                            <td>
+
+                                <span class="badge bg-danger-subtle text-danger">
+
+                                    Fail
+
+                                </span>
+
+                            </td>
+
+                            <td class="text-center">
+
+                                <!-- <button class="action-btn">
+
+                                    <i class="bi bi-eye"></i>
+
+                                </button> -->
+
+                                   <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteSuccessModal">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+            <!-- Footer -->
+
+            <div
+                class="table-footer d-flex justify-content-between align-items-center flex-wrap">
+
+                <p class="mb-0">
+
+                    Showing 1 to 5 of 298 Results
+
+                </p>
+
+                <nav>
+
+                    <ul class="pagination mb-0">
+
+                        <li class="page-item">
+
+                            <a class="page-link" href="#">Previous</a>
+
+                        </li>
+
+                        <li class="page-item active">
+
+                            <a class="page-link" href="#">1</a>
+
+                        </li>
+
+                        <li class="page-item">
+
+                            <a class="page-link" href="#">2</a>
+
+                        </li>
+
+                        <li class="page-item">
+
+                            <a class="page-link" href="#">3</a>
+
+                        </li>
+
+                        <li class="page-item">
+
+                            <a class="page-link" href="#">Next</a>
+
+                        </li>
+
+                    </ul>
+
+                </nav>
+
+            </div>
+
+        </div>
+
+    </div>
+<div class="modal fade" id="deleteSuccessModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow">
+
+            <div class="modal-body text-center p-5">
+
+                <div class="mb-3">
+                    <i class="bi bi-check-circle-fill text-success" style="font-size:70px;"></i>
+                </div>
+
+                <h4 class="fw-bold">Deleted Successfully!</h4>
+
+                <p class="text-muted mb-4">
+                    The record has been deleted successfully.
+                </p>
+
+                <button type="button" class="btn btn-success px-4" data-bs-dismiss="modal">
+                    OK
+                </button>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="/static/teacher/js/result.js"></script>
+
+
+{% include "teacher/footer.html"%}

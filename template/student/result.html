@@ -1,0 +1,585 @@
+{% include "student/dashnavbar.html" %}
+
+
+
+
+<link rel="stylesheet" href="/static/student/css/result.css">
+
+<style>
+  :root{
+    --paper:#F6F2E9;
+    --ink:#1F2A24;
+    --ledger:#2E5339;
+    --ledger-2:#3E7052;
+    --brass:#B8863B;
+    --red:#8C2F2F;
+    --line:#C9BFA8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:
+      radial-gradient(circle at 15% 10%, rgba(46,83,57,0.06), transparent 40%),
+      radial-gradient(circle at 85% 90%, rgba(184,134,59,0.08), transparent 40%),
+      var(--paper);
+    color:var(--ink);
+    font-family: 'Georgia', 'Noto Serif Devanagari', serif;
+    min-height:100vh;
+    /* padding:40px 16px 80px; */
+  }
+  @font-face{
+    font-family:'Utility';
+    src:local('Courier New');
+  }
+  .wrap{width:90%;margin:0 auto;}
+
+  .letterhead{
+    text-align:center;
+    padding-bottom:18px;
+    border-bottom:3px double var(--ledger);
+    margin-bottom:28px;
+  }
+  .seal{
+    width:56px;height:56px;border-radius:50%;
+    border:2px solid var(--brass);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 10px;
+    font-size:20px;color:var(--brass);
+    font-family:'Times New Roman', serif;
+    letter-spacing:1px;
+  }
+  h1{
+    font-size:28px;
+    letter-spacing:1.5px;
+    margin:0 0 4px;
+    color:var(--ledger);
+    font-weight:700;
+    text-transform:uppercase;
+  }
+  .sub{
+    font-size:12.5px;
+    letter-spacing:3px;
+    text-transform:uppercase;
+    color:var(--brass);
+    font-family: 'Courier New', monospace;
+  }
+
+  .stats-row{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:26px;
+  }
+  .stat-card{
+    background:#fff;
+    border:1px solid var(--line);
+    border-radius:10px;
+    padding:18px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 1px 0 rgba(0,0,0,0.02);
+  }
+  .stat-icon{
+    width:38px;height:38px;
+    border-radius:9px;
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .stat-icon.blue{background:#E7EEFB;color:#3B6FE0;}
+  .stat-icon.green{background:#E4F5EA;color:#2FA85B;}
+  .stat-icon.orange{background:#FCEEDD;color:#D98A2B;}
+  .stat-icon.purple{background:#EDE7FB;color:#7B5FE0;}
+  .stat-icon svg{width:19px;height:19px;}
+  .stat-num{
+    font-size:21px;
+    font-weight:700;
+    color:var(--ink);
+    line-height:1.1;
+    font-family:'Georgia',serif;
+  }
+  .stat-label{
+    font-size:12px;
+    /* color:#8a8272; */
+    margin-top:2px;
+    font-family:'Courier New',monospace;
+  }
+  @media(max-width:640px){
+    .stats-row{grid-template-columns:repeat(2,1fr);}
+  }
+
+  .stats-row2{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+    margin-bottom:26px;
+  }
+  .stat-card2{
+    position:relative;
+    background:#fff;
+    border-radius:16px;
+    padding:24px 20px 20px;
+    text-align:center;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06);
+    overflow:hidden;
+  }
+  .stat-card2::after{
+    content:"";
+    position:absolute;
+    top:-18px;right:-18px;
+    width:70px;height:70px;
+    border-radius:50%;
+    background:#EEF3F2;
+    z-index:0;
+  }
+  .stat-icon2{
+    position:relative;
+    z-index:1;
+    width:48px;height:48px;
+    border-radius:12px;
+    background:linear-gradient(160deg,#1E6E7A,#134E58);
+    display:flex;align-items:center;justify-content:center;
+    margin:0 auto 14px;
+    font-size:22px;
+    box-shadow:0 3px 8px rgba(19,78,88,0.3);
+  }
+  .stat-num2{
+    position:relative;z-index:1;
+    font-size:26px;
+    font-weight:700;
+    color:#134E58;
+    font-family:'Georgia',serif;
+    line-height:1.1;
+  }
+  .stat-label2{
+    position:relative;z-index:1;
+    font-size:12.5px;
+    color:#8a8272;
+    margin-top:6px;
+    font-family:'Courier New',monospace;
+  }
+  @media(max-width:640px){
+    .stats-row2{grid-template-columns:repeat(2,1fr);}
+  }
+
+  .perf-section{
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:20px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06);
+  }
+  .perf-title{
+    font-size:19px;
+    font-weight:700;
+    color:#134E58;
+    font-family:'Georgia',serif;
+    margin:0 0 2px;
+  }
+  .perf-sub{
+    font-size:12px;
+    color:#8a8272;
+    font-family:'Courier New',monospace;
+    margin:0 0 18px;
+  }
+  .ring-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:14px;
+  }
+  .ring-card{
+    background:#F7F9F9;
+    border-radius:12px;
+    padding:18px 10px;
+    text-align:center;
+  }
+  .ring-svg{width:100px;height:100px;margin:0 auto 10px;}
+  .ring-track{fill:none;stroke:#E3ECEC;stroke-width:9;}
+  .ring-fill{fill:none;stroke:#1E6E7A;stroke-width:9;stroke-linecap:round;transform:rotate(-90deg);transform-origin:50% 50%;}
+  .ring-pct{
+    font-size:17px;font-weight:700;color:#134E58;font-family:'Georgia',serif;
+  }
+  .ring-subject{font-size:14px;font-weight:700;color:var(--ink);margin-top:8px;}
+  .ring-note{font-size:11px;color:#8a8272;font-family:'Courier New',monospace;margin-top:2px;}
+
+  .results-section{
+    background:#fff;
+    border-radius:16px;
+    padding:24px;
+    margin-bottom:26px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.06);
+  }
+  .results-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:12px;
+    margin-bottom:16px;
+  }
+  .download-btn{
+    background:#134E58;
+    color:#fff;
+    border:none;
+    padding:10px 18px;
+    border-radius:8px;
+    font-family:'Courier New',monospace;
+    font-size:12.5px;
+    letter-spacing:.5px;
+    cursor:pointer;
+    transition:background .2s;
+  }
+  .download-btn:hover{background:#1E6E7A;}
+  .rtable{width:100%;border-collapse:collapse;border-radius:10px;overflow:hidden;}
+  .rtable thead th{
+    background:#1E6E7A;
+    color:#fff;
+    text-align:center;
+    padding:12px 10px;
+    font-size:12px;
+    letter-spacing:.5px;
+    font-family:'Courier New',monospace;
+    text-transform:uppercase;
+    font-weight:600;
+  }
+  .rtable tbody td{
+    text-align:center;
+    padding:12px 10px;
+    font-size:14px;
+    border-bottom:1px solid #EDEFEF;
+  }
+  .rtable tbody tr:last-child td{border-bottom:none;}
+  .pass-badge{
+    background:#E4F5EA;
+    color:#2FA85B;
+    font-family:'Courier New',monospace;
+    font-size:11.5px;
+    font-weight:700;
+    padding:4px 12px;
+    border-radius:20px;
+  }
+  @media(max-width:640px){
+    .ring-grid{grid-template-columns:repeat(2,1fr);}
+    .rtable{font-size:12px;}
+  }
+
+  .search-box{
+    display:flex;
+    gap:10px;
+    background:#fff;
+    border:1px solid var(--line);
+    padding:14px;
+    border-radius:2px;
+    box-shadow:0 2px 0 var(--line);
+    margin-bottom:10px;
+    flex-wrap:wrap;
+  }
+  .search-box input, .search-box select{
+    flex:1;
+    min-width:160px;
+    padding:10px 12px;
+    border:1px solid var(--line);
+    background:var(--paper);
+    font-family:'Courier New', monospace;
+    font-size:14px;
+    color:var(--ink);
+    border-radius:2px;
+  }
+  .search-box button{
+    padding:10px 22px;
+    background:var(--ledger);
+    color:#fff;
+    border:none;
+    font-family:'Courier New', monospace;
+    letter-spacing:1px;
+    font-size:13px;
+    text-transform:uppercase;
+    cursor:pointer;
+    border-radius:2px;
+    transition:background .2s;
+  }
+  .search-box button:hover{background:var(--ledger-2);}
+
+  .hint{
+    font-size:12px;
+    color:#7a7264;
+    font-family:'Courier New', monospace;
+    margin:0 0 30px 4px;
+  }
+
+  .card{
+    background:#fff;
+    border:1px solid var(--line);
+    padding:0;
+    display:none;
+    animation:reveal .35s ease;
+  }
+  @keyframes reveal{from{opacity:0; transform:translateY(6px);} to{opacity:1; transform:translateY(0);}}
+
+  .card-head{
+    background:var(--ledger);
+    color:#F6F2E9;
+    padding:20px 26px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    flex-wrap:wrap;
+    gap:12px;
+  }
+  .card-head .name{font-size:21px;font-weight:700;letter-spacing:.3px;}
+  .card-head .meta{font-family:'Courier New',monospace;font-size:12px;opacity:.85;margin-top:4px;}
+  .grade-pill{
+    background:var(--brass);
+    color:#2a2016;
+    font-family:'Courier New',monospace;
+    font-weight:700;
+    font-size:22px;
+    padding:8px 16px;
+    border-radius:2px;
+    text-align:center;
+    min-width:64px;
+  }
+  .grade-pill span{display:block;font-size:9px;font-weight:400;letter-spacing:2px;margin-top:2px;text-transform:uppercase;}
+
+  table{width:100%;border-collapse:collapse;}
+  thead th{
+    text-align:left;
+    font-family:'Courier New',monospace;
+    font-size:11px;
+    letter-spacing:1.5px;
+    text-transform:uppercase;
+    color:#7a7264;
+    padding:14px 26px 8px;
+    border-bottom:1px solid var(--line);
+  }
+  thead th.num{text-align:right;}
+  tbody td{
+    padding:11px 26px;
+    border-bottom:1px solid #EDE7D8;
+    font-size:15px;
+  }
+  tbody td.num{text-align:right;font-family:'Courier New',monospace;}
+  tbody tr:last-child td{border-bottom:none;}
+  .bar-track{
+    width:100%;height:5px;background:#EDE7D8;border-radius:3px;margin-top:6px;overflow:hidden;
+  }
+  .bar-fill{height:100%;background:var(--ledger-2);border-radius:3px;}
+
+  .foot{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:18px 26px 22px;
+    border-top:3px double var(--ledger);
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .total{
+    font-family:'Courier New',monospace;
+    font-size:13px;
+    color:#514a3c;
+  }
+  .total b{color:var(--ink);font-size:16px;}
+  .status{
+    font-family:'Courier New',monospace;
+    letter-spacing:2px;
+    font-size:13px;
+    text-transform:uppercase;
+    font-weight:700;
+    padding:6px 14px;
+    border:1.5px solid;
+    border-radius:2px;
+  }
+  .status.pass{color:var(--ledger);border-color:var(--ledger);}
+  .status.fail{color:var(--red);border-color:var(--red);}
+
+  .empty, .error{
+    text-align:center;
+    padding:50px 20px;
+    color:#8a8272;
+    font-family:'Courier New',monospace;
+    font-size:14px;
+    letter-spacing:.5px;
+    display:none;
+  }
+  .error{color:var(--red);}
+
+  @media(max-width:480px){
+    .card-head{padding:16px;}
+    thead th, tbody td{padding-left:16px;padding-right:16px;}
+  }
+</style>
+</head>
+<body>
+<div class="wrap mt-3">
+
+
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon blue">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="m9 15 2 2 4-4"/></svg>
+      </div>
+      <div>
+        <div class="stat-num" id="statTotal">12</div>
+        <div class="stat-label">Total Exam</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+      </div>
+      <div>
+        <div class="stat-num" id="statCompleted">5</div>
+        <div class="stat-label">Completed Exams</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon orange">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 22h14"/><path d="M5 2h14"/><path d="M17 22v-4.172a2 2 0 0 0-.586-1.414L12 12l-4.414 4.414A2 2 0 0 0 7 17.828V22"/><path d="M7 2v4.172a2 2 0 0 0 .586 1.414L12 12l4.414-4.414A2 2 0 0 0 17 6.172V2"/></svg>
+      </div>
+      <div>
+        <div class="stat-num" id="statPending">7</div>
+        <div class="stat-label">Pending Exams</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon purple">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+      </div>
+      <div>
+        <div class="stat-num" id="statAvg">78.5%</div>
+        <div class="stat-label">Average Score</div>
+      </div>
+    </div>
+  </div>
+
+    <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-icon blue">
+       📊
+      </div>
+      <div>
+        <div class="stat-num" id="statTotal">85%</div>
+        <div class="stat-label">Average Score
+</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon green">
+      🏆
+      </div>
+      <div>
+        <div class="stat-num" id="statCompleted">A+</div>
+        <div class="stat-label">Overall Grade</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon orange">
+      📝
+      </div>
+      <div>
+        <div class="stat-num" id="statPending">12</div>
+        <div class="stat-label">Total Regiscration </div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon purple">
+      🥇
+      </div>
+      <div>
+        <div class="stat-num" id="statAvg">5</div>
+        <div class="stat-label">Class Rank</div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="perf-section">
+    <div class="perf-title">Performance Analysis</div>
+    <div class="perf-sub">Subject Wise Performance</div>
+    <div class="ring-grid">
+      <div class="ring-card">
+        <svg class="ring-svg" viewBox="0 0 100 100">
+          <circle class="ring-track" cx="50" cy="50" r="42"/>
+          <circle class="ring-fill" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="40"/>
+          <text x="50" y="55" text-anchor="middle" class="ring-pct" fill="#134E58" style="font-size:17px;font-weight:700;font-family:Georgia,serif;">85%</text>
+        </svg>
+        <div class="ring-subject">Python</div>
+        <div class="ring-note">Excellent</div>
+      </div>
+      <div class="ring-card">
+        <svg class="ring-svg" viewBox="0 0 100 100">
+          <circle class="ring-track" cx="50" cy="50" r="42"/>
+          <circle class="ring-fill" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="21"/>
+          <text x="50" y="55" text-anchor="middle" class="ring-pct" fill="#134E58" style="font-size:17px;font-weight:700;font-family:Georgia,serif;">92%</text>
+        </svg>
+        <div class="ring-subject">SQL</div>
+        <div class="ring-note">Outstanding</div>
+      </div>
+      <div class="ring-card">
+        <svg class="ring-svg" viewBox="0 0 100 100">
+          <circle class="ring-track" cx="50" cy="50" r="42"/>
+          <circle class="ring-fill" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="58"/>
+          <text x="50" y="55" text-anchor="middle" class="ring-pct" fill="#134E58" style="font-size:17px;font-weight:700;font-family:Georgia,serif;">78%</text>
+        </svg>
+        <div class="ring-subject">Django</div>
+        <div class="ring-note">Good</div>
+      </div>
+      <div class="ring-card">
+        <svg class="ring-svg" viewBox="0 0 100 100">
+          <circle class="ring-track" cx="50" cy="50" r="42"/>
+          <circle class="ring-fill" cx="50" cy="50" r="42" stroke-dasharray="264" stroke-dashoffset="26"/>
+          <text x="50" y="55" text-anchor="middle" class="ring-pct" fill="#134E58" style="font-size:17px;font-weight:700;font-family:Georgia,serif;">90%</text>
+        </svg>
+        <div class="ring-subject">Mathematics</div>
+        <div class="ring-note">Excellent</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-section">
+    <div class="results-head">
+      <div>
+        <div class="perf-title">Exam Results</div>
+        <div class="perf-sub">Semester Examination Report</div>
+      </div>
+      <button class="download-btn" onclick="window.print()">Download Result</button>
+    </div>
+    <table class="rtable">
+      <thead>
+        <tr>
+          <th>Subject</th>
+          <th>Total Marks</th>
+          <th>Obtained</th>
+          <th>Percentage</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Python</td><td>100</td><td>85</td><td>85%</td>
+          <td><span class="pass-badge">Pass</span></td>
+        </tr>
+        <tr>
+          <td>SQL</td><td>100</td><td>92</td><td>92%</td>
+          <td><span class="pass-badge">Pass</span></td>
+        </tr>
+        <tr>
+          <td>Django</td><td>100</td><td>78</td><td>78%</td>
+          <td><span class="pass-badge">Pass</span></td>
+        </tr>
+        <tr>
+          <td>Mathematics</td><td>100</td><td>90</td><td>90%</td>
+          <td><span class="pass-badge">Pass</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+
+</div>
+
+
+  {% include 'student/dash_footer.html' %}

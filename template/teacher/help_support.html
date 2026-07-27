@@ -1,0 +1,125 @@
+{% include "teacher/navbar.html"%}
+
+
+
+  <link rel="stylesheet" href="/static/teacher/css/help_support.css">
+  
+<style>
+
+</style>
+  <!-- MAIN CONTENT - FULL WIDTH -->
+  <div class="main-wrappe">
+    <div class="container">
+      
+      <h2 class="page-title">Teacher Help & Support</h2>
+
+      <!-- MAIN GRID -->
+      <div class="main-grid">
+        
+        <!-- LEFT: FAQ -->
+        <div class="card">
+          <h3><i class="fa-solid fa-circle-question"></i> Frequently Asked Questions</h3>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span>How to create a new exam?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-a">Go to Exam Management > Create Exam > Add Subject, Date, Time > Add Questions > Publish.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span>How to upload questions in bulk?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-a">Go to Question Bank > Bulk Upload > Download CSV Template > Fill and Upload.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span>How to view student results?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-a">Go to Reports > Select Exam > View All Student Scores and Download Result Sheet.</div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-q" onclick="toggleFaq(this)">
+              <span>Can I edit exam after publishing?</span>
+              <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-a">No, once published you cannot edit. You can duplicate the exam and make changes.</div>
+          </div>
+
+        </div>
+
+        <!-- RIGHT: TEACHER SUPPORT FORM -->
+        <div class="card">
+          <h3><i class="fa-solid fa-headset"></i> Raise a Support Ticket</h3>
+          
+          <form id="teacherSupportForm">
+            <div class="input-group">
+              <label>Full Name *</label>
+              <input type="text" placeholder="Enter your name" required>
+            </div>
+
+            <div class="input-group">
+              <label>Email Address *</label>
+              <input type="email" placeholder="your.email@school.com" required>
+            </div>
+
+            <div class="input-group">
+              <label>Issue Type *</label>
+              <select required>
+                <option value="">Select Issue</option>
+                <option>Exam Creation Problem</option>
+                <option>Question Upload Error</option>
+                <option>Result Not Showing</option>
+                <option>Technical Bug</option>
+                <option>Other</option>
+              </select>
+            </div>
+
+            <div class="input-group">
+              <label>Describe Your Issue *</label>
+              <textarea rows="4" placeholder="Explain your problem in detail..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary">
+              <i class="fa-solid fa-paper-plane"></i> Submit Ticket
+            </button>
+          </form>
+
+          <div class="badge">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>We will reply within 24 hours</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+<script>
+function toggleFaq(el){
+  let answer = el.nextElementSibling;
+  let icon = el.querySelector("i");
+  answer.classList.toggle("active");
+  icon.classList.toggle("rotate");
+}
+
+document.getElementById('teacherSupportForm').addEventListener('submit', function(e){
+  e.preventDefault();
+  alert('Your support ticket has been submitted. Our team will contact you within 24 hours.');
+  this.reset();
+});
+</script>
+
+</body>
+</html>
+
+
+
+{% include "teacher/footer.html"%}

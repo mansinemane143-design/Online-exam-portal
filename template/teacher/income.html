@@ -1,0 +1,591 @@
+{% include "teacher/navbar.html"%}
+<link rel="stylesheet" href="/static/teacher/css/income.css">
+<script src="/static/teacher/js/income.js"></script>
+<div class="container-fluid px-4 py-4">
+
+    <!-- Heading -->
+    
+
+    <!-- Summary Cards -->
+    <div class="row g-4">
+
+        <!-- Card 1 -->
+        <div class="col-4 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+            <div class="summary-card">
+
+                <div class="card-icon purple">
+                    <i class="fa-solid fa-wallet"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>Total Earnings</span>
+                    <h3>₹24,750</h3>
+                    <small>All Time</small>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Card 2 -->
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+            <div class="summary-card">
+
+                <div class="card-icon green">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>Total Transactions</span>
+                    <h3>158</h3>
+                    <small>All Time</small>
+                </div>
+
+            </div>
+
+        </div>
+
+        
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+            <div class="summary-card">
+
+                <div class="card-icon green">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>Total Transactions Fails</span>
+                    <h3>158</h3>
+                    <small>All Time</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Card 3 -->
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-4">
+
+            <div class="summary-card">
+
+                <div class="card-icon blue">
+                    <i class="fa-solid fa-calendar-days"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>This Month Earnings</span>
+                    <h3>₹8,450</h3>
+                    <small>July 2026</small>
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+        <!-- Card 4 -->
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+
+            <div class="summary-card">
+
+                <div class="card-icon orange">
+                    <i class="fa-solid fa-credit-card"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>Successful Payments</span>
+                    <h3>152</h3>
+                    <small class="text-success">96.20%</small>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Card 5 -->
+
+        <div class="col-12 col-sm-6 col-md-6 col-lg-6 col-xl-4">
+
+            <div class="summary-card">
+
+                <div class="card-icon red">
+                    <i class="fa-solid fa-circle-xmark"></i>
+                </div>
+
+                <div class="card-content">
+                    <span>Failed Payments</span>
+                    <h3>6</h3>
+                    <small class="text-danger">3.80%</small>
+                </div>
+
+            </div>
+
+            
+
+        </div>
+
+    </div>
+
+<!-- ===========================
+        Filter Section
+=========================== -->
+
+<div class="filter-section mt-4">
+
+    <div class="row g-4 align-items-end">
+
+        <!-- From Date -->
+        <div class="col-xl-2 col-lg-3 col-md-6">
+
+            <label class="filter-label">From Date</label>
+
+            <div class="input-group custom-input">
+
+                <input type="date" class="form-control">
+
+                
+
+            </div>
+
+        </div>
+
+        <!-- To Date -->
+        <div class="col-xl-2 col-lg-3 col-md-6">
+
+            <label class="filter-label">To Date</label>
+
+            <div class="input-group custom-input">
+
+                <input type="date" class="form-control">
+
+
+            </div>
+
+        </div>
+
+        <!-- Exam -->
+
+        <div class="col-xl-3 col-lg-3 col-md-6">
+
+            <label class="filter-label">Select Exam</label>
+
+            <select class="form-select custom-select">
+
+                <option selected>All Exams</option>
+                <option>Python Programming</option>
+                <option>Java Programming</option>
+                <option>HTML & CSS</option>
+                <option>JavaScript</option>
+
+            </select>
+
+        </div>
+
+        <!-- Payment -->
+
+        <div class="col-xl-2 col-lg-3 col-md-6">
+
+            <label class="filter-label">Payment Method</label>
+
+            <select class="form-select custom-select">
+
+                <option selected>All Methods</option>
+                <option>UPI</option>
+                <option>Razorpay</option>
+                <option>Wallet</option>
+                <option>Cash</option>
+
+            </select>
+
+        </div>
+
+        <!-- Buttons -->
+
+        <div class="col-xl-3">
+
+            <div class="d-flex gap-3">
+
+                <button class="btn btn-filter flex-fill">
+
+                    <i class="fa-solid fa-filter"></i>
+
+                    Apply Filter
+
+                </button>
+            </div>
+
+    </div>
+    
+
+</div>
+<!-- ==========================
+      Charts Section
+========================== -->
+
+<div class="row mt-4 g-4">
+
+    <!-- Line Chart -->
+
+    <div class="col-xl-5 col-lg-12">
+
+        <div class="chart-card">
+
+            <div class="card-header-custom">
+
+                <h5>Earnings Over Time</h5>
+
+                <select class="form-select chart-select">
+
+                    <option>This Month</option>
+                    <option>Last Month</option>
+                    <option>This Year</option>
+
+                </select>
+
+            </div>
+
+            <canvas id="earningChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <!-- Doughnut Chart -->
+
+    <!-- Payment Chart -->
+<div class="col-xl-4 col-lg-6">
+
+    <div class="chart-card">
+
+        <h5 class="mb-4">Earnings by Payment Method</h5>
+
+        <div class="payment-chart-wrapper">
+
+            <canvas id="paymentChart"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
+    <!-- Summary -->
+
+    <div class="col-xl-3 col-lg-6">
+
+        <div class="summary-box">
+
+            <h5 class="mb-4">
+
+                Summary
+
+            </h5>
+
+            <div class="summary-item">
+
+                <span>Opening Balance</span>
+
+                <strong>₹16,300</strong>
+
+            </div>
+
+            <div class="summary-item">
+
+                <span>Total Earnings</span>
+
+                <strong class="text-success">
+
+                    ₹8,450
+
+                </strong>
+
+            </div>
+
+            <div class="summary-item">
+
+                <span>Total Refunds</span>
+
+                <strong class="text-danger">
+
+                    ₹0.00
+
+                </strong>
+
+            </div>
+
+            <div class="summary-item">
+
+                <span>Total Withdrawals</span>
+
+                <strong>
+
+                    ₹0.00
+
+                </strong>
+
+            </div>
+
+            <div class="summary-item border-0">
+
+                <span>Closing Balance</span>
+
+                <strong class="text-primary">
+
+                    ₹24,750
+
+                </strong>
+
+            </div>
+
+        </div>
+
+    </div>
+   
+
+<!-- ===========================
+     Transaction Report
+=========================== -->
+
+<div class="transaction-section mt-5">
+
+   <!-- Cards -->
+    <div class="row g-4">
+
+        <!-- Card 1 -->
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+
+            <div class="transaction-card">
+
+                <div class="card-top">
+                    <h6>Police Bharti</h6>
+                </div>
+
+                <hr>
+
+                <div class="info">
+
+                    <p><strong>Amount :</strong> ₹50</p>
+
+                    <p><strong>Payment Count:</strong> 10</p>
+
+                    <p><strong>Date :</strong> 15 Jul 2026</p>
+
+                    <p><strong>Total Students :</strong> 10</p>
+
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+
+                   
+                   <a href="/teacher/student_details/" class="btn btn-view w-100">
+                  <i class="fa-solid fa-eye"></i>
+                  View
+                  </a>
+
+                    
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Card 2 -->
+
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+
+            <div class="transaction-card">
+
+                <div class="card-top">
+                    <h6>Army Bharti</h6>
+                </div>
+
+                <hr>
+
+                <div class="info">
+
+                    <p><strong>Amount :</strong> ₹50</p>
+
+                    <p><strong>Payment  Count:</strong> 10</p>
+
+                    <p><strong>Date :</strong> 15 Jul 2026</p>
+
+                     <p><strong>Total Students :</strong> 10</p>
+
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+
+                   <a href="/teacher/student_details/" class="btn btn-view w-100">
+                  <i class="fa-solid fa-eye"></i>
+                  View
+                  </a>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Card 3 -->
+
+        <div class="col-xl-4 col-lg-4 col-md-6 col-sm-6">
+
+            <div class="transaction-card">
+
+                <div class="card-top">
+                    <h6>Talathi Bharti</h6>
+                </div>
+
+                <hr>
+
+                <div class="info">
+
+                    <p><strong>Amount :</strong> ₹50</p>
+
+                    <p><strong>Payment  Count:</strong> 10</p>
+
+                    <p><strong>Date :</strong> 14 Jul 2026</p>
+
+                     <p><strong>Total Students :</strong> 10</p>
+
+                </div>
+
+                <div class="d-flex gap-2 mt-4">
+
+                    <a href="/teacher/student_details/" class="btn btn-view w-100">
+                  <i class="fa-solid fa-eye"></i>
+                  View
+                  </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Card 4 -->
+
+    </div>
+
+</div>
+
+    
+
+</div>
+
+</div>
+
+
+</div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="income_report.js"></script>
+
+<script>
+    // Line Chart
+
+new Chart(document.getElementById("earningChart"),{
+
+type:"line",
+
+data:{
+
+labels:["1 Jul","3 Jul","5 Jul","7 Jul","9 Jul","11 Jul","13 Jul"],
+
+datasets:[{
+
+label:"Earnings",
+
+data:[200,900,1500,800,2200,900,1700],
+
+borderColor:"#5B4CF3",
+
+backgroundColor:"rgba(91,76,243,.12)",
+
+fill:true,
+
+tension:.4,
+
+pointRadius:5
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{display:false}
+
+}
+
+}
+
+});
+
+
+
+// Doughnut Chart
+
+new Chart(document.getElementById("paymentChart"),{
+
+type:"doughnut",
+
+data:{
+
+labels:["Razorpay","UPI","Wallet","Other"],
+
+datasets:[{
+
+data:[6250,1450,600,150],
+
+backgroundColor:[
+
+"#5B4CF3",
+
+"#22C55E",
+
+"#FF9800",
+
+"#2196F3"
+
+]
+
+}]
+
+},
+
+options:{
+
+responsive:true,
+
+plugins:{
+
+legend:{
+
+position:"right"
+
+}
+
+}
+
+}
+
+});
+</script>
+
+{% include "teacher/footer.html"%}

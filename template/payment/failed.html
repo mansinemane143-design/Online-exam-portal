@@ -1,0 +1,58 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Failed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'payment/css/style.css' %}" />
+</head>
+<body class="status-body">
+
+    <div class="bg-scene" aria-hidden="true">
+        <span class="orb orb-1 failed-orb"></span>
+        <span class="orb orb-2 failed-orb"></span>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <main class="page">
+        <section class="status-card failed-card">
+
+            <div class="status-icon-wrap">
+                <svg class="status-icon failed-icon" viewBox="0 0 100 100">
+                    <circle class="status-icon-ring" cx="50" cy="50" r="46" />
+                    <path class="status-icon-cross" d="M35 35 L65 65" />
+                    <path class="status-icon-cross" d="M65 35 L35 65" />
+                </svg>
+            </div>
+
+            <h1 class="status-title">Payment failed</h1>
+            <p class="status-subtitle">{{ reason }}</p>
+
+            {% if payment %}
+            <div class="receipt">
+                <div class="receipt-row">
+                    <span>Order ID</span>
+                    <strong>{{ payment.order_id }}</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Amount</span>
+                    <strong>₹{{ payment.amount }} {{ payment.currency }}</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Status</span>
+                    <strong class="status-pill-failed">{{ payment.status }}</strong>
+                </div>
+            </div>
+            {% endif %}
+
+            <div class="status-actions">
+                <a class="btn-solid" href="{% url 'payment:index' %}">Retry payment</a>
+                <a class="btn-outline" href="{% url 'payment:index' %}">Back home</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>

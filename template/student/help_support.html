@@ -1,0 +1,157 @@
+{% include "student/dashnavbar.html" %}
+  <link rel="stylesheet" href="/static/student/css/help_support.css">
+ 
+
+
+  <!-- CONTAINER MAX-WIDTH: 1100px WITH BALANCED SIDE SPACES -->
+  <div class="container" style="max-width: 1100px; margin: 40px auto; padding: 0 20px;">
+    
+    <!-- HEADER SECTION पूर्णपणे काढला आहे -->
+
+    <h2 class="page-titl" style="margin-bottom: 30px;">Help & Support</h2>
+
+    <!-- MAIN GRID -->
+    <div class="main-grid">
+      
+      <!-- LEFT: FAQ -->
+      <div class="card">
+        <h3>Frequently Asked Questions</h3>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>How can I pay for the exam?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Go to Payment section > Select Subject > Choose Razorpay, UPI, Card or NetBanking > Click Pay.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>How long is my payment valid?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Your payment is valid for 7 days from the date of successful payment. You can attempt exam within 7 days.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>How to start the exam?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Go to My Exams > Complete Camera Verification first > Click "Start Exam" button at scheduled time.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>What is camera verification?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Camera verification is mandatory to verify your identity before starting the exam. It prevents cheating.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>How will I get my result?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Result will be available in Results section within 24 hours of exam completion. You can also download it.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Payment deducted but exam not showing?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Please wait 15 minutes. Check Payment History. If still not updated, contact support with Transaction ID.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>Can I reattempt the exam?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">No, each subject exam can be attempted only once. For reattempt, contact admin.</div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-q" onclick="toggleFaq(this)">
+            <span>What if internet disconnects during exam?</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </div>
+          <div class="faq-a">Your answers are auto-saved. Reconnect and login again to continue. If time is over, contact support.</div>
+        </div>
+
+      </div>
+
+      <!-- RIGHT: PROFESSIONAL CONTACT INFORMATION -->
+      <div class="card" style="padding: 30px !important;">
+        <h3 style="border-bottom: 2px solid #f1f5f9; padding-bottom: 12px; margin-bottom: 25px;">
+          <i class="fa-solid fa-headset" style="color: #4f46e5; margin-right: 8px;"></i>Contact Information
+        </h3>
+        
+        <div style="display: flex; flex-direction: column; gap: 24px;">
+          
+          <!-- Helpline Number -->
+          <div style="display: flex; align-items: flex-start; gap: 15px;">
+            <div style="background: #f0fdf4; color: #16a34a; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem;">
+              <i class="fa-solid fa-phone-volume"></i>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 3px 0; font-weight: 600; color: #334155; font-size: 0.95rem;">Helpline Number</h4>
+              <a href="tel:+919876543210" style="color: #0f172a; font-weight: 700; text-decoration: none; font-size: 1.05rem;">+91 98765 43210</a>
+            </div>
+          </div>
+
+          <!-- Support Email -->
+          <div style="display: flex; align-items: flex-start; gap: 15px;">
+            <div style="background: #eff6ff; color: #2563eb; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem;">
+              <i class="fa-solid fa-envelope-open-text"></i>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 3px 0; font-weight: 600; color: #334155; font-size: 0.95rem;">Email Support</h4>
+              <a href="mailto:support@onlineexamportal.com" style="color: #4f46e5; font-weight: 600; text-decoration: none; font-size: 0.95rem;">support@onlineexamportal.com</a>
+            </div>
+          </div>
+
+          <!-- Support Hours -->
+          <div style="display: flex; align-items: flex-start; gap: 15px;">
+            <div style="background: #fff7ed; color: #ea580c; width: 42px; height: 42px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 1.1rem;">
+              <i class="fa-solid fa-clock"></i>
+            </div>
+            <div>
+              <h4 style="margin: 0 0 3px 0; font-weight: 600; color: #334155; font-size: 0.95rem;">Exam Time</h4>
+              <p style="margin: 0; color: #475569; font-size: 0.9rem; font-weight: 500; line-height: 1.4;">
+                Monday - Saturday <br>
+                <span style="color: #64748b; font-size: 0.85rem;">10:00 AM to 06:00 PM</span>
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Security Badge -->
+        <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: #64748b; font-weight: 600;">
+          <i class="fa-solid fa-shield-halved" style="color: #2563eb; font-size: 16px;"></i>
+          <span>Official Student Support Desk</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+<script>
+function toggleFaq(el){
+  let answer = el.nextElementSibling;
+  let icon = el.querySelector("i");
+  answer.classList.toggle("active");
+  icon.classList.toggle("rotate");
+}
+</script>
+
+
+{% include "student/dash_footer.html" %}
+
+
+
+

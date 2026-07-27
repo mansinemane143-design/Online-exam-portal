@@ -1,0 +1,180 @@
+:root {
+  --primary: #5B4BFF;
+  --primary-dark: #4738D8;
+  --bg: #F5F7FB;
+  --radius: 12px;
+  --shadow-soft: 0 4px 20px rgba(23, 26, 40, 0.06);
+  --shadow-hover: 0 12px 28px rgba(91, 75, 255, 0.16);
+  --text-dark: #1F2333;
+  --text-muted: #8A8FA3;
+  --border-light: #ECEEF5;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--bg);
+  color: var(--text-dark);
+  display: flex;
+  flex-direction: column;
+}
+
+/* ================= NAVBAR ================= */
+.top-navbar {
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-light);
+  padding: 14px 0;
+  flex-shrink: 0;
+}
+.top-navbar .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: clamp(16px, 4vw, 48px);
+  padding-right: clamp(16px, 4vw, 48px);
+}
+.crumbs { display:flex; align-items:center; gap:8px; }
+.breadcrumb-link { color: var(--text-muted); text-decoration: none; font-size: 0.88rem; font-weight: 500; }
+.breadcrumb-link:hover { color: var(--primary); }
+.breadcrumb-arrow { font-size: 0.62rem; color: var(--text-muted); }
+.breadcrumb-current { font-size: 0.88rem; font-weight: 600; color: var(--text-dark); }
+
+.user-chip { background-color: var(--bg); padding: 6px 16px 6px 6px; border-radius: 999px; display:flex; align-items:center; gap:10px; }
+.user-avatar { width: 30px; height: 30px; border-radius: 50%; background-color: var(--primary); color: #fff; display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+.user-name { font-size: 0.83rem; font-weight: 600; color: var(--text-dark); }
+
+/* ================= PAGE ================= */
+.page-wrap {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(20px, 4vh, 48px) clamp(16px, 4vw, 48px);
+  width: 100%;
+}
+
+.main-card {
+  background-color: #ffffff;
+  border-radius: 16px;
+  box-shadow: var(--shadow-soft);
+  padding: clamp(20px, 2.6vw, 32px);
+  width: 100%;
+  max-width: 980px;
+  transition: box-shadow 0.3s ease;
+}
+.main-card:hover { box-shadow: var(--shadow-hover); }
+
+/* ================= PANEL ================= */
+.panel-title {
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 14px;
+  display: flex;
+  align-items: center;
+  color: var(--text-dark);
+}
+.panel-title i { color: var(--primary); font-size: 0.95rem; }
+
+.field-label { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 6px; display: block; }
+.subject-select {
+  border-radius: 8px;
+  border: 1px solid var(--border-light);
+  padding: 9px 12px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.86rem;
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.subject-select:focus { border-color: var(--primary); box-shadow: 0 0 0 0.2rem rgba(91,75,255,0.15); outline:none; }
+
+.detail-row { display: flex; align-items: center; justify-content: space-between; padding: 8px 0; font-size: 0.86rem; }
+.detail-label { color: var(--text-muted); }
+.detail-value { color: var(--text-dark); font-weight: 500; }
+.detail-divider { border: none; border-top: 1px dashed var(--border-light); margin: 6px 0; }
+.total-row .detail-label, .total-row .detail-value { font-weight: 600; font-size: 0.95rem; }
+.total-amount { color: var(--primary); font-size: 1.05rem; font-weight: 700; }
+
+/* ================= PAYMENT METHOD ICON ROW ================= */
+.payment-icons {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
+}
+.payment-icon-btn {
+  position: relative;
+  width: 46px;
+  height: 46px;
+  border-radius: 10px;
+  border: 1.5px solid var(--border-light);
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+}
+.payment-icon-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 14px rgba(91,75,255,0.15); border-color: var(--primary); }
+.payment-icon-btn.selected {
+  border-color: var(--primary);
+  background-color: var(--primary);
+  color: #fff;
+}
+.payment-icon-btn .pm-radio { position: absolute; opacity: 0; width: 0; height: 0; pointer-events: none; }
+.payment-icon-btn.phonepe:not(.selected) { color: #5F259F; }
+.payment-icon-btn.googlepay:not(.selected) { color: #4285F4; }
+
+.selected-method-label {
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: -10px;
+  margin-bottom: 18px;
+  min-height: 16px;
+}
+.selected-method-label span { color: var(--primary); font-weight: 600; }
+
+/* ================= PAY BUTTON ================= */
+.pay-btn {
+  background-color: var(--primary); color: #fff; font-weight: 600; font-size: 0.98rem;
+  padding: 12px; border-radius: 10px; border: none; width: 100%;
+  transition: background-color 0.25s ease, transform 0.15s ease, box-shadow 0.25s ease;
+}
+.pay-btn:hover { background-color: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 10px 22px rgba(91,75,255,0.35); color:#fff; }
+.pay-btn:active { transform: translateY(0); }
+.pay-btn:disabled { opacity: 0.75; cursor: not-allowed; }
+
+.secure-text { text-align: center; font-size: 0.78rem; color: var(--text-muted); margin: 10px 0 0; }
+.secure-text i { color: #2FB380; }
+
+/* ================= IMPORTANT NOTE ================= */
+.important-note {
+  display: flex; gap: 12px; background-color: #EAF0FF; border: 1px solid #D8E0FF;
+  border-radius: var(--radius); padding: 14px 18px;
+}
+.note-icon { color: #3B5BFF; font-size: 1.15rem; flex-shrink: 0; margin-top: 2px; }
+.note-title { font-weight: 600; margin-bottom: 6px; font-size: 0.9rem; }
+.note-list { margin: 0; padding-left: 16px; font-size: 0.8rem; color: var(--text-muted); }
+.note-list li { margin-bottom: 3px; }
+
+.row-divider { border: none; border-top: 1px solid var(--border-light); margin: 4px 0 20px; }
+
+/* ================= TOASTS ================= */
+.toast-container { z-index: 1080; }
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 991.98px) {
+  .main-card { padding: 20px; }
+}
+@media (max-width: 575.98px) {
+  .main-card { padding: 16px; border-radius: 12px; }
+  .payment-icon-btn { width: 42px; height: 42px; }
+}

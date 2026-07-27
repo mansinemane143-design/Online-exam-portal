@@ -1,0 +1,431 @@
+{% include "teacher/navbar.html"%}
+<link rel="stylesheet" href="/static/teacher/css/student_details.css">
+<div class="container-fluid py-4 px-4">
+
+    <!-- ================= Header ================= -->
+
+    <div class="page-header">
+
+        <div>
+
+            <h2>
+                <i class="fa-solid fa-users"></i>
+                Student List
+            </h2>
+
+            <p>
+                Manage all students who purchased this exam.
+            </p>
+
+        </div>
+
+        <button class="btn add-btn">
+
+            <i class="fa-solid fa-user-plus"></i>
+
+            Add Student
+
+        </button>
+
+    </div>
+
+    <!-- ================= Search ================= -->
+
+    <div class="search-card">
+
+        <div class="row g-3">
+
+            <!-- Search -->
+
+            <div class="col-lg-5">
+
+                <div class="input-group">
+
+                    <span class="input-group-text">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </span>
+
+                    <input type="text"
+                        class="form-control"
+                        id="searchInput"
+                        placeholder="Search Student Name">
+
+                </div>
+
+            </div>
+
+            <!-- Status -->
+
+            <div class="col-lg-3">
+
+                <select class="form-select">
+
+                    <option>All Status</option>
+                    <option>Success</option>
+                    <option>Pending</option>
+                    <option>Failed</option>
+
+                </select>
+
+            </div>
+
+            <!-- Payment -->
+
+            <div class="col-lg-2">
+
+                <select class="form-select">
+
+                    <option>All Payment</option>
+                    <option>UPI</option>
+                    <option>Razorpay</option>
+                    <option>Wallet</option>
+
+                </select>
+
+            </div>
+
+            <!-- Search Button -->
+
+            <div class="col-lg-2">
+
+                <button class="btn btn-search w-100">
+
+                    <i class="fa-solid fa-filter"></i>
+
+                    Search
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- ================= Student Table ================= -->
+
+    <div class="table-card">
+
+        <div class="table-responsive">
+
+            <table class="table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th>#</th>
+
+                        <th>Student</th>
+
+                        <th>Course</th>
+
+                        <th>Payment</th>
+
+                        <th>Amount</th>
+
+                        <th>Date</th>
+
+                        <th>Status</th>
+
+                        <th width="220">Action</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody id="studentTable">
+                    <!-- Student 1 -->
+<tr>
+    <td>1</td>
+
+    <td>
+        <div class="student-info">
+            <img src="https://i.pravatar.cc/45?img=1" alt="">
+            <div>
+                <h6>Rahul Patil</h6>
+                <small>STU1001</small>
+            </div>
+        </div>
+    </td>
+
+    <td>Police Bharti</td>
+
+    <td>
+        <span class="badge bg-primary">Razorpay</span>
+    </td>
+
+    <td>₹50</td>
+
+    <td>15 Jul 2026</td>
+
+    <td>
+        <span class="badge bg-success">Success</span>
+    </td>
+
+    <td>
+
+        <a href="student_details.html" class="btn btn-sm btn-view">
+            <i class="fa-solid fa-eye"></i>
+        </a>
+
+        <a href="edit_student.html" class="btn btn-sm btn-edit">
+            <i class="fa-solid fa-pen"></i>
+        </a>
+
+        <button class="btn btn-sm btn-delete">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+
+    </td>
+
+</tr>
+
+<!-- Student 2 -->
+
+<tr>
+
+    <td>2</td>
+
+    <td>
+
+        <div class="student-info">
+
+            <img src="https://i.pravatar.cc/45?img=5" alt="">
+
+            <div>
+
+                <h6>Sneha Sharma</h6>
+
+                <small>STU1002</small>
+
+            </div>
+
+        </div>
+
+    </td>
+
+    <td>Army Bharti</td>
+
+    <td>
+
+        <span class="badge bg-success">
+
+            UPI
+
+        </span>
+
+    </td>
+
+    <td>₹50</td>
+
+    <td>15 Jul 2026</td>
+
+    <td>
+
+        <span class="badge bg-warning text-dark">
+
+            Pending
+
+        </span>
+
+    </td>
+
+    <td>
+
+        <a href="student_details.html" class="btn btn-sm btn-view">
+            <i class="fa-solid fa-eye"></i>
+        </a>
+
+        <a href="edit_student.html" class="btn btn-sm btn-edit">
+            <i class="fa-solid fa-pen"></i>
+        </a>
+
+        <button class="btn btn-sm btn-delete">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+
+    </td>
+
+</tr>
+
+<!-- Student 3 -->
+
+<tr>
+
+    <td>3</td>
+
+    <td>
+
+        <div class="student-info">
+
+            <img src="https://i.pravatar.cc/45?img=12" alt="">
+
+            <div>
+
+                <h6>Akash Jadhav</h6>
+
+                <small>STU1003</small>
+
+            </div>
+
+        </div>
+
+    </td>
+
+    <td>Talathi Bharti</td>
+
+    <td>
+
+        <span class="badge bg-info">
+
+            Wallet
+
+        </span>
+
+    </td>
+
+    <td>₹50</td>
+
+    <td>14 Jul 2026</td>
+
+    <td>
+
+        <span class="badge bg-danger">
+
+            Failed
+
+        </span>
+
+    </td>
+
+    <td>
+
+        <a href="student_details.html" class="btn btn-sm btn-view">
+            <i class="fa-solid fa-eye"></i>
+        </a>
+
+        <a href="edit_student.html" class="btn btn-sm btn-edit">
+            <i class="fa-solid fa-pen"></i>
+        </a>
+
+        <button class="btn btn-sm btn-delete">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+
+    </td>
+
+</tr>
+
+<!-- Student 4 -->
+
+<tr>
+
+    <td>4</td>
+
+    <td>
+
+        <div class="student-info">
+
+            <img src="https://i.pravatar.cc/45?img=15" alt="">
+
+            <div>
+
+                <h6>Priya More</h6>
+
+                <small>STU1004</small>
+
+            </div>
+
+        </div>
+
+    </td>
+
+    <td>MPSC Test Series</td>
+
+    <td>
+
+        <span class="badge bg-dark">
+
+            Credit Card
+
+        </span>
+
+    </td>
+
+    <td>₹50</td>
+
+    <td>13 Jul 2026</td>
+
+    <td>
+
+        <span class="badge bg-success">
+
+            Success
+
+        </span>
+
+    </td>
+
+    <td>
+
+        <a href="student_details.html" class="btn btn-sm btn-view">
+            <i class="fa-solid fa-eye"></i>
+        </a>
+
+        <a href="edit_student.html" class="btn btn-sm btn-edit">
+            <i class="fa-solid fa-pen"></i>
+        </a>
+
+        <button class="btn btn-sm btn-delete">
+            <i class="fa-solid fa-trash"></i>
+        </button>
+
+    </td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- Pagination -->
+
+<nav class="mt-4">
+
+    <ul class="pagination justify-content-end">
+
+        <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+        </li>
+
+        <li class="page-item active">
+            <a class="page-link">1</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link">2</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link">3</a>
+        </li>
+
+        <li class="page-item">
+            <a class="page-link">Next</a>
+        </li>
+
+    </ul>
+
+</nav>
+
+</div>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="/static/teacher/js/student_details.js"></script>
+{% include "teacher/footer.html"%}

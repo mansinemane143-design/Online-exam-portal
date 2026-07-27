@@ -1,0 +1,59 @@
+{% include "admin/navbar.html" %}
+<table class="table table-bordered table-hover text-center align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>Sr. No</th>
+            <th>Full Name</th>
+            <th>Mobile Number</th>
+            <th>Email Address</th>
+            <th>Age</th>
+            <th>Password</th>
+            <th>Profile Photo</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+
+        {% for i in students %}
+        <tr>
+
+            <td>{{ forloop.counter }}</td>
+            <td>{{ i.full_name }}</td>
+            <td>{{ i.mobile_number }}</td>
+            <td>{{ i.email }}</td>
+            <td>{{ i.age }}</td>
+            <td>{{ i.password }}</td>
+
+
+            <td>
+                {% if i.profile_photo %}
+                    <img src="{{ i.profile_photo.url }}"
+                         width="60"
+                         height="60"
+                         style="border-radius:8px;">
+                {% else %}
+                    No Photo
+                {% endif %}
+            </td>
+
+            <td>
+                <a href="{% url 'registration_delete' i.id %}"
+                   class="btn btn-danger btn-sm"
+                   onclick="return confirm('Are you sure you want to delete this record?');">
+                    <i class="fa-solid fa-trash"></i> Delete
+                </a>
+            </td>
+
+        </tr>
+        {% empty %}
+
+        <tr>
+            <td colspan="7">No Records Found</td>
+        </tr>
+
+        {% endfor %}
+
+    </tbody>
+</table>
+{% include "admin/footer.html" %}

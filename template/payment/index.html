@@ -1,0 +1,117 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ product_name }} | {{ company_name }} Pay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'payment/css/style.css' %}" />
+</head>
+<body>
+
+    <!-- Ambient floating shapes -->
+    <div class="bg-scene" aria-hidden="true">
+        <span class="orb orb-1"></span>
+        <span class="orb orb-2"></span>
+        <span class="orb orb-3"></span>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <main class="page">
+        <section class="checkout-card" id="checkoutCard">
+
+            <header class="brand-row">
+                <img class="brand-logo" src="{{ company_logo_url }}" alt="{{ company_name }} logo" />
+                <span class="brand-name">{{ company_name }}</span>
+            </header>
+
+            <div class="pulse-badge" title="Secured transaction">
+                <span class="pulse-ring"></span>
+                <span class="pulse-core"></span>
+                <span class="pulse-label">Live & amp; Secure</span>
+            </div>
+
+            <div class="product-block">
+                <p class="eyebrow">You're paying for</p>
+                <h1 class="product-name">{{ product_name }}</h1>
+                <p class="product-desc">{{ product_description }}</p>
+
+                <div class="amount-row">
+                    <span class="currency-symbol">₹</span>
+                    <span class="amount-value" id="amountValue">{{ product_amount }}</span>
+                    <span class="currency-code">{{ currency }}</span>
+                </div>
+            </div>
+
+            <form id="paymentForm" class="payment-form" novalidate>
+                {% csrf_token %}
+                <input type="hidden" id="registration_id" value="{{ registration_id }}" />
+                <div class="field">
+                    <label for="customer_name">Full name</label>
+                    <input type="text" id="customer_name" name="customer_name" placeholder="Aarav Sharma" autocomplete="name" required />
+                    <span class="field-error" data-error-for="customer_name"></span>
+                </div>
+
+                <div class="field">
+                    <label for="customer_email">Email address</label>
+                    <input type="email" id="customer_email" name="customer_email" placeholder="aarav@example.com" autocomplete="email" required />
+                    <span class="field-error" data-error-for="customer_email"></span>
+                </div>
+
+                <div class="field">
+                    <label for="customer_phone">Phone number</label>
+                    <input type="tel" id="customer_phone" name="customer_phone" placeholder="9876543210" autocomplete="tel" required />
+                    <span class="field-error" data-error-for="customer_phone"></span>
+                </div>
+
+                <div class="method-strip" aria-hidden="true">
+                    <span class="method-chip">UPI</span>
+                    <span class="method-chip">Cards</span>
+                    <span class="method-chip">Net Banking</span>
+                    <span class="method-chip">Wallets</span>
+                </div>
+
+                <button type="submit" class="pay-btn" id="payBtn">
+                    <span class="pay-btn-label">
+                        <svg class="lock-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M6 10V8a6 6 0 1112 0v2M5 10h14a1 1 0 011 1v9a1 1 0 01-1 1H5a1 1 0 01-1-1v-9a1 1 0 011-1z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Pay ₹<span id="payBtnAmount">{{ product_amount }}</span>
+                    </span>
+                    <span class="pay-btn-loader" aria-hidden="true">
+                        <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                    </span>
+                </button>
+
+                <p class="secure-note">
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2l7 3v6c0 5-3.4 8.4-7 11-3.6-2.6-7-6-7-11V5l7-3z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+                    </svg>
+                    256-bit encrypted & middot; Powered by Razorpay
+                </p>
+            </form>
+        </section>
+    </main>
+
+    <!-- Full-screen loading overlay shown while the order is created / checkout is open -->
+    <div class="loading-overlay" id="loadingOverlay" aria-hidden="true">
+        <div class="loading-ring"></div>
+        <p class="loading-text" id="loadingText">Creating your order & hellip;</p>
+    </div>
+
+    <!-- Razorpay Checkout script -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+    <script>
+        window.RAZORPAY_KEY_ID = "{{ razorpay_key_id }}";
+        window.COMPANY_NAME = "{{ company_name }}";
+        window.CREATE_ORDER_URL = "{% url 'payment:create_order' %}";
+        window.VERIFY_PAYMENT_URL = "{% url 'payment:verify_payment' %}";
+        window.PAYMENT_FAILED_URL = "{% url 'payment:payment_failed_callback' %}";
+        window.SUCCESS_URL = "{% url 'payment:success' %}";
+        window.FAILED_URL = "{% url 'payment:failed' %}";
+    </script>
+    <script src="{% static 'payment/js/script.js' %}"></script>
+</body>
+</html>

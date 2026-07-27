@@ -1,0 +1,414 @@
+{% include "admin/navbar.html" %}
+
+<style>
+    body{
+    background:#f1f5ff;
+    font-family:'Poppins',sans-serif;
+}
+
+.exam-card{
+    width:100%;
+    margin:40px auto;
+    background:#fff;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
+
+body{
+    background:#eef3f9;
+    font-family:'Poppins',sans-serif;
+}
+
+.exam-card{
+    width:100%;
+    margin:40px auto;
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 12px 35px rgba(0,0,0,.12);
+    padding:0;
+}
+
+/* Header */
+
+.title{
+    margin:0;
+    background:#166f8d;
+    color:#fff;
+    padding:30px;
+    font-size:32px;
+    font-weight:700;
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.title i{
+    width:60px;
+    height:60px;
+    background:rgba(255,255,255,.15);
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:28px;
+}
+
+form{
+    padding:35px;
+}
+
+.form-label{
+    font-weight:600;
+    color:#344054;
+    margin-bottom:8px;
+}
+
+.form-control,
+.form-select{
+    height:52px;
+    border-radius:14px;
+    border:1px solid #d9dee7;
+    box-shadow:none;
+    font-size:15px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#166f8d;
+    box-shadow:0 0 0 .20rem rgba(22,111,141,.18);
+}
+
+.input-group-text{
+    background:#fff;
+    border-radius:14px 0 0 14px;
+}
+
+.btn-area{
+    margin-top:30px;
+}
+
+.btn-update{
+    width:100%;
+    height:58px;
+    background:#166f8d;
+    border:none;
+    border-radius:14px;
+    color:#fff;
+    font-size:18px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.btn-update:hover{
+    background:#125d76;
+    color:#fff;
+}
+
+.btn-cancel{
+    width:100%;
+    height:58px;
+    border-radius:14px;
+    font-weight:600;
+}
+
+@media(max-width:768px){
+
+form{
+    padding:20px;
+}
+
+.title{
+    font-size:24px;
+    padding:20px;
+}
+
+.title i{
+    width:50px;
+    height:50px;
+    font-size:22px;
+}
+
+}
+.title{
+    text-align:center;
+    color:white;
+    font-size:30px;
+    font-weight:700;
+    margin-bottom:30px;
+}
+
+.form-label{
+    font-weight:600;
+    color:#444;
+}
+
+.form-control,
+.form-select{
+    height:48px;
+    border-radius:10px;
+}
+
+.form-control:focus,
+.form-select:focus{
+    border-color:#166f8d;
+    box-shadow:0 0 10px rgba(13,110,253,.25);
+}
+
+.timer-box{
+    display:flex;
+    gap:10px;
+}
+
+.btn-update{
+    background:#166f8d;
+    color:#fff;
+    border-radius:10px;
+    padding:12px 45px;
+    font-weight:600;
+}
+
+.btn-update:hover{
+    background:#166f8d;
+    color:#fff;
+}
+
+.btn-cancel{
+    border-radius:10px;
+    padding:12px 35px;
+}
+</style>
+<div class="container">
+
+    <div class="exam-card">
+
+        <h2 class="title">
+            <i class="bi bi-pencil-square"></i>
+            Update Exam Card
+        </h2>
+
+        <form method="POST"
+              action="{% url 'update_home_exam_card' exam.id %}"
+              class="needs-validation"
+              novalidate>
+
+            {% csrf_token %}
+
+            <div class="row">
+
+        <!-- Exam Name -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Exam Name</label>
+
+            <input type="text"
+                   name="exam_name"
+                   class="form-control"
+                   value="{{ exam.exam_name }}"
+                   pattern="[A-Za-z ]+"
+                   required>
+
+            <div class="invalid-feedback">
+                Please enter valid exam name
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+
+    <label class="form-label">
+        Subject Name
+    </label>
+
+    <input type="text"
+           name="sub_name"
+           class="form-control"
+           value="{{ exam.sub_name }}"
+           required>
+
+</div>
+
+        <!-- Validity -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Exam Validity</label>
+
+            <input type="text"
+                   name="validity"
+                   class="form-control"
+                   value="{{ exam.validity }}"
+                   required>
+
+            <div class="invalid-feedback">
+                Please enter validity
+            </div>
+        </div>
+
+        <!-- Fees -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Exam Fees</label>
+
+            <div class="input-group">
+                <span class="input-group-text">₹</span>
+
+                <input type="number"
+                       name="exam_fees"
+                       class="form-control"
+                       value="{{ exam.exam_fees }}"
+                       min="0"
+                       required>
+            </div>
+
+            <div class="invalid-feedback">
+                Enter valid fees
+            </div>
+        </div>
+
+        <!-- Questions -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Total Questions</label>
+
+            <input type="number"
+                   name="total_questions"
+                   class="form-control"
+                   value="{{ exam.total_questions }}"
+                   min="1"
+                   required>
+
+            <div class="invalid-feedback">
+                Enter total questions
+            </div>
+        </div>
+
+        <!-- Duration -->
+<div class="col-md-6 mb-3">
+    <label class="form-label">
+        Exam Duration
+    </label>
+
+    <input type="text"
+           name="exam_duration"
+           class="form-control"
+           value="{{ exam.exam_duration }}"
+           placeholder="Enter Exam Duration"
+           required>
+</div>
+<div class="col-md-6 mb-3">
+    <label class="form-label">
+        Type Name
+    </label>
+
+    <input type="text"
+           name="type_name"
+           class="form-control"
+           value="{{ exam.type_name }}"
+           placeholder="Enter Type Name"
+           required>
+</div>
+        <!-- Negative Marking -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Negative Marking</label>
+
+            <select name="negative_marking"
+                    class="form-select"
+                    required>
+
+                <option value="Yes"
+                    {% if exam.negative_marking == "Yes" %}selected{% endif %}>
+                    Yes
+                </option>
+
+                <option value="No"
+                    {% if exam.negative_marking == "No" %}selected{% endif %}>
+                    No
+                </option>
+
+            </select>
+        </div>
+
+        <!-- Mode -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Exam Mode</label>
+
+            <select name="exam_mode"
+                    class="form-select"
+                    required>
+
+                <option value="Online"
+                    {% if exam.exam_mode == "Online" %}selected{% endif %}>
+                    Online
+                </option>
+
+                <option value="Offline"
+                    {% if exam.exam_mode == "Offline" %}selected{% endif %}>
+                    Offline
+                </option>
+
+            </select>
+        </div>
+
+        <!-- Language -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Language</label>
+
+            <select name="language"
+                    class="form-select"
+                    required>
+
+                <option value="English"
+                    {% if exam.language == "English" %}selected{% endif %}>
+                    English
+                </option>
+
+                <option value="Marathi"
+                    {% if exam.language == "Marathi" %}selected{% endif %}>
+                    Marathi
+                </option>
+
+                <option value="Hindi"
+                    {% if exam.language == "Hindi" %}selected{% endif %}>
+                    Hindi
+                </option>
+
+            </select>
+        </div>
+
+        <!-- Status -->
+        <div class="col-md-6 mb-3">
+            <label class="form-label">Exam Status</label>
+
+            <select name="status"
+                    class="form-select"
+                    required>
+
+                <option value="Active"
+                    {% if exam.status == "Active" %}selected{% endif %}>
+                    Active
+                </option>
+
+                <option value="Inactive"
+                    {% if exam.status == "Inactive" %}selected{% endif %}>
+                    Inactive
+                </option>
+
+            </select>
+        </div>
+
+        <!-- Buttons -->
+               <div class="col-12 text-center mt-4">
+
+    <button type="submit" class="btn btn-update">
+        <i class="bi bi-check-circle-fill"></i>
+        Update Exam
+    </button>
+
+ 
+
+</div>
+
+            </div>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% include "admin/footer.html" %}

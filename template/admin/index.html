@@ -1,0 +1,170 @@
+{% include "admin/navbar.html" %}
+
+<!-- ✅ FIX: CSS + Chart.js load FIRST, before any script that uses them -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<link rel="stylesheet" href="/static/admin/css/index.css">
+<script src="/static/admin/js/index.js"></script>
+
+<!-- ===== Main ===== -->
+<div class="main-wra">
+  <div class="content">
+
+    <!-- Stat cards row 1 -->
+    <div class="row g-3 mb-3">
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon blue"><i class="fa-solid fa-chalkboard-user"></i></div>
+          <div>
+            <div class="stat-value">5</div>
+            <div class="stat-label">Total Teacher</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon green"><i class="fa-solid fa-user-graduate"></i></div>
+          <div>
+            <div class="stat-value">100</div>
+            <div class="stat-label">Total Academies</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon orange"><i class="fa-solid fa-layer-group"></i></div>
+          <div>
+            <div class="stat-value">2</div>
+            <div class="stat-label">Total Categories</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <div class="stat-card">
+          <div class="stat-icon purple"><i class="fa-solid fa-indian-rupee-sign"></i></div>
+          <div>
+            <div class="stat-value">92</div>
+            <div class="stat-label">Total  Income</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+      <!-- Exam Performance Overview + User Distribution -->
+    <div class="row g-4">
+
+      <div class="col-lg-7">
+        <div class="card-panel">
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="panel-title">Monthly Income Overview</h6>
+            <div class="d-flex gap-3">
+              <span class="legend-item"><span class="legend-dot" style="background:var(--accent-green);"></span>Pass</span>
+              <span class="legend-item"><span class="legend-dot" style="background:var(--accent-red);"></span>Fail</span>
+            </div>
+          </div>
+          <div class="chart-box">
+            <canvas id="examChart"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-lg-5">
+        <div class="card-panel">
+          <h6 class="panel-title mb-3">Income By Payment Method</h6>
+          <div class="row align-items-center h-100">
+            <div class="col-7">
+              <div class="donut-box">
+                <canvas id="userDonut"></canvas>
+                <div class="donut-center">
+                  <div class="big-num" id="totalUsers">1,334</div>
+                  <div class="small-label">Total Income</div>
+                </div>
+              </div>
+            </div>
+            <div class="col-5">
+              <div class="legend-col">
+                <span class="legend-item"><span class="legend-dot" style="background:var(--navy-900);"></span>Rezporpay <span class="legend-val">92%</span></span>
+                <span class="legend-item"><span class="legend-dot" style="background:var(--purple-400);"></span>Cashfree <span class="legend-val">2%</span></span>
+                <span class="legend-item"><span class="legend-dot" style="background-color: yellow;"></span>Bank Transfer <span class="legend-val">6%</span></span>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- Course cards -->
+
+  
+
+  </div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  // Exam Performance Overview - Bar Chart
+  const examCtx = document.getElementById('examChart').getContext('2d');
+  new Chart(examCtx, {
+    type: 'bar',
+    data: {
+      labels: ['Jan', 'Mar', 'May', 'Aug', 'Oct','dec'],
+      datasets: [
+        {
+          label: 'Pass',
+          data: [82, 68, 63, 88, 58],
+          backgroundColor: '#1fbf75',
+          borderRadius: 5,
+          barThickness: 22
+        },
+        {
+          label: 'Fail',
+          data: [18, 22, 27, 12, 24],
+          backgroundColor: '#f0506e',
+          borderRadius: 5,
+          barThickness: 22
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { color: '#8a90a8', font: { size: 11, weight: '600' } } },
+        y: {
+          beginAtZero: true,
+          max: 100,
+          grid: { color: '#eef0f7' },
+          ticks: { color: '#8a90a8', stepSize: 25, font: { size: 11 } }
+        }
+      }
+    }
+  });
+
+  // User Distribution - Donut Chart
+  const donutCtx = document.getElementById('userDonut').getContext('2d');
+  new Chart(donutCtx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Students', 'Teachers'],
+      datasets: [{
+        data: [94, 6],
+        backgroundColor: ['#1b2250', '#9b8cf5'],
+        borderWidth: 0,
+        cutout: '72%'
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { display: false }, tooltip: { enabled: true } }
+    }
+  });
+</script>
+
+{% include "admin/footer.html" %}

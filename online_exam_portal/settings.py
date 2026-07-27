@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/6.0/ref/settings/
 """
-
+import os
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'adminpanel',
     'teacher',
     'student',
+    'payment',
 ]
 
 MIDDLEWARE = [
@@ -80,7 +81,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'bpflobhwr1i2took7d3z',
         'USER': 'urdtrmm0g5lqvkwp',
-        'PASSWORD': 'Nyq0zmgwdKofbDyW9DhA',
+        'PASSWORD': 'OZzzQjcp396m2cqWK4FL',
         'HOST': 'bpflobhwr1i2took7d3z-mysql.services.clever-cloud.com',
         'PORT':'3306',
     }
@@ -123,3 +124,29 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = ['static/']
+
+
+
+RAZORPAY_KEY_ID = os.environ.get("RAZORPAY_KEY_ID", "rzp_test_TBf1LFw8iqnmvo")
+RAZORPAY_KEY_SECRET = os.environ.get("RAZORPAY_KEY_SECRET", "4rTfycmI35PVK2t8p62tusFP")
+
+RAZORPAY_CURRENCY = "INR"
+
+# Company / brand details shown on the payment page
+COMPANY_NAME = "Nova Pay"
+COMPANY_LOGO_URL = "https://api.dicebear.com/7.x/shapes/svg?seed=novapay"
+PRODUCT_NAME = "Premium Subscription"
+PRODUCT_DESCRIPTION = "1 Year Full Access Plan"
+PRODUCT_AMOUNT = 49 # in INR (rupees). Converted to paise before sending to Razorpay.
+
+LOGIN_REDIRECT_URL = "/"
+
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'dnyaneshwarsul29@gmail.com'
+EMAIL_HOST_PASSWORD = 'zblyxeklrbbgqpex'
+DEFAULT_FROM_EMAIL = 'dnyaneshwarsul29@gmail.com'

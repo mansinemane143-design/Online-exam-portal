@@ -1,0 +1,295 @@
+{% include "teacher/navbar.html"%}
+
+<link rel="stylesheet" href="/static/teacher/css/add_questions.css">
+
+
+
+
+<div class="container">
+
+
+<h2>Add New Question</h2>
+
+
+<form id="questionForm">
+
+
+
+<div class="form-group">
+
+<label>Subject Category</label>
+
+
+<div class="category-box">
+
+
+<label class="category-option">
+
+<input type="checkbox" 
+class="category-check"
+value="Python">
+
+Python
+
+</label>
+
+
+
+<label class="category-option">
+
+<input type="checkbox" 
+class="category-check"
+value="Java">
+
+Java
+
+</label>
+
+
+
+
+<label class="category-option">
+
+<input type="checkbox" 
+class="category-check"
+value="DBMS">
+
+DBMS
+
+</label>
+
+
+
+
+<label class="category-option">
+
+<input type="checkbox" 
+class="category-check"
+value="Web Technology">
+
+Web Technology
+
+</label>
+
+
+
+</div>
+
+
+<span id="categoryError"></span>
+
+
+</div>
+
+
+
+
+
+
+<div class="form-group">
+
+<label>Question</label>
+
+<textarea required></textarea>
+
+</div>
+
+
+
+
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label>Option A</label>
+
+<input type="text" required>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>Option B</label>
+
+<input type="text" required>
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label>Option C</label>
+
+<input type="text" required>
+
+</div>
+
+
+
+<div class="form-group">
+
+<label>Option D</label>
+
+<input type="text" required>
+
+</div>
+
+
+
+</div>
+
+
+<div class="form-group">
+
+    <label>Correct Answer</label>
+
+    <select id="correctAnswer" required>
+
+        <option value="">Select Correct Answer</option>
+
+        <option value="A">Option A</option>
+
+        <option value="B">Option B</option>
+
+        <option value="C">Option C</option>
+
+        <option value="D">Option D</option>
+
+    </select>
+
+</div>
+
+
+
+<div class="form-row">
+
+
+<div class="form-group">
+
+<label>Difficulty</label>
+
+
+<select id="difficulty">
+
+
+<option value="">Select</option>
+
+<option value="Easy">
+Easy
+</option>
+
+
+<option value="Medium">
+Medium
+</option>
+
+
+<option value="Hard">
+Hard
+</option>
+
+
+</select>
+
+</div>
+
+
+
+
+
+<div class="form-group">
+
+
+<label>Marks</label>
+
+
+<input 
+type="text"
+id="marks"
+readonly
+value="0">
+
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+
+
+<button type="submit">
+Save Question
+</button>
+
+
+
+</form>
+
+
+
+</div>
+
+
+
+
+
+
+
+<!-- Popup -->
+
+
+<div id="popup">
+
+
+<div class="popup-box">
+
+
+<h2>Success</h2>
+
+<p>
+Question Saved Successfully
+</p>
+
+
+<button id="closePopup">
+OK
+</button>
+
+
+
+</div>
+
+
+</div>
+
+
+
+
+
+
+<script src="/static/teacher/js/add_questions.js"></script>
+
+
+{% include "teacher/footer.html"%}

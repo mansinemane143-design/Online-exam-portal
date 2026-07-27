@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Payment Successful | {% now "Y" %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="{% static 'payment/css/style.css' %}" />
+</head>
+<body class="status-body">
+
+    <div class="bg-scene" aria-hidden="true">
+        <span class="orb orb-1 success-orb"></span>
+        <span class="orb orb-2 success-orb"></span>
+        <div class="grid-overlay"></div>
+    </div>
+
+    <main class="page">
+        <section class="status-card success-card">
+
+            <div class="status-icon-wrap">
+                <svg class="status-icon success-icon" viewBox="0 0 100 100">
+                    <circle class="status-icon-ring" cx="50" cy="50" r="46" />
+                    <path class="status-icon-check" d="M28 52 L43 66 L74 34" />
+                </svg>
+                <span class="confetti c1"></span>
+                <span class="confetti c2"></span>
+                <span class="confetti c3"></span>
+                <span class="confetti c4"></span>
+                <span class="confetti c5"></span>
+                <span class="confetti c6"></span>
+            </div>
+
+            <h1 class="status-title">Payment successful</h1>
+            <p class="status-subtitle">Thank you, {{ payment.customer_name }}. Your transaction has been confirmed.</p>
+
+            <div class="receipt">
+                <div class="receipt-row">
+                    <span>Payment ID</span>
+                    <strong>{{ payment.payment_id }}</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Order ID</span>
+                    <strong>{{ payment.order_id }}</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Amount paid</span>
+                    <strong>₹{{ payment.amount }} {{ payment.currency }}</strong>
+                </div>
+                <div class="receipt-row">
+                    <span>Date & amp; time</span>
+                    <strong>{{ payment.updated_at|date:"d M Y, h:i A" }}</strong>
+                </div>
+                {% if payment.payment_method %}
+                <div class="receipt-row">
+                    <span>Method</span>
+                    <strong>{{ payment.payment_method|upper }}</strong>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="status-actions">
+                <button class="btn-outline" id="downloadReceipt">Download receipt</button>
+                <a class="btn-solid" href="{% url 'payment:index' %}">Back to home</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        window.RECEIPT_DATA = {
+            company: "{{ payment.customer_name|default:'Customer' }}",
+            payment_id: "{{ payment.payment_id }}",
+            order_id: "{{ payment.order_id }}",
+            amount: "{{ payment.amount }}",
+            currency: "{{ payment.currency }}",
+            date: "{{ payment.updated_at|date:'d M Y, h:i A' }}",
+            method: "{{ payment.payment_method|default:'—' }}"
+        };
+    </script>
+    <script src="{% static 'payment/js/script.js' %}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <!-- <script src="{% static 'payment/js/script.js' %}"></script> -->
+</body>
+</html>

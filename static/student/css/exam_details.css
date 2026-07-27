@@ -1,0 +1,299 @@
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+    /* padding-top: 70px; <-- HE KADHLA - navbar nahi mhanun */
+}
+
+/* REGISTRATION MAIN */
+.reg-main {
+    padding: 40px 0 60px;
+}
+.reg-title {
+    text-align: center;
+    margin-bottom: 25px;
+}
+.reg-title h1 {
+    font-weight: 800;
+    font-size: 2rem;
+    color: #0f172a;
+}
+.reg-title p {
+    color: #64748b;
+}
+
+/* WELCOME ALERT */
+.alert-welcome {
+    background: #f0f9ff; /* light theme bg */
+    border-left: 4px solid #176F8E; /* theme border */
+    color: #0c4a6e; /* dark theme text */
+    font-weight: 600;
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 25px;
+    font-size: 0.9rem;
+}
+.alert-welcome i { color: #176F8E; margin-right: 8px; } /* theme icon */
+
+/* LEFT CARD */
+.reg-card-main {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+
+/* ==========================================================
+   CORRECTED STEPS & STEPPER PROGRESS BAR (1, 2, 3, 4 CIRCLES)
+   ========================================================== */
+.steps-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    position: relative;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    z-index: 1;
+}
+
+/* जोडणारी आडवी लाईन */
+.steps-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 18px; /* वर्तुळाच्या बरोबर मध्यभागी सेट करण्यासाठी */
+    left: 30px;
+    right: 30px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2); /* डार्क बॅकग्राउंडवर छान दिसणारी लाईन */
+    z-index: -1; /* लाईन वर्तुळाच्या मागे ठेवण्यासाठी */
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #94a3b8;
+    font-weight: 600;
+    font-size: 0.75rem;
+    z-index: 2;
+    flex: 1;
+    text-align: center;
+}
+
+/* १, २, ३, ४ चे गोल आयकॉन्स (अचूक वर्तुळाकार आकार) */
+.step .circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50% !important; /* अचूक गोल करण्यासाठी */
+    border: 2px solid rgba(255, 255, 255, 0.2) !important;
+    background: #1e293b !important; /* डार्क बॉडीशी जुळणारा बॅकग्राउंड */
+    color: #94a3b8 !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s ease;
+}
+
+.step span {
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+    font-size: 0.8rem;
+}
+
+/* ACTIVE STEP (Step 2 - चालू पायरी) */
+.step.active { 
+    color: #fff !important; 
+} 
+.step.active .circle {
+    background: #176F8E !important; /* थिम नुसार निळा/हिरवट रंग */
+    color: #fff !important; 
+    border-color: #38bdf8 !important; /* लाईट निळा बॉर्डर हायलाईट */
+    box-shadow: 0 0 15px rgba(23, 111, 142, 0.6);
+    transform: scale(1.1); /* ॲक्टिव्ह वर्तुळ थोडे मोठे दिसेल */
+}
+.step.active span {
+    color: #fff !important;
+    font-weight: 700;
+}
+
+/* COMPLETED STEP (Step 1 - पूर्ण झालेली पायरी) */
+.step.completed .circle,
+.step:first-child .circle { /* पहिली स्टेप नेहमी पूर्ण दाखवण्यासाठी */
+    background: #176F8E !important; 
+    color: #fff !important;
+    border-color: #176F8E !important;
+}
+.step:first-child span {
+    color: #176F8E !important;
+}
+
+/* ==========================================================
+   INPUTS & STYLINGS CONT.
+   ========================================================== */
+.reg-card-main h4 {
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+}
+.subtext {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+.form-label {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #334155;
+    margin-bottom: 8px;
+}
+
+/* INPUT WITH ICON */
+.input-icon {
+    position: relative;
+}
+.input-icon i {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #94a3b8;
+    font-size: 0.9rem;
+}
+.input-icon .form-control, .input-icon .form-select {
+    padding-left: 40px;
+}
+.form-control, .form-select {
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    color: #1e293b;
+    border-radius: 8px;
+    padding: 10px 14px;
+}
+.form-control:focus, .form-select:focus {
+    border-color: #176F8E; /* theme */
+    box-shadow: 0 0 0 0.2rem rgba(23, 111, 142, 0.15); /* theme with opacity */
+}
+
+/* BUTTONS */
+.btn-prev-small {
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.btn-prev-small:hover {
+    background: #e2e8f0;
+}
+.btn-next-small {
+    background: #176F8E; /* theme */
+    color: #fff;
+    border: none;
+    padding: 10px 28px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+.btn-next-small:hover {
+    background: #145a73; /* dark theme hover */
+}
+
+/* RIGHT CARD - HEIGHT KAMI */
+.info-sidebar {
+    background: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    height: fit-content; /* content itkach */
+    position: sticky;
+    top: 40px; /* navbar nahi mhanun 40px kela */
+}
+.info-sidebar h5 {
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 20px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 12px;
+}
+.info-sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+.info-sidebar ul li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    color: #475569;
+    font-size: 0.9rem;
+}
+.info-sidebar ul li i {
+    color: #176F8E; /* theme tick */
+    font-size: 0.8rem;
+}
+.security-note {
+    text-align: center;
+    font-size: 0.8rem;
+    color: #94a3b8;
+}
+.security-note i { color: #176F8E; margin-right: 5px; } /* theme lock */
+
+/* FOOTER */
+.footer-a2z {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    color: #94a3b8;
+    font-size: 0.9rem;
+    margin-top: 40px;
+    border-top: 1px solid #e2e8f0;
+}
+
+/* SIZE FIX */
+.reg-main .container {
+    max-width: 1100px;
+}
+
+/* Subject Dropdown फोकस इफेक्ट */
+.subject-group:focus-within {
+    border-color: #4f46e5 !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
+}
+
+/* Exam Select Option Styling */
+.form-select:focus {
+    border-color: #4f46e5 !important;
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.15) !important;
+}
+
+/* रिस्पॉन्सिव्ह डिझाइन: मोबाईल स्क्रीनवर दोन्ही इनपुट्स एका खाली एक दिसतील आणि कार्ड बाहेर जाणार नाही */
+@media (max-width: 576px) {
+    .steps-wrapper::before {
+        top: 15px;
+        left: 15px;
+        right: 15px;
+    }
+    .step .circle {
+        width: 30px !important;
+        height: 30px !important;
+        font-size: 0.8rem !important;
+    }
+    .reg-card-main {
+        padding: 20px 15px !important;
+    }
+    
+    .btn-prev-small, .btn-next-small {
+        width: auto;
+        padding: 8px 16px !important;
+        font-size: 0.9rem;
+    }
+}

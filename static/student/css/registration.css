@@ -1,0 +1,244 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #2563eb 100%) !important;
+    color: #e2e8f0;
+    padding-top: 80px;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+    /* कर्सरमुळे होणारी बारीक स्क्रीन शेकिंग थांबवण्यासाठी */
+    backface-visibility: hidden;
+}
+
+/* NAVBAR */
+
+
+
+
+
+/* REGISTRATION MAIN */
+.reg-main { padding: 40px 0 60px; }
+.reg-title { text-align: center; margin-bottom: 35px; }
+.reg-title h1 { font-weight: 800; font-size: 2.2rem; color: #fff; }
+.reg-title p { color: #cbd5e1; font-size: 1.05rem; }
+.reg-title .small { font-size: 0.9rem; color: #94a3b8; }
+
+/* STEPS BAR WITH CONNECTING LINE */
+.steps-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 750px;
+    margin: 0 auto 45px auto;
+    position: relative;
+    padding: 0 10px;
+}
+
+/* pathimagachi line */
+.steps-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 40px;
+    right: 40px;
+    height: 2px;
+    background: #475569;
+    z-index: 1;
+}
+
+/* active line */
+.steps-wrapper::after {
+    content: '';
+    position: absolute;
+    top: 18px;
+    left: 40px;
+    width: 33%;
+    height: 2px;
+    background: #176F8E;
+    z-index: 1;
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    color: #cbd5e1;
+    font-weight: 600;
+    font-size: 0.85rem;
+    position: relative;
+    z-index: 2;
+    width: 100px;
+    text-align: center;
+}
+
+.step .circle {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 2px solid #475569;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    background: #1e293b;
+    color: #cbd5e1;
+}
+
+.step.active { color: #fff; }
+.step.active .circle {
+    background: #176F8E;
+    color: #fff;
+    border-color: #176F8E;
+    box-shadow: 0 0 15px rgba(23, 111, 142, 0.6);
+}
+
+/* FORM CARD - FIXED POSITION BY BLOCKING ALL INTERACTION SHIFTS */
+.reg-card-main {
+    background: #ffffff !important;
+    padding: 30px 35px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important; 
+    border: 1px solid #e2e8f0 !important;
+    max-width: 680px;
+    margin: 0 auto;
+    min-height: 520px; 
+    display: flex;
+    flex-direction: column;
+    transform: translate3d(0, 0, 0) !important; /*強制 स्थिर केले */
+    transition: none !important; 
+    will-change: auto !important;
+}
+.reg-card-main:hover{ 
+    transform: none !important; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid #e2e8f0 !important;
+}
+
+.reg-card-main h4 {
+    font-weight: 700;
+    color: #0f172a;
+    margin-bottom: 8px;
+    font-size: 1.35rem;
+}
+.subtext {
+    color: #64748b;
+    font-size: 0.9rem;
+    margin-bottom: 25px;
+}
+.form-label {
+    font-weight: 600;
+    font-size: 0.85rem;
+    color: #334155;
+    margin-bottom: 6px;
+}
+
+/* INPUT FIX */
+.form-control, .form-select {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    color: #0f172a !important;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 0.9rem;
+    height: 48px; 
+    transform: none !important;
+    transition: border-color 0.15s ease-in-out !important; /* फक्त बॉर्डर रंग बदलेल, साईझ नाही */
+}
+.form-control:focus, .form-select:focus {
+    background-color: #ffffff !important;
+    border-color: #176F8E !important;
+    box-shadow: 0 0 10px rgba(23, 111, 142, 0.2) !important; 
+    color: #0f172a !important;
+    outline: none !important;
+    transform: none !important;
+}
+
+/* ERROR MSG SATHI JAGHA RESERVE */
+.invalid-feedback{
+    min-height: 20px;
+    font-size: 0.8rem;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    filter: invert(0);
+    cursor: pointer;
+}
+
+.gender-group { display: flex; gap: 25px; padding: 6px 0; color: #334155; }
+.form-check-label { color: #334155; }
+.form-check-input:checked { background-color: #176F8E; border-color: #176F8E; }
+
+/* PREMIUM BUTTONS */
+.btn-prev-small {
+    background: #e2e8f0; color: #334155; border: none; padding: 10px 24px;
+    border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+    transform: translate3d(0, 0, 0) !important;
+    transition: background 0.2s ease !important; 
+}
+.btn-prev-small:hover { background: #cbd5e1; transform: none !important; }
+
+.btn-next-small {
+    background: #4f46e5; color: #fff; border: none; padding: 10px 30px;
+    border-radius: 10px; font-weight: 600; font-size: 0.9rem;
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35) !important;
+    transform: translate3d(0, 0, 0) !important;
+    transition: background 0.2s ease !important; 
+}
+.btn-next-small:hover { 
+    background: #4338ca; 
+    transform: none !important; 
+    box-shadow: 0 4px 14px rgba(79, 70, 229, 0.35) !important; 
+} 
+
+/* RIGHT CARD - SIDEBAR */
+.info-sidebar {
+    background: #ffffff; 
+    padding: 28px 24px; 
+    border-radius: 16px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important; 
+    border: 1px solid #e2e8f0 !important;
+    height: auto !important; 
+    max-height: none !important; 
+    padding-bottom: 30px !important;
+    position: sticky; 
+    top: 100px;
+    color: #334155; 
+    margin-left: 20px;
+    min-height: 520px; 
+    transform: translate3d(0, 0, 0) !important; /* GPU लॉक */
+    transition: none !important; 
+}
+.info-sidebar:hover{ 
+    transform: none !important; 
+    box-shadow: 0 8px 30px rgba(0,0,0,0.15) !important; 
+    border: 1px solid #e2e8f0 !important;
+}
+
+.info-sidebar h5 { font-weight: 700; color: #0f172a; margin-bottom: 20px; border-bottom: 1px solid #f1f5f9; padding-bottom: 14px; }
+.info-sidebar ul { list-style: none; padding: 0; }
+.info-sidebar ul li { display: flex; align-items: flex-start; gap: 12px; margin-bottom: 16px; color: #475569; font-size: 0.95rem; min-height: 40px; }
+.info-sidebar ul li i { color: #4f46e5; font-size: 15px; margin-top: 3px; }
+.info-sidebar .security-note { margin-top: 20px; padding-top: 16px; border-top: 1px solid #f1f5f9; display: flex; align-items: center; gap: 10px; font-size: 0.8rem; color: #64748b; }
+
+/* FOOTER */
+.footer-a2z { text-align: center; padding: 25px; background: #020617; color: #64748b; font-size: 0.85rem; margin-top: 60px; }
+.reg-main .container { max-width: 1050px; }
+
+
+
+.form-control-sm{
+    height: 38px;
+    font-size: 0.85rem;
+    padding: 6px 10px;
+}

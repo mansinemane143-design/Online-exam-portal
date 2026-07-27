@@ -1,0 +1,153 @@
+
+{% include "teacher/navbar.html" %}
+
+<link rel="stylesheet" href="/static/teacher/css/exam_shedule.css">
+<script src="/static/teacher/js/exam_shedule.js"></script>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <div class="main-wrappe">
+        <h1 class="page-title  pt-2 ms-3 " style="color: #176F8E;">Exam Schedule</h1>
+
+        <!-- Filter Section -->
+        <div class="filter-box">
+            <div class="filter-item">
+                <label>Select Subject</label>
+                <select><option>All Subjects</option></select>
+            </div>
+            <div class="filter-item">
+                <label>Select Exam</label>
+                <select><option>All Exams</option></select>
+            </div>
+            <div class="filter-item">
+                <label>From Date</label>
+                <input type="date">
+            </div>
+            <div class="filter-item">
+                <label>To Date</label>
+                <input type="date">
+            </div>
+            <button class="btn-filter"><i class="fa-solid fa-filter"></i> Apply Filter</button>
+            <button class="btn-reset"><i class="fa-solid fa-rotate"></i> Reset</button>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="content-grid">
+            <!-- LEFT: TABLE WITH ACTION -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fa-regular fa-calendar"></i> Scheduled Exams</h3>
+                    <button class="btn-add"><i class="fa-solid fa-plus"></i> Schedule New Exam</button>
+                </div>
+                <div class="table-scroll">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Exam Title</th>
+                                <th>Subject</th>
+                                <th>Exam Date</th>
+                                <th>Start Time</th>
+                                <th>End Time</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>MPSC  Exam </td>
+                                <td>Marathi</td>
+                                <td>20 Jul 2026</td>
+                                <td>10:00 AM</td>
+                                <td>11:00 AM</td>
+                                <td class="actions">
+                                    <i class="fa-solid fa-pen"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>UPSC Exam</td>
+                                <td>Disaster Management</td>
+                                <td>22 Jul 2026</td>
+                                <td>02:00 PM</td>
+                                <td>03:00 PM</td>
+                                <td class="actions">
+                                    <i class="fa-solid fa-pen"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Police Bharti</td>
+                                <td>Reasoning</td>
+                                <td>24 Jul 2026</td>
+                                <td>10:00 AM</td>
+                                <td>11:00 AM</td>
+                                <td class="actions">
+                                    <i class="fa-solid fa-pen"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Banking Exam</td>
+                                <td>Quantitative Aptitude</td>
+                                <td>26 Jul 2026</td>
+                                <td>02:00 PM</td>
+                                <td>03:00 PM</td>
+                                <td class="actions">
+                                    <i class="fa-solid fa-pen"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Talathi Bharti</td>
+                                <td>Mathematices & Reasoning</td>
+                                <td>27 Jul 2026</td>
+                                <td>10:00 AM</td>
+                                <td>11:00 AM</td>
+                                <td class="actions">
+                                    <i class="fa-solid fa-pen"></i>
+                                    <i class="fa-regular fa-trash-can"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="table-footer">
+                    <span>SSc Bharti Exam </span>
+                    <div class="pagination">
+                        <button><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="active">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RIGHT: WORKING CALENDAR -->
+            <div class="card">
+                <div class="card-header">
+                    <h3><i class="fa-regular fa-calendar"></i> Exam Calendar</h3>
+                    <button class="btn-today" onclick="goToToday()">Today</button>
+                </div>
+                <div class="cal-nav">
+                    <button onclick="prevMonth()"><i class="fa-solid fa-chevron-left"></i></button>
+                    <span id="monthYear"></span>
+                    <button onclick="nextMonth()"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+                <div class="calendar" id="calendarGrid"></div>
+                <div class="cal-legend">
+                    <span><i class="dot dot-blue"></i> Upcoming</span>
+                    <span><i class="dot dot-green"></i> Ongoing</span>
+                    <span><i class="dot dot-orange"></i> Completed</span>
+                    <span><i class="dot dot-red"></i> Cancelled</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    {% include "teacher/footer.html"%}
