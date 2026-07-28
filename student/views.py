@@ -138,25 +138,35 @@ def delete_notification(request, id):
 # ---------------------------------------------------------------------
 # Registration -> Exam Details -> OTP flow
 # ---------------------------------------------------------------------
+from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+
 def registration(req):
 
     if req.method == "POST":
 
         print("REGISTRATION DATA:", req.POST)
-
         req.session["reg_full_name"] = req.POST.get("full_name")
         req.session["reg_mobile"] = req.POST.get("mobile_number")
         req.session["reg_email"] = req.POST.get("email")
         req.session["reg_age"] = req.POST.get("age")
+        req.session["reg_passowrd"] = req.POST.get("password")
 
+        # Image Upload
+        profile_photo = req.FILES.get("profile_photo")
+
+        if profile_photo:
+            fs = FileSystemStorage()
+            filename = fs.save(profile_photo.name, profile_photo)
+
+            # Session मध्ये फक्त filename save कर
+            req.session["profile_photo"] = filename
 
         print("EMAIL SAVED:", req.session["reg_email"])
-
 
         req.session.modified = True
 
         return redirect("exam_details")
-
 
     return render(req, "student/registration.html")
 
@@ -164,9 +174,7 @@ def registration(req):
 def exam_details(req):
 
     print("SESSION EMAIL BEFORE OTP:", req.session.get("reg_email"))
-
     if req.method == "POST":
-
         req.session["reg_city"] = req.POST.get("city")
         req.session["reg_exam"] = req.POST.get("exam")
         req.session["reg_education"] = req.POST.get("education")
@@ -194,9 +202,7 @@ def exam_details(req):
 
         except Exception as e:
             print("MAIL ERROR:", e)
-
         return redirect("otp")
-
     return render(req, "student/exam_details.html")
 
 # otp = str(random.randint(100000, 999999))
@@ -243,7 +249,6 @@ def otp(req):
                 "error": "OTP Expired. Please resend OTP."
             })
 
-
         # Wrong OTP
         if entered_otp != actual_otp:
 
@@ -262,12 +267,13 @@ def otp(req):
             email=req.session.get("reg_email"),
 
             age=req.session.get("reg_age"),
-
+            password=req.session.get("reg_passowrd"),
             city=req.session.get("reg_city"),
-
             exam=req.session.get("reg_exam"),
-
             education=req.session.get("reg_education"),
+            profile_photo=req.session.get("profile_photo"),
+
+            
 
             is_verified=True,
 
@@ -284,15 +290,14 @@ def otp(req):
             "reg_exam",
             "reg_education",
             "reg_otp",
-            "otp_time"
+            "otp_time",
+            "profile_photo",
+            "reg_passowrd",
 
         ]
 
         for key in keys:
-
             req.session.pop(key, None)
-
-
         return redirect(f"/razopay/?registration_id={registration_obj.id}")
 
 
@@ -396,21 +401,53 @@ def download_receipt(request,Order_ID):
     return response
 
 
-def registration(request):
+# This is my exam page start 
+
+def my_exams(req):
+    data = ad.MyExampage.objects.all().order_by("display_order")
+    instruction =ad.ExamInstruction.objects.last()
+    context={
+        "data":data,
+        "instruction":instruction,
+    }
+    return render(req,"student/my_exams.html",context)
+
+# This is available_exams page start 
+
+def available(req):
+    data = ad.AvailableExam.objects.all().order_by("display_order")
+    instruction =ad.AvailExamInstruction.objects.last()
+    print(data.count())
+    context={
+                "data": data,
+                "instruction": instruction,
+                "total_exam": data.count(),
+                "available_count": data.filter(status="available").count(),
+                "upcoming_count": data.filter(status="upcoming").count(),
+                "closed_count": data.filter(status="closed").count(),
+    }
+
+    return render(req,"student/available_exams.html",context)
+
+
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+# from .models import AvailableExam
+
+@csrf_exempt
+def save_exam_order(request):
 
     if request.method == "POST":
 
-        Student_Registration.objects.create(
+        data = json.loads(request.body)
 
-            full_name=request.POST.get("full_name"),
-            mobile_number=request.POST.get("mobile_number"),
-            email=request.POST.get("email"),
-            password=request.POST.get("password"),
-            age=request.POST.get("age"),
-            profile_photo=request.FILES.get("profile_photo")
+        for item in data:
 
-        )
+            models.AvailableExam.objects.filter(id=item["id"]).update(
+                display_order=item["position"]
+            )
 
-        return redirect("student_list")   # किंवा ज्या page वर redirect करायचे आहे
+        return JsonResponse({"status": "success"})
 
-    return render(request, "student/registration.html")
+    return JsonResponse({"status": "error"})

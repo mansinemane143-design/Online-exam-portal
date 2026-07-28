@@ -27,6 +27,9 @@ urlpatterns = [
     path("download_receipt/<str:Order_ID>/",views.download_receipt,name="download_receipt"),
 
 
+   path('my_exams/',views.my_exams,name="my_exams"),
+    path('available/',views.available,name="available"),
+    path("save_exam_order/", views.save_exam_order, name="save_exam_order"),
 
 
 

@@ -3,6 +3,8 @@ from django.http import HttpResponse
 from .models import Exam
 from . models import Student_Reviews
 from payment import models as py
+from student import models as stu
+
 
 
 
@@ -159,4 +161,203 @@ def student_review_list(req):
     Student_Reviews_data = Student_Reviews.objects.all()
     return render(req,"admin/student_review_list.html",{"Student_Reviews_data":Student_Reviews_data}) \
 
+
+from django.shortcuts import render, redirect, get_object_or_404
+import student.models as stu
+
+def student_registations_list(req):
+    Registration = stu.Registration.objects.all()
+    return render(req,"admin/student_registations_list.html",{"Registration": Registration})
+
+def delete_registration(request, id):
+    student = get_object_or_404(stu.Registration, id=id)
+    if student.profile_photo:
+        student.profile_photo.delete(save=False)
+
+    student.delete()
+
+    return redirect("/admin/student_registations_list/")
+
+
+
+from . import models
+
+from django.contrib import messages
+
+def my_exam(req):
+    data =models.MyExampage.objects.all()
+    return render(req,'admin/my_exam.html',{"data":data})
+
+def save_my_exam(req):
+    data = models.MyExampage(
+            exam_name=req.POST.get("exam_name"),
+            exam_description=req.POST.get("exam_description"),
+            total_questions=req.POST.get("total_questions"),
+            duration=req.POST.get("duration"),
+            marks=req.POST.get("marks"),
+            # exam_instructions = req.POST.get('exam_instructions'),
+            # status=req.POST.get("status"),
+
+    )
+    data.save()
+    messages.success(req, "Exam saved successfully!")
+    return redirect('/admin/my_exam')
+
+def my_exam_list(req):
+    data = models.MyExampage.objects.all()
+    return render(req,'admin/my_exam_list.html',{"data":data})
+
+
+def edit_my_exam(req,id):
+    data= models.MyExampage.objects.get(id=id)
+    return render(req,'admin/update_my_exam.html',{"data":data})
+
+def update_my_exam(req,id):
+    data = models.MyExampage.objects.get(id=id)
+    if req.method =='POST':
+        data.exam_name = req.POST.get('exam_name')
+        data.exam_description = req.POST.get('exam_description')
+        data.total_questions = req.POST.get('total_questions')
+        data.duration = req.POST.get('duration')
+        data.marks = req.POST.get('marks')
+        data.save()
+        messages.success(req, "Exam saved successfully!")
+        return redirect('/admin/my_exam')
+
+def delete_my_exam(req,id):
+    data = models.MyExampage.objects.get(id=id)
+    data.delete()
+    messages.success(req, "Deleted successfully!")
+    return redirect('/admin/my_exam')
+
+
+# instruction 
+def instruction(req):
+    instruction=models.ExamInstruction.objects.all()
+    return render(req, "admin/my_exam_instruction.html", {"instruction": instruction})
+
+
+def save_instruction(req):
+    if req.method == "POST":
+        models.ExamInstruction.objects.create(
+            title=req.POST.get("title"),
+            description=req.POST.get("description")
+        )
+    messages.success(req, "Data saved successfully!")
+    return redirect("/admin/instruction")
+
+def edit_instruction(req,id):
+    instruction = models.ExamInstruction.objects.get(id=id)
+    return render(req,'admin/update_exam_instruction.html',{"instruction":instruction})
+    
+def update_instruction(req,id):
+    instruction = models.ExamInstruction.objects.get(id=id)
+    if req.method =='POST':
+        instruction.title=req.POST.get('title')
+        instruction.description=req.POST.get('description')
+        instruction.save()
+        messages.success(req, "Update Data successfully!")
+
+        return redirect('/admin/instruction')
+
+def delete_instruction(req,id):
+    instruction= models.ExamInstruction.objects.get(id=id)
+    instruction.delete()
+    messages.success(req, "Delete Data successfully!")
+
+    return redirect('/admin/instruction')
+
+# my available page start here 
+
+from django.contrib import messages
+
+
+def available_exam(req):
+    data = models.AvailableExam.objects.all()
+    return render(req,'admin/available_exam.html',{"data":data})
+
+def save_available_exam(req):
+    data = models.AvailableExam(
+            exam_name=req.POST.get("exam_name"),
+            exam_description=req.POST.get("exam_description"),
+            total_questions=req.POST.get("total_questions"),
+            duration=req.POST.get("duration"),
+            marks=req.POST.get("marks"),
+            status=req.POST.get("status"),
+
+    )
+    data.save()
+    messages.success(req, "Exam saved successfully!")
+    return redirect('/admin/available_exam')
+
+def available_list(req):
+        data = models.AvailableExam.objects.all()
+        return render(req,'admin/available_list.html',{"data":data})
+
+def edit_available_exam(req,id):
+    data = models.AvailableExam.objects.get(id=id)
+    return render(req,'admin/update_available_exam.html',{"data":data,})
+
+
+def update_available_exam(req,id):
+    data = models.AvailableExam.objects.get(id=id)
+    if req.method =='POST':
+        data.exam_name=req.POST.get('exam_name')
+        data.exam_description=req.POST.get('exam_description')
+        data.total_questions=req.POST.get('total_questions')
+        data.duration=req.POST.get('duration')
+        data.marks=req.POST.get('marks')
+        # data.exam_instructions=req.POST.get('exam_instructions')
+        data.status=req.POST.get('status')
+        data.save()
+        messages.success(req, " Update Exam successfully!")
+
+        return redirect('/admin/available_exam')
+
+
+def delete_available_exam(req,id):
+    data = models.AvailableExam.objects.get(id=id)
+    data.delete()
+    messages.success(req, " Delete Data successfully!")
+
+    return redirect('/admin/available_exam')
+
+# instruction 
+
+# from .models import ExamInstruction
+
+def available_instruction(req):
+    instruction = models.AvailExamInstruction.objects.all()
+    return render(req, "admin/instruction_available.html", {"instruction": instruction})
+
+
+def available_save_instruction(req):
+    if req.method == "POST":
+        models.AvailExamInstruction.objects.create(
+            title=req.POST.get("title"),
+            description=req.POST.get("description")
+        )
+    messages.success(req, "Data saved successfully!")
+    return redirect("/admin/available_instruction")
+
+def available_edit_instruction(req,id):
+    instruction = models.AvailExamInstruction.objects.get(id=id)
+    return render(req,'admin/update_instruction.html',{"instruction":instruction})
+
+def available_update_instruction(req,id):
+    instruction = models.AvailExamInstruction.objects.get(id=id)
+    if req.method =='POST':
+        instruction.title=req.POST.get('title')
+        instruction.description=req.POST.get('description')
+        instruction.save()
+        messages.success(req, "Update Data successfully!")
+
+        return redirect('/admin/available_instruction')
+
+def available_delete_instruction(req,id):
+    instruction= models.AvailExamInstruction.objects.get(id=id)
+    instruction.delete()
+    messages.success(req, "Delete Data successfully!")
+
+    return redirect('/admin/available_instruction')
 

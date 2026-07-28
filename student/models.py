@@ -17,6 +17,8 @@ class PendingRegistration(models.Model):
     otp = models.CharField(max_length=6)
     created_at = models.DateTimeField(auto_now_add=True)
     is_verified = models.BooleanField(default=False)
+    profile_photo = models.ImageField(upload_to="static/student/images/")
+    profile_photo = models.ImageField(upload_to="student/images/",blank=True,null=True)
 
     def __str__(self):
         return f"{self.email} - {self.otp}"
@@ -88,7 +90,9 @@ class Registration(models.Model):
     mobile_number = models.CharField(max_length=15)
     email = models.EmailField()
     age = models.PositiveIntegerField()
-    profile_photo = models.ImageField(upload_to="profile_photos/", blank=True, null=True)
+    password = models.CharField(max_length=100)
+    profile_photo = models.ImageField(upload_to="static/student/images/")
+    profile_photo = models.ImageField(upload_to="student/images/",blank=True,null=True)
 
     city = models.CharField(max_length=100)
     exam = models.CharField(max_length=50, choices=EXAM_CHOICES)
