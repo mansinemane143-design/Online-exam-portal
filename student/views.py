@@ -46,11 +46,11 @@ def payment_history(req):
 def payment(req):
     return render(req,"student/payment.html")
 
-def available_exams(req):
-    return render(req,"student/available_exams.html")
+# def available_exams(req):
+#     return render(req,"student/available_exams.html")
 
-def my_exams(req):
-    return render(req,"student/my_exams.html")
+# def my_exams(req):
+#     return render(req,"student/my_exams.html")
 
 
 def result(req):
