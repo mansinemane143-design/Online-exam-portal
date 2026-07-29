@@ -361,3 +361,186 @@ def available_delete_instruction(req,id):
 
     return redirect('/admin/available_instruction')
 
+
+
+def Teacher_registrations(req):
+    return render(req,"admin/Teacher_registrations.html")
+
+from django.shortcuts import render, redirect
+from .models import Teacher
+
+def teacher_profile(request):
+    messages.success(request, "Teacher Registrations saved successfully!")
+    if request.method == "POST":
+
+        teacher_full_name = request.POST.get("teacher_full_name")
+        teacher_email = request.POST.get("teacher_email")
+        teacher_password = request.POST.get("teacher_password")
+        teacher_address = request.POST.get("teacher_address")
+        teacher_profile = request.FILES.get("teacher_profile")
+        teacher_gender = request.POST.get("teacher_gender")
+        teacher_dob = request.POST.get("teacher_dob")
+        teacher_link = request.POST.get("teacher_link")
+
+        Teacher.objects.create(
+            teacher_full_name=teacher_full_name,
+            teacher_email=teacher_email,
+            teacher_password=teacher_password,
+            teacher_address=teacher_address,
+            teacher_profile=teacher_profile,
+            teacher_gender=teacher_gender,
+            teacher_dob=teacher_dob,
+            teacher_link=teacher_link
+        )
+
+        return redirect("/admin/Teacher_registrations/")
+
+    return render(request, "teacher/teacher_profile.html")
+
+
+from .models import Teacher
+
+def Teacher_registrations_list(request):
+
+    teachers = Teacher.objects.all().order_by("-id")
+
+    return render(
+        request,"admin/Teacher_registrations_list.html",{"teachers": teachers}
+    )
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+
+def teacher_update(request,id):
+
+    teacher=get_object_or_404(Teacher,id=id)
+
+    if request.method=="POST":
+
+        teacher.teacher_full_name=request.POST.get("teacher_full_name")
+        teacher.teacher_email=request.POST.get("teacher_email")
+        teacher.teacher_password=request.POST.get("teacher_password")
+        teacher.teacher_gender=request.POST.get("teacher_gender")
+        teacher.teacher_dob=request.POST.get("teacher_dob")
+        teacher.teacher_address=request.POST.get("teacher_address")
+        teacher.teacher_link=request.POST.get("teacher_link")
+
+        if request.FILES.get("teacher_profile"):
+            if teacher.teacher_profile:
+                teacher.teacher_profile.delete(save=False)
+
+            teacher.teacher_profile=request.FILES.get("teacher_profile")
+
+        teacher.save()
+
+        return redirect("/admin/Teacher_registrations_list/")
+
+    return render(request,"admin/teacher_update.html",{"teacher":teacher})
+
+def teacher_delete(request, id):
+
+    teacher = get_object_or_404(Teacher, id=id)
+
+    if teacher.teacher_profile:
+        teacher.teacher_profile.delete(save=False)
+
+    teacher.delete()
+
+    return redirect("/admin/Teacher_registrations_list/")
+
+
+def Add_Academy(req):
+    return render(req,"admin/Add_Academy.html")
+
+
+from .models import Academy
+
+
+def add_academy(request):
+    if request.method == "POST":
+
+        academy_name = request.POST.get("academy_name")
+        owner_name = request.POST.get("owner_name")
+        email = request.POST.get("email")
+        mobile = request.POST.get("mobile")
+        address = request.POST.get("address")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        pincode = request.POST.get("pincode")
+        website = request.POST.get("website")
+        status = request.POST.get("status")
+        description = request.POST.get("description")
+
+        academy_logo = request.FILES.get("academy_logo")
+        academy_banner = request.FILES.get("academy_banner")
+
+        Academy.objects.create(
+            academy_name=academy_name,
+            owner_name=owner_name,
+            email=email,
+            mobile=mobile,
+            address=address,
+            city=city,
+            state=state,
+            pincode=pincode,
+            academy_logo=academy_logo,
+            academy_banner=academy_banner,
+            website=website,
+            status=status,
+            description=description,
+        )
+
+        return redirect("/admin/add_academy/")   # किंवा list page
+
+    return render(request, "admin/add_academy.html")
+
+
+from django.shortcuts import render, redirect, get_object_or_404
+from .models import Academy
+
+def academy_list(request):
+    academy = Academy.objects.all().order_by("-id")
+    return render(request, "admin/academy_list.html", {"academy": academy})
+
+
+def update_academy(request, id):
+    academy = get_object_or_404(Academy, id=id)
+
+    if request.method == "POST":
+        academy.academy_name = request.POST.get("academy_name")
+        academy.owner_name = request.POST.get("owner_name")
+        academy.email = request.POST.get("email")
+        academy.mobile = request.POST.get("mobile")
+        academy.address = request.POST.get("address")
+        academy.city = request.POST.get("city")
+        academy.state = request.POST.get("state")
+        academy.pincode = request.POST.get("pincode")
+        academy.website = request.POST.get("website")
+        academy.status = request.POST.get("status")
+        academy.description = request.POST.get("description")
+
+        if request.FILES.get("academy_logo"):
+            academy.academy_logo = request.FILES.get("academy_logo")
+
+        if request.FILES.get("academy_banner"):
+            academy.academy_banner = request.FILES.get("academy_banner")
+
+        academy.save()
+
+        return redirect("academy_list")
+
+    return render(request, "admin/update_academy.html", {"academy": academy})
+
+
+def delete_academy(request, id):
+    academy = get_object_or_404(Academy, id=id)
+
+    if academy.academy_logo:
+        academy.academy_logo.delete(save=False)
+
+    if academy.academy_banner:
+        academy.academy_banner.delete(save=False)
+
+    academy.delete()
+
+    return redirect("academy_list")

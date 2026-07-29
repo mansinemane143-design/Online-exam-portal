@@ -1,0 +1,412 @@
+{% include 'admin/navbar.html' %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Academy List</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<style>
+
+body{
+    background:#f4f7fc;
+    font-family:'Poppins',sans-serif;
+}
+
+.card{
+    margin:30px auto;
+    border:none;
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+}
+
+.card-header{
+    background:#166f8d;
+    color:#fff;
+    padding:18px;
+}
+
+.table th{
+    background:#212529;
+    color:#fff;
+    text-align:center;
+    vertical-align:middle;
+}
+
+.table td{
+    text-align:center;
+    vertical-align:middle;
+}
+
+.table tbody tr:hover{
+    background:#eef5ff;
+}
+
+.logo-img,
+.banner-img{
+    width:80px;
+    height:60px;
+    object-fit:cover;
+    border-radius:8px;
+    border:2px solid #166f8d;
+}
+
+.action-btn{
+    font-size:20px;
+    text-decoration:none;
+    margin:0 5px;
+}
+
+.action-btn:hover{
+    transform:scale(1.1);
+    transition:.3s;
+}
+
+.no-print{
+    display:inline-block;
+}
+
+@media print{
+
+.no-print{
+display:none!important;
+}
+
+.card{
+box-shadow:none;
+border:none;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container-fluid">
+
+<div class="card">
+
+<div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+
+<h4 class="mb-0">
+
+<i class="bi bi-buildings-fill"></i>
+
+Academy List
+
+</h4>
+
+<div class="d-flex align-items-center gap-2">
+
+<span class="badge bg-warning text-dark fs-6">
+
+Total Academy :
+{{ academy|length }}
+
+</span>
+
+<button onclick="printTable()" class="btn btn-light btn-sm no-print">
+
+<i class="bi bi-printer"></i>
+
+Print
+
+</button>
+
+<button onclick="downloadPDF()" class="btn btn-danger btn-sm no-print">
+
+<i class="bi bi-file-earmark-pdf"></i>
+
+PDF
+
+</button>
+
+<button onclick="downloadExcel()" class="btn btn-success btn-sm no-print">
+
+<i class="bi bi-file-earmark-excel"></i>
+
+Excel
+
+</button>
+
+</div>
+
+</div>
+
+<div class="card-body">
+
+<div class="row mb-3">
+
+<div class="col-md-4">
+
+<div class="input-group">
+
+<span class="input-group-text">
+<i class="bi bi-search"></i>
+</span>
+
+<input
+type="text"
+id="searchAcademy"
+class="form-control"
+placeholder="Search Academy Name..."
+onkeyup="searchAcademy()">
+
+</div>
+
+</div>
+
+</div>
+
+<div class="table-responsive">
+
+<table class="table table-bordered table-hover" id="academyTable">
+
+<thead>
+
+<tr>
+
+<th>ID</th>
+<th>Logo</th>
+<th>Banner</th>
+<th>Academy Name</th>
+<th>Owner</th>
+<th>Email</th>
+<th>Mobile</th>
+<th>City</th>
+<th>State</th>
+<th>Status</th>
+<th class="no-print">Action</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+{% for i in academy %}
+
+<tr>
+
+    <td>{{ forloop.counter }}</td>
+
+    <td>
+        {% if i.academy_logo %}
+            <img src="{{ i.academy_logo.url }}" class="logo-img" alt="Logo">
+        {% else %}
+            <img src="https://via.placeholder.com/80x60" class="logo-img" alt="No Logo">
+        {% endif %}
+    </td>
+
+    <td>
+        {% if i.academy_banner %}
+            <img src="{{ i.academy_banner.url }}" class="banner-img" alt="Banner">
+        {% else %}
+            <img src="https://via.placeholder.com/80x60" class="banner-img" alt="No Banner">
+        {% endif %}
+    </td>
+
+    <td>{{ i.academy_name }}</td>
+
+    <td>{{ i.owner_name }}</td>
+
+    <td>{{ i.email }}</td>
+
+    <td>{{ i.mobile }}</td>
+
+    <td>{{ i.city }}</td>
+
+    <td>{{ i.state }}</td>
+
+    <td>
+        {% if i.status == "Active" %}
+            <span class="badge bg-success">
+                {{ i.status }}
+            </span>
+        {% else %}
+            <span class="badge bg-danger">
+                {{ i.status }}
+            </span>
+        {% endif %}
+    </td>
+
+    <td class="no-print">
+
+        <a href="{% url 'update_academy' i.id %}"
+           class="btn btn-warning btn-sm"
+           title="Update">
+
+            <i class="bi bi-pencil-square"></i>
+
+        </a>
+
+        <a href="{% url 'delete_academy' i.id %}"
+           class="btn btn-danger btn-sm"
+           title="Delete"
+           onclick="return confirm('Delete Academy ?')">
+
+            <i class="bi bi-trash-fill"></i>
+
+        </a>
+
+    </td>
+
+</tr>
+
+{% empty %}
+
+<tr>
+
+    <td colspan="11" class="text-center text-danger fw-bold">
+
+        No Academy Found
+
+    </td>
+
+</tr>
+
+{% endfor %}
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- ================= Excel Library ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- ================= jsPDF ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- ================= jsPDF AutoTable ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+
+// ======================
+// Search Academy
+// ======================
+
+function searchAcademy(){
+
+    let input = document.getElementById("searchAcademy").value.toUpperCase();
+
+    let table = document.getElementById("academyTable");
+
+    let tr = table.getElementsByTagName("tr");
+
+    for(let i = 1; i < tr.length; i++){
+
+        let td = tr[i].getElementsByTagName("td")[3];
+
+        if(td){
+
+            let txtValue = td.textContent || td.innerText;
+
+            if(txtValue.toUpperCase().indexOf(input) > -1){
+
+                tr[i].style.display = "";
+
+            }else{
+
+                tr[i].style.display = "none";
+
+            }
+
+        }
+
+    }
+
+}
+
+// ======================
+// Print
+// ======================
+
+function printTable(){
+
+    window.print();
+
+}
+
+// ======================
+// Excel Download
+// ======================
+
+function downloadExcel(){
+
+    var table = document.getElementById("academyTable");
+
+    var workbook = XLSX.utils.table_to_book(table,{
+        sheet:"Academy List"
+    });
+
+    XLSX.writeFile(workbook,"Academy_List.xlsx");
+
+}
+
+// ======================
+// PDF Download
+// ======================
+
+function downloadPDF(){
+
+    const { jsPDF } = window.jspdf;
+
+    const doc = new jsPDF("l","mm","a4");
+
+    doc.setFontSize(18);
+
+    doc.text("Academy List",14,15);
+
+    doc.autoTable({
+
+        html:"#academyTable",
+
+        startY:22,
+
+        theme:"grid",
+
+        styles:{
+            fontSize:8,
+            halign:"center",
+            valign:"middle"
+        },
+
+        headStyles:{
+            fillColor:[22,111,141],
+            textColor:[255,255,255]
+        },
+
+        alternateRowStyles:{
+            fillColor:[245,245,245]
+        }
+
+    });
+
+    doc.save("Academy_List.pdf");
+
+}
+
+</script>
+
+</body>
+</html>
+
+{% include 'admin/footer.html' %}

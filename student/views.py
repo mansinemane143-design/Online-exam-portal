@@ -19,12 +19,12 @@ def home(req):
     exams = ad.Exam.objects.all()
     Student_Reviews_data = ad.Student_Reviews.objects.all()[:3]
 
-   
+
 
     obj = {
         "Student_Reviews_data":Student_Reviews_data,
         "exams":exams,
-  
+
     }
     # return HttpResponse("Your Home student")
     return render(req,"student/home.html",obj)
@@ -62,9 +62,6 @@ def notifications(req):
 def help_support(req):
     return render(req,"student/help_support.html")
 
-def registration(req):
-    return render(req,"student/registration.html")
-
 
 def exam_details(req):
     return render(req,"student/exam_details.html")
@@ -76,7 +73,7 @@ def otp(req):
 
 def login(req):
     return render(req,"student/login.html")
-    
+
 
 # def student_login(req):
 #     if req.method == "POST":
@@ -99,7 +96,7 @@ def login(req):
 
 def logout(req):
     req.session.clear()
-    req.session.flush() 
+    req.session.flush()
     return redirect('/login/')
 
 
@@ -129,17 +126,14 @@ def mark_notification_read(request, id):
     return redirect('notifications')
 
 
+from django.shortcuts import get_object_or_404, redirect
+from .models import Notification
+
 def delete_notification(request, id):
     notification = get_object_or_404(Notification, id=id)
     notification.delete()
     return redirect('notifications')
 
-
-# ---------------------------------------------------------------------
-# Registration -> Exam Details -> OTP flow
-# ---------------------------------------------------------------------
-from django.shortcuts import render, redirect
-from django.core.files.storage import FileSystemStorage
 
 def registration(req):
 
@@ -152,23 +146,32 @@ def registration(req):
         req.session["reg_age"] = req.POST.get("age")
         req.session["reg_passowrd"] = req.POST.get("password")
 
+        # पुरानी इमेज को सेशन से हटा दें
+        req.session.pop("profile_photo", None)
+
         # Image Upload
         profile_photo = req.FILES.get("profile_photo")
 
         if profile_photo:
-            fs = FileSystemStorage()
+            from django.conf import settings
+            import os
+
+            # सही जगह इमेज सेव करने का कोड
+            save_path = os.path.join(settings.MEDIA_ROOT, 'static/images/student/registration/')
+            fs = FileSystemStorage(location=save_path)
             filename = fs.save(profile_photo.name, profile_photo)
 
-            # Session मध्ये फक्त filename save कर
-            req.session["profile_photo"] = filename
+            req.session["profile_photo"] = "static/images/student/registration/" + filename
 
         print("EMAIL SAVED:", req.session["reg_email"])
-
         req.session.modified = True
-
         return redirect("exam_details")
 
     return render(req, "student/registration.html")
+# ---------------------------------------------------------------------
+from django.shortcuts import render, redirect
+from django.core.files.storage import FileSystemStorage
+
 
 
 def exam_details(req):
@@ -273,7 +276,7 @@ def otp(req):
             education=req.session.get("reg_education"),
             profile_photo=req.session.get("profile_photo"),
 
-            
+
 
             is_verified=True,
 
@@ -401,7 +404,7 @@ def download_receipt(request,Order_ID):
     return response
 
 
-# This is my exam page start 
+# This is my exam page start
 
 def my_exams(req):
     data = ad.MyExampage.objects.all().order_by("display_order")
@@ -412,7 +415,7 @@ def my_exams(req):
     }
     return render(req,"student/my_exams.html",context)
 
-# This is available_exams page start 
+# This is available_exams page start
 
 def available(req):
     data = ad.AvailableExam.objects.all().order_by("display_order")
@@ -444,7 +447,7 @@ def save_exam_order(request):
 
         for item in data:
 
-            models.AvailableExam.objects.filter(id=item["id"]).update(
+            ad.AvailableExam.objects.filter(id=item["id"]).update(
                 display_order=item["position"]
             )
 

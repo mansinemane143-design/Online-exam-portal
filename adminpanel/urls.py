@@ -53,5 +53,20 @@ path("delete_registration/<int:id>/",views.delete_registration,name="delete_regi
 
 
 
+    path('Teacher_registrations/',views.Teacher_registrations, name='Teacher_registrations'),
+    path('teacher_profile/',views.teacher_profile, name='teacher_profile'),
+
+path('Teacher_registrations_list/',views.Teacher_registrations_list, name='Teacher_registrations_list'),
+
+path("teacher_update/<int:id>/",views.teacher_update,name="teacher_update"),
+
+path("teacher_delete/<int:id>/",views.teacher_delete,name="teacher_delete"),
+
+path('Add_Academy/',views.Add_Academy, name='Add_Academy'),
+path("academy_list/", views.academy_list, name="academy_list"),
+path("add_academy/", views.add_academy, name="add_academy"),
+path("update_academy/<int:id>/", views.update_academy, name="update_academy"),
+path("delete_academy/<int:id>/", views.delete_academy, name="delete_academy"),
+
 
 ]

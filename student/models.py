@@ -17,8 +17,8 @@ class PendingRegistration(models.Model):
     otp = models.CharField(max_length=6)
     created_at = models.DateTimeField(auto_now_add=True)
     is_verified = models.BooleanField(default=False)
-    profile_photo = models.ImageField(upload_to="static/student/images/")
-    profile_photo = models.ImageField(upload_to="student/images/",blank=True,null=True)
+    profile_photo = models.ImageField(upload_to="static/images/student/registration/")
+    profile_photo = models.ImageField(upload_to="static/images/student/registration/",blank=True,null=True)
 
     def __str__(self):
         return f"{self.email} - {self.otp}"
@@ -48,7 +48,7 @@ class Notification(models.Model):
 
     def __str__(self):
         return self.title
-    
+
 
 # from django.db import models
 
@@ -91,8 +91,8 @@ class Registration(models.Model):
     email = models.EmailField()
     age = models.PositiveIntegerField()
     password = models.CharField(max_length=100)
-    profile_photo = models.ImageField(upload_to="static/student/images/")
-    profile_photo = models.ImageField(upload_to="student/images/",blank=True,null=True)
+    profile_photo = models.ImageField(upload_to="static/images/student/registration/")
+    profile_photo = models.ImageField(upload_to="static/images/student/registration/",blank=True,null=True)
 
     city = models.CharField(max_length=100)
     exam = models.CharField(max_length=50, choices=EXAM_CHOICES)
@@ -113,5 +113,17 @@ class Registration(models.Model):
 
 
 
+# Available exam
+CATEGORY_CHOICES = (
+    ('UPSC', 'UPSC'),
+    ('MPSC', 'MPSC'),
+    ('TALATHI', 'TALATHI'),
+    ('GRAMSEVAK', 'GRAMSEVAK'),
+    ('VANRAKSHAK', 'VANRAKSHAK'),
+)
 
-
+category = models.CharField(
+    max_length=20,
+    choices=CATEGORY_CHOICES,
+    default='MPSC'
+)

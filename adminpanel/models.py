@@ -33,7 +33,7 @@ class Student_Reviews(models.Model):
 
 
 
-# my exam page start here 
+# my exam page start here
 
 class MyExampage(models.Model):
 
@@ -44,7 +44,7 @@ class MyExampage(models.Model):
     duration = models.CharField(max_length=50)
     marks = models.CharField(max_length=50)
     exam_instructions= models.TextField(blank=True, null=True)
-   
+
     display_order = models.PositiveIntegerField(default=0)
 
     class Meta:
@@ -54,7 +54,7 @@ class ExamInstruction(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
 
-# Available exam page start here 
+# Available exam page start here
 
 class AvailableExam(models.Model):
     STATUS_CHOICES = (
@@ -83,3 +83,48 @@ class AvailableExam(models.Model):
 class AvailExamInstruction(models.Model):
     title = models.CharField(max_length=100)
     description = models.TextField()
+
+
+class Teacher(models.Model):
+
+    GENDER_CHOICES = (
+        ('Male', 'Male'),
+        ('Female', 'Female'),
+        ('Other', 'Other'),
+    )
+
+    teacher_full_name = models.CharField(max_length=200)
+    teacher_email = models.EmailField(unique=True)
+    teacher_password = models.CharField(max_length=255)
+    teacher_address = models.TextField()
+    teacher_profile = models.ImageField(upload_to="static/images/teacher/images/")
+    teacher_gender = models.CharField(max_length=10, choices=GENDER_CHOICES)
+    teacher_dob = models.DateField()
+    teacher_link = models.URLField(blank=True, null=True)
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.teacher_full_name
+
+
+class Academy(models.Model):
+    academy_name = models.CharField(max_length=200)
+    owner_name = models.CharField(max_length=200)
+    email = models.EmailField()
+    mobile = models.CharField(max_length=10)
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=10)
+
+    academy_logo = models.ImageField(upload_to="static/images/academy/logo/", blank=True, null=True)
+    academy_banner = models.ImageField(upload_to="static/images/academy/banner/", blank=True, null=True)
+
+    website = models.URLField(blank=True, null=True)
+    status = models.CharField(max_length=20, default="Active")
+    description = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.academy_name

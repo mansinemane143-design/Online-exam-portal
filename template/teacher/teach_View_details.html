@@ -1,131 +1,433 @@
 {% include "teacher/navbar.html"%}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Student List</title>
 
-<link rel="stylesheet" href="/static/teacher/css/teach_View_details.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
-<div class="container">
+<style>
 
-    <div class="heading">
+body{
+    background:#eef3fb;
+    font-family:Arial,Helvetica,sans-serif;
+}
 
-        <h1>Police Bharti - Student List</h1>
+.container-box{
+    width:95%;
+    margin:30px auto;
+}
 
-    </div>
+.heading{
+    font-size:30px;
+    font-weight:700;
+    color:#0d5b78;
+    margin-bottom:30px;
+}
 
-    <!-- Summary Cards -->
-    <div class="row g-3 mb-3">
-      <div class="col-6 col-lg-4 pt-4">
-        <div class="stat-card pt-4">
-          <div class="stat-icon blue"><i class="fa-solid fa-users"></i>   </div>
-          <div>
-            <div class="stat-value">5</div>
-            <div class="stat-label">Total Student</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-4 pt-4">
-        <div class="stat-card pt-4">
-          <div class="stat-icon green"><i class="fa-solid fa-check"></i> </i></div>
-          <div>
-            <div class="stat-value">100</div>
-            <div class="stat-label">Total Pass</div>
-          </div>
-        </div>
-      </div>
-      <div class="col-6 col-lg-4 pt-4">
-        <div class="stat-card pt-4">
-          <div class="stat-icon orange"><i class="fa-solid fa-circle-xmark"></i></div>
-          <div>
-            <div class="stat-value">2</div>
-            <div class="stat-label">Total Failed</div>
-          </div>
-        </div>
-      </div>
- 
+.dashboard-card{
+    background:#dfeffc;
+    border-radius:15px;
+    padding:18px;
+    display:flex;
+    align-items:center;
+    gap:15px;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+    transition:.3s;
+}
 
+.dashboard-card:hover{
+    transform:translateY(-3px);
+}
 
-    <!-- Search -->
+.icon-circle{
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:#fff;
+    font-size:28px;
+}
 
-    <div class="search-box">
+.bg-blue{
+    background:#2563eb;
+}
 
-        <input
-        type="text"
-        id="search"
-        placeholder="Search Student...">
+.bg-green{
+    background:#22c55e;
+}
 
-    </div>
+.bg-red{
+    background:#ef4444;
+}
 
-    <!-- Table -->
+.card-number{
+    font-size:32px;
+    font-weight:bold;
+    line-height:1;
+}
 
-    <div class="table-box">
+.card-title{
+    color:#666;
+    font-size:16px;
+}
 
-        <table>
+.search-box{
+    width:350px;
+    margin-top:30px;
+    margin-bottom:25px;
+}
 
-            <thead>
+.search-box input{
+    border-radius:10px;
+    height:45px;
+}
 
-                <tr>
+.table-card{
+    background:#fff;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 8px 20px rgba(0,0,0,.12);
+}
 
-                    <th>SR</th>
+.table thead{
+    background:#0d607d;
+    color:#fff;
+}
 
-                    <th>Roll No</th>
+.table th,
+.table td{
+    text-align:center;
+    vertical-align:middle;
+    padding:16px;
+}
 
-                    <th>Student Name</th>
+.pass{
+    color:#16a34a;
+    font-weight:600;
+}
 
-                    <th>Marks</th>
+.fail{
+    color:#dc2626;
+    font-weight:600;
+}
 
-                    <th>Result</th>
+.btn-view{
+    background:#2563eb;
+    color:#fff;
+}
 
-                    <th>Action</th>
+.btn-delete{
+    background:#dc2626;
+    color:#fff;
+}
 
-                </tr>
+.btn-view:hover,
+.btn-delete:hover{
+    color:#fff;
+}
 
-            </thead>
+@media(max-width:768px){
 
-            <tbody id="studentTable">
+.heading{
+    font-size:24px;
+}
 
-            </tbody>
+.dashboard-card{
+    margin-bottom:15px;
+}
 
-        </table>
+.search-box{
+    width:100%;
+}
 
-    </div>
+.table{
+    font-size:14px;
+}
+
+.btn-view,
+.btn-delete{
+    margin-bottom:5px;
+}
+
+}
+</style>
+
+</head>
+
+<body>
+
+<div class="container-box">
+
+<h2 class="heading">
+Police Bharti - Student List
+</h2>
+
+<div class="row g-4">
+
+<div class="col-lg-4">
+
+<div class="dashboard-card">
+
+<div class="icon-circle bg-blue">
+<i class="bi bi-people-fill"></i>
+</div>
+
+<div>
+
+<div class="card-number">5</div>
+
+<div class="card-title">
+Total Students
+</div>
 
 </div>
 
-<!-- Delete Popup -->
-
-<div class="popup" id="popup">
-
-    <div class="popup-box">
-
-        <h2>Delete Student</h2>
-
-        <p>Are you sure you want to delete this student?</p>
-
-        <div class="btn-group">
-
-            <button class="cancel"
-            onclick="closePopup()">
-
-                Cancel
-
-            </button>
-
-            <button class="delete"
-            onclick="deleteStudent()">
-
-                Delete
-
-            </button>
-
-        </div>
-
-    </div>
+</div>
 
 </div>
 
-<script src="/static/teacher/js/teach_View_details.js"></script>
+<div class="col-lg-4">
 
+<div class="dashboard-card">
 
+<div class="icon-circle bg-green">
+<i class="bi bi-check-circle-fill"></i>
+</div>
 
+<div>
+
+<div class="card-number">3</div>
+
+<div class="card-title">
+Passed Students
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="col-lg-4">
+
+<div class="dashboard-card">
+
+<div class="icon-circle bg-red">
+<i class="bi bi-x-circle-fill"></i>
+</div>
+
+<div>
+
+<div class="card-number">2</div>
+
+<div class="card-title">
+Failed Students
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+<div class="search-box">
+
+<input type="text"
+class="form-control"
+placeholder="Search Student..."
+id="search">
+
+</div>
+
+<div class="table-card">
+
+<table class="table table-hover mb-0">
+
+<thead>
+
+<tr>
+
+<th>SR</th>
+
+<th>Student Name</th>
+
+<th>Marks</th>
+
+<th>Result</th>
+
+<th>Action</th>
+
+</tr>
+
+</thead>
+
+<tbody id="studentTable">
+
+<tr>
+
+<td>1</td>
+
+<td>Rahul Sharma</td>
+
+<td>85</td>
+
+<td class="pass">Pass</td>
+
+<td>
+
+<button class="btn btn-view btn-sm">
+<i class="bi bi-eye-fill"></i> View
+</button>
+
+<button class="btn btn-delete btn-sm">
+<i class="bi bi-trash-fill"></i> Delete
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>2</td>
+
+<td>Rohit Patil</td>
+
+<td>40</td>
+
+<td class="fail">Fail</td>
+
+<td>
+
+<button class="btn btn-view btn-sm">
+<i class="bi bi-eye-fill"></i> View
+</button>
+
+<button class="btn btn-delete btn-sm">
+<i class="bi bi-trash-fill"></i> Delete
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>3</td>
+
+<td>Amit Jadhav</td>
+
+<td>76</td>
+
+<td class="pass">Pass</td>
+
+<td>
+
+<button class="btn btn-view btn-sm">
+<i class="bi bi-eye-fill"></i> View
+</button>
+
+<button class="btn btn-delete btn-sm">
+<i class="bi bi-trash-fill"></i> Delete
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>4</td>
+
+<td>Sneha Pawar</td>
+
+<td>92</td>
+
+<td class="pass">Pass</td>
+
+<td>
+
+<button class="btn btn-view btn-sm">
+<i class="bi bi-eye-fill"></i> View
+</button>
+
+<button class="btn btn-delete btn-sm">
+<i class="bi bi-trash-fill"></i> Delete
+</button>
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>5</td>
+
+<td>Pooja Kale</td>
+
+<td>32</td>
+
+<td class="fail">Fail</td>
+
+<td>
+
+<button class="btn btn-view btn-sm">
+<i class="bi bi-eye-fill"></i> View
+</button>
+
+<button class="btn btn-delete btn-sm">
+<i class="bi bi-trash-fill"></i> Delete
+</button>
+
+</td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+<script>
+
+// Search Function
+
+document.getElementById("search").addEventListener("keyup", function () {
+
+    let value = this.value.toLowerCase();
+
+    let rows = document.querySelectorAll("#studentTable tr");
+
+    rows.forEach(function(row){
+
+        row.style.display =
+        row.innerText.toLowerCase().includes(value)
+        ? ""
+        : "none";
+
+    });
+
+});
+
+</script>
+
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
 {% include "teacher/footer.html"%}

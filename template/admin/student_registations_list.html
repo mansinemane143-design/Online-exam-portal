@@ -1,7 +1,8 @@
-{% include "admin/navbar.html" %}
+{% include 'admin/navbar.html' %}
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
 
 <meta charset="UTF-8">
@@ -11,29 +12,32 @@
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<link rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
 <style>
 
 body{
     background:#f4f7fc;
+    font-family:'Poppins',sans-serif;
 }
 
 .card{
+    margin:30px auto;
     border:none;
-    border-radius:15px;
-    box-shadow:0 5px 20px rgba(0,0,0,.1);
+    border-radius:18px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
 }
 
 .card-header{
-    background:#0d6efd;
+    background:#166f8d;
     color:#fff;
-    font-size:22px;
-    font-weight:bold;
-    padding:15px;
+    padding:18px;
 }
 
 .table th{
-    background:#0d6efd;
-    color:white;
+    background:#212529;
+    color:#fff;
     text-align:center;
     vertical-align:middle;
 }
@@ -52,14 +56,41 @@ body{
     height:70px;
     border-radius:50%;
     object-fit:cover;
-    border:2px solid #0d6efd;
+    border:2px solid #166f8d;
 }
 
 .password{
     background:#198754;
-    color:white;
-    padding:6px 12px;
+    color:#fff;
+    padding:5px 12px;
     border-radius:20px;
+    font-size:13px;
+}
+
+.action-btn{
+    font-size:20px;
+    text-decoration:none;
+}
+
+.action-btn:hover{
+    transform:scale(1.1);
+}
+
+.no-print{
+    display:inline-block;
+}
+
+@media print{
+
+.no-print{
+display:none!important;
+}
+
+.card{
+box-shadow:none;
+border:none;
+}
+
 }
 
 </style>
@@ -68,37 +99,118 @@ body{
 
 <body>
 
-<div class="container-fluid mt-4">
+<div class="container-fluid">
 
 <div class="card">
 
-<div class="card-header">
+<div class="card-header d-flex justify-content-between align-items-center flex-wrap">
+
+<h4 class="mb-0">
+
+<i class="bi bi-people-fill"></i>
 
 Student Registration List
+
+</h4>
+
+<div class="d-flex align-items-center gap-2">
+
+<span class="badge bg-warning text-dark fs-6">
+
+Total Students :
+{{ Registration|length }}
+
+</span>
+
+<button onclick="printTable()"
+class="btn btn-light btn-sm no-print">
+
+<i class="bi bi-printer"></i>
+
+Print
+
+</button>
+
+<button onclick="downloadPDF()"
+class="btn btn-danger btn-sm no-print">
+
+<i class="bi bi-file-earmark-pdf"></i>
+
+PDF
+
+</button>
+
+<button onclick="downloadExcel()"
+class="btn btn-success btn-sm no-print">
+
+<i class="bi bi-file-earmark-excel"></i>
+
+Excel
+
+</button>
+
+</div>
 
 </div>
 
 <div class="card-body">
 
+<div class="row mb-3">
+
+<div class="col-md-4">
+
+<div class="input-group">
+
+<span class="input-group-text">
+
+<i class="bi bi-search"></i>
+
+</span>
+
+<input
+type="text"
+id="searchStudent"
+class="form-control"
+placeholder="Search Student Name..."
+onkeyup="searchStudent()">
+
+</div>
+
+</div>
+
+</div>
+
 <div class="table-responsive">
 
-<table class="table table-bordered table-hover">
+<table
+class="table table-bordered table-hover"
+id="studentTable">
 
 <thead>
 
 <tr>
 
 <th>ID</th>
+
 <th>Photo</th>
+
 <th>Full Name</th>
+
 <th>Mobile</th>
+
 <th>Email</th>
+
 <th>Age</th>
+
 <th>City</th>
+
 <th>Exam</th>
+
 <th>Education</th>
+
 <th>Password</th>
-<th>Action</th>
+
+<th class="no-print">Action</th>
 
 </tr>
 
@@ -107,52 +219,50 @@ Student Registration List
 <tbody>
 
 {% for i in Registration %}
+
 <tr>
-<td>{{ forloop.counter }}</td>
-<td>
 
+    <td>{{ forloop.counter }}</td>
 
-<img src="{{ i.profile_photo}}" alt="Photo">
+    <td>
+        {% if i.profile_photo %}
+            <img src="{{ i.profile_photo.url }}" class="profile-img" alt="Student">
+        {% else %}
+            <img src="https://via.placeholder.com/70" class="profile-img" alt="No Image">
+        {% endif %}
+    </td>
 
+    <td>{{ i.full_name }}</td>
 
+    <td>{{ i.mobile_number }}</td>
 
-</td>
+    <td>{{ i.email }}</td>
 
-<td>{{ i.full_name }}</td>
+    <td>{{ i.age }}</td>
 
-<td>{{ i.mobile_number }}</td>
+    <td>{{ i.city }}</td>
 
-<td>{{ i.email }}</td>
+    <td>{{ i.exam }}</td>
 
-<td>{{ i.age }}</td>
+    <td>{{ i.education }}</td>
 
-<td>{{ i.city }}</td>
+    <td>
+        <span class="password">
+            {{ i.password }}
+        </span>
+    </td>
 
-<td>{{ i.exam }}</td>
+    <td class="no-print">
 
-<td>{{ i.education }}</td>
+        <a href="{% url 'delete_registration' i.id %}"
+           class="btn btn-danger btn-sm"
+           onclick="return confirm('Delete Student ?')">
 
-<td>
+            <i class="bi bi-trash-fill"></i>
 
-<span class="password">
+        </a>
 
-{{ i.password }}
-
-</span>
-
-</td>
-
-<td>
-
-<a href="{% url 'delete_registration' i.id %}"
-class="btn btn-danger btn-sm"
-onclick="return confirm('Delete this record?')">
-
-Delete
-
-</a>
-
-</td>
+    </td>
 
 </tr>
 
@@ -160,11 +270,11 @@ Delete
 
 <tr>
 
-<td colspan="11" class="text-center text-danger">
+    <td colspan="11" class="text-center text-danger fw-bold">
 
-No Student Registration Found
+        No Student Registration Found
 
-</td>
+    </td>
 
 </tr>
 
@@ -181,9 +291,125 @@ No Student Registration Found
 </div>
 
 </div>
+<!-- ================= Excel Library ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
+<!-- ================= jsPDF ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<!-- ================= jsPDF AutoTable ================= -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.31/jspdf.plugin.autotable.min.js"></script>
+
+<script>
+
+// ======================
+// Search Student
+// ======================
+
+function searchStudent(){
+
+    let input = document.getElementById("searchStudent").value.toUpperCase();
+
+    let table = document.getElementById("studentTable");
+
+    let tr = table.getElementsByTagName("tr");
+
+    for(let i=1;i<tr.length;i++){
+
+        let td = tr[i].getElementsByTagName("td")[2];
+
+        if(td){
+
+            let txtValue = td.textContent || td.innerText;
+
+            if(txtValue.toUpperCase().indexOf(input)>-1){
+
+                tr[i].style.display="";
+
+            }else{
+
+                tr[i].style.display="none";
+
+            }
+
+        }
+
+    }
+
+}
+
+// ======================
+// Print
+// ======================
+
+function printTable(){
+
+    window.print();
+
+}
+
+// ======================
+// Excel Download
+// ======================
+
+function downloadExcel(){
+
+    var table=document.getElementById("studentTable");
+
+    var workbook=XLSX.utils.table_to_book(table,{
+        sheet:"Student Registration"
+    });
+
+    XLSX.writeFile(workbook,"Student_Registration_List.xlsx");
+
+}
+
+// ======================
+// PDF Download
+// ======================
+
+function downloadPDF(){
+
+    const {jsPDF}=window.jspdf;
+
+    const doc=new jsPDF("l","mm","a4");
+
+    doc.setFontSize(18);
+
+    doc.text("Student Registration List",14,15);
+
+    doc.autoTable({
+
+        html:"#studentTable",
+
+        startY:22,
+
+        theme:"grid",
+
+        styles:{
+            fontSize:8,
+            halign:"center",
+            valign:"middle"
+        },
+
+        headStyles:{
+            fillColor:[22,111,141],
+            textColor:[255,255,255]
+        },
+
+        alternateRowStyles:{
+            fillColor:[245,245,245]
+        }
+
+    });
+
+    doc.save("Student_Registration_List.pdf");
+
+}
+
+</script>
 
 </body>
-
 </html>
 
-{% include "admin/footer.html" %}
+{% include 'admin/footer.html' %}
