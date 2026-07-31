@@ -10,12 +10,16 @@ from student import models as stu
 
 # Admin Home
 def index(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     exams = Exam.objects.all()
     return render(req, "admin/index.html", {"exams":exams})
 
 
 # Create Exam Card Page
 def home_exam_card(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     return render(req, "admin/home_exam_card.html")
 
 
@@ -23,6 +27,8 @@ def home_exam_card(req):
 from django.contrib import messages
 
 def create_card_save(request):
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
     messages.success(request, "Exam Card Form Save Successfully!")
 
     if request.method == "POST":
@@ -61,7 +67,8 @@ def create_card_save(request):
 
 # Exam List
 def home_exam_card_list(request):
-
+ if "admin_id" not in request.session:
+    return redirect("admin_login")
     exams = Exam.objects.all()
 
     return render(
@@ -75,6 +82,8 @@ def home_exam_card_list(request):
     
 
 def update_home_exam_card(request, id):
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
     exam = get_object_or_404(Exam, id=id)
     messages.success(request, "Exam Card Form Update Successfully!")
 
@@ -114,7 +123,8 @@ def delete_exam(request,id):
 
 
 def student_review(req):
-  
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     return render(req,"admin/student_review.html")
 
 def Student_Reviews_save(req):
@@ -158,6 +168,8 @@ def Delete_Student_Reviews(req,id):
     return redirect('/admin/student_review_list/')
 
 def student_review_list(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     Student_Reviews_data = Student_Reviews.objects.all()
     return render(req,"admin/student_review_list.html",{"Student_Reviews_data":Student_Reviews_data}) \
 
@@ -166,6 +178,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 import student.models as stu
 
 def student_registations_list(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     Registration = stu.Registration.objects.all()
     return render(req,"admin/student_registations_list.html",{"Registration": Registration})
 
@@ -185,10 +199,14 @@ from . import models
 from django.contrib import messages
 
 def my_exam(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     data =models.MyExampage.objects.all()
     return render(req,'admin/my_exam.html',{"data":data})
 
 def save_my_exam(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     data = models.MyExampage(
             exam_name=req.POST.get("exam_name"),
             exam_description=req.POST.get("exam_description"),
@@ -204,6 +222,8 @@ def save_my_exam(req):
     return redirect('/admin/my_exam')
 
 def my_exam_list(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     data = models.MyExampage.objects.all()
     return render(req,'admin/my_exam_list.html',{"data":data})
 
@@ -233,6 +253,8 @@ def delete_my_exam(req,id):
 
 # instruction 
 def instruction(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     instruction=models.ExamInstruction.objects.all()
     return render(req, "admin/my_exam_instruction.html", {"instruction": instruction})
 
@@ -273,6 +295,8 @@ from django.contrib import messages
 
 
 def available_exam(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     data = models.AvailableExam.objects.all()
     return render(req,'admin/available_exam.html',{"data":data})
 
@@ -291,6 +315,8 @@ def save_available_exam(req):
     return redirect('/admin/available_exam')
 
 def available_list(req):
+        if "admin_id" not in req.session:
+            return redirect("admin_login")
         data = models.AvailableExam.objects.all()
         return render(req,'admin/available_list.html',{"data":data})
 
@@ -327,11 +353,15 @@ def delete_available_exam(req,id):
 # from .models import ExamInstruction
 
 def available_instruction(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     instruction = models.AvailExamInstruction.objects.all()
     return render(req, "admin/instruction_available.html", {"instruction": instruction})
 
 
 def available_save_instruction(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     if req.method == "POST":
         models.AvailExamInstruction.objects.create(
             title=req.POST.get("title"),
@@ -364,12 +394,16 @@ def available_delete_instruction(req,id):
 
 
 def Teacher_registrations(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     return render(req,"admin/Teacher_registrations.html")
 
 from django.shortcuts import render, redirect
 from .models import Teacher
 
 def teacher_profile(request):
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
     messages.success(request, "Teacher Registrations saved successfully!")
     if request.method == "POST":
 
@@ -401,7 +435,8 @@ def teacher_profile(request):
 from .models import Teacher
 
 def Teacher_registrations_list(request):
-
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
     teachers = Teacher.objects.all().order_by("-id")
 
     return render(
@@ -412,7 +447,8 @@ def Teacher_registrations_list(request):
 from django.shortcuts import render, redirect, get_object_or_404
 
 def teacher_update(request,id):
-
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
     teacher=get_object_or_404(Teacher,id=id)
 
     if request.method=="POST":
@@ -450,6 +486,8 @@ def teacher_delete(request, id):
 
 
 def Add_Academy(req):
+    if "admin_id" not in req.session:
+        return redirect("admin_login")
     return render(req,"admin/Add_Academy.html")
 
 
@@ -457,6 +495,8 @@ from .models import Academy
 
 
 def add_academy(request):
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
     if request.method == "POST":
 
         academy_name = request.POST.get("academy_name")
@@ -499,11 +539,15 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .models import Academy
 
 def academy_list(request):
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
     academy = Academy.objects.all().order_by("-id")
     return render(request, "admin/academy_list.html", {"academy": academy})
 
 
 def update_academy(request, id):
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
     academy = get_object_or_404(Academy, id=id)
 
     if request.method == "POST":
@@ -533,6 +577,8 @@ def update_academy(request, id):
 
 
 def delete_academy(request, id):
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
     academy = get_object_or_404(Academy, id=id)
 
     if academy.academy_logo:
@@ -544,3 +590,99 @@ def delete_academy(request, id):
     academy.delete()
 
     return redirect("academy_list")
+
+
+def admin_login(request):
+
+    if "admin_id" in request.session:
+        return redirect("/admin/")
+
+    if request.method == "POST":
+
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+
+        try:
+            admin = AdminProfile.objects.get(
+                email=email,
+                password=password
+            )
+
+            request.session["admin_id"] = admin.id
+            request.session["admin_name"] = admin.full_name
+
+            return redirect("/admin/")
+
+        except AdminProfile.DoesNotExist:
+            messages.error(request, "Invalid Email or Password")
+
+    return render(request, "admin/admin_login.html")
+
+
+from .models import AdminProfile
+
+# ==========================
+# Add Admin Profile
+# ==========================
+
+def admin_profile(request):
+    if "admin_id" not in request.session:
+        return redirect("admin_login")
+    if request.method == "POST":
+
+        profile_image = request.FILES.get("profile_image")
+        full_name = request.POST.get("full_name")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
+        mobile = request.POST.get("mobile")
+        gender = request.POST.get("gender")
+        date_of_birth = request.POST.get("dob")
+        address = request.POST.get("address")
+        city = request.POST.get("city")
+        state = request.POST.get("state")
+        pincode = request.POST.get("pincode")
+        country = request.POST.get("country")
+
+        models.AdminProfile.objects.create(
+            profile_image=profile_image,
+            full_name=full_name,
+            email=email,
+            password=password,
+            mobile=mobile,
+            gender=gender,
+            date_of_birth=date_of_birth,
+            address=address,
+            city=city,
+            state=state,
+            pincode=pincode,
+            country=country,
+        )
+
+        return redirect("/admin/admin_profile_list/")
+
+    return render(request, "admin/admin_profile.html")
+
+
+# ==========================
+# Admin Profile List
+# ==========================
+
+def admin_profile_list(request):
+    if "admin_id" not in request.session:
+            return redirect("admin_login")
+    data = AdminProfile.objects.all()
+    return render(request, "admin/admin_profile_list.html", {"data": data})
+
+
+def admin_profile_delete(request, id):
+
+    profile = get_object_or_404(AdminProfile, id=id)
+
+    profile.delete()
+
+    return redirect("admin_profile_list")   
+
+def logout_admin(req):
+    req.session.clear()
+    req.session.flush()
+    return redirect('/admin/admin_login/')

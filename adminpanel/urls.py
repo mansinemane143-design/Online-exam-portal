@@ -69,4 +69,13 @@ path("update_academy/<int:id>/", views.update_academy, name="update_academy"),
 path("delete_academy/<int:id>/", views.delete_academy, name="delete_academy"),
 
 
+
+
+path("admin_profile_delete/<int:id>/", views.admin_profile_delete, name="admin_profile_delete"),
+path("admin_login/", views.admin_login, name="admin_login"),
+path("admin_profile/", views.admin_profile, name="admin_profile"),
+path("admin_profile_list/", views.admin_profile_list, name="admin_profile_list"),
+path("logout_admin/", views.logout_admin, name="logout_admin"),
+
+
 ]

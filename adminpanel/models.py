@@ -128,3 +128,36 @@ class Academy(models.Model):
 
     def __str__(self):
         return self.academy_name
+
+
+
+
+class AdminProfile(models.Model):
+   
+    profile_image = models.ImageField(upload_to="static/images/profile/images/")
+    full_name = models.CharField(max_length=100)
+    email = models.EmailField(unique=True)
+    password = models.CharField(max_length=255)
+    mobile = models.CharField(max_length=15)
+    gender = models.CharField(
+        max_length=10,
+        choices=[
+            ('Male', 'Male'),
+            ('Female', 'Female'),
+            ('Other', 'Other'),
+        ]
+    )
+    date_of_birth = models.DateField()
+    address = models.TextField()
+    city = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    pincode = models.CharField(max_length=10)
+    country = models.CharField(max_length=100, default="India")
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.full_name
+
+
+
