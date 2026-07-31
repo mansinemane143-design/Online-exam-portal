@@ -127,3 +127,7 @@ category = models.CharField(
     choices=CATEGORY_CHOICES,
     default='MPSC'
 )
+
+
+
+

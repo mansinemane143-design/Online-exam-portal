@@ -11,7 +11,8 @@ from .models import Notification, Registration
 from student import models
 import random
 import time
-
+from django.contrib import messages
+# from .models import Registration
 
 # Create your views here.
 
@@ -35,8 +36,8 @@ def index(req):
 def my_profile(req):
     return render(req,"student/my_profile.html")
 
-def Student_dashboard(req):
-    return render(req,"student/Student_dashboard.html")
+def student_dashboard(req):
+    return render(req,"student/student.html")
 
 def payment_history(req):
     payments = py.Payment.objects.all()
@@ -52,6 +53,142 @@ def payment(req):
 # def my_exams(req):
 #     return render(req,"student/my_exams.html")
 
+
+from django.core.mail import send_mail
+from django.conf import settings
+import random
+
+def forgot_password(request):
+
+    if request.method == "POST":
+
+        email = request.POST.get("email")
+
+        student = Registration.objects.filter(email=email).first()
+
+        if not student:
+            messages.error(request, "Email is not registered.")
+            return redirect("forgot_password")
+
+        otp = str(random.randint(100000, 999999))
+
+        request.session["forgot_email"] = email
+        request.session["forgot_otp"] = otp
+        request.session["forgot_otp_time"] = int(time.time())
+
+        send_mail(
+            subject="Password Reset OTP",
+            message=f"Your OTP is {otp}",
+            from_email=settings.DEFAULT_FROM_EMAIL,
+            recipient_list=[email],
+            fail_silently=False,
+        )
+
+        return redirect("forgot_otp")
+
+    return render(request, "student/forgot_password.html")
+def forgot_otp(request):
+
+    if request.method == "POST":
+
+        entered_otp = request.POST.get("otp")
+
+        actual_otp = request.session.get("forgot_otp")
+
+        otp_time = request.session.get("forgot_otp_time")
+
+
+        # OTP generate झाला नाही
+        if not actual_otp:
+            messages.error(request, "OTP not found.")
+            return redirect("forgot_password")
+
+
+        # OTP time missing आहे
+        if not otp_time:
+            messages.error(request, "OTP expired. Please request new OTP.")
+            return redirect("forgot_password")
+
+
+        # OTP expiry check (5 minutes)
+        if int(time.time()) - int(otp_time) > 300:
+            messages.error(request, "OTP Expired.")
+            return redirect("forgot_password")
+
+
+        # Wrong OTP
+        if entered_otp != actual_otp:
+            messages.error(request, "Invalid OTP")
+            return redirect("forgot_otp")
+
+
+        # Correct OTP
+        return redirect("reset_password")
+
+
+    return render(request, "student/otp_verification.html")
+
+def forgot_resend_otp(request):
+
+    email = request.session.get("forgot_email")
+
+    if not email:
+        return redirect("forgot_password")
+
+    otp = str(random.randint(100000, 999999))
+    request.session["forgot_email"] = email
+    request.session["forgot_otp"] = otp
+    request.session["forgot_otp_time"] = int(time.time())
+
+    send_mail(
+        subject="Password Reset OTP",
+        message=f"Your New OTP is {otp}",
+        from_email=settings.DEFAULT_FROM_EMAIL,
+        recipient_list=[email],
+        fail_silently=False,
+    )
+
+    messages.success(request, "New OTP Sent Successfully.")
+
+    return redirect("forgot_otp")
+
+
+# def reset_password(request):
+
+#     email = request.session.get("forgot_email")
+
+#     if not email:
+#         return redirect("forgot_password")
+
+#     if request.method == "POST":
+
+#         password = request.POST.get("password")
+#         confirm = request.POST.get("confirm_password")
+
+#         if password != confirm:
+#             messages.error(request, "Passwords do not match.")
+#             return redirect("reset_password")
+
+#         student = Registration.objects.filter(email=email).last()
+
+#         student.password = password
+#         student.save()
+
+#         request.session.pop("forgot_email", None)
+#         request.session.pop("forgot_otp", None)
+#         request.session.pop("forgot_otp_time", None)
+
+#         messages.success(request, "Password Changed Successfully.")
+
+#         return redirect("password_success")
+
+#     return render(request, "student/reset_password.html")
+
+
+
+
+def password_success(request):
+    return render(request, "student/passworde_reset_password.html")
 
 def result(req):
     return render(req,"student/result.html")
@@ -70,29 +207,77 @@ def exam_details(req):
 def otp(req):
     return render(req,"student/otp.html")
 
+# def forgot_otp(request):
+#     return render(request, "student/forgot_otp.html")
+
 
 def login(req):
     return render(req,"student/login.html")
 
 
-# def student_login(req):
-#     if req.method == "POST":
-#         email = req.POST.get('email')
-#         password = req.POST.get('password')
+# Add this to your student/views.py
+# Adjust the import and field names to match your actual Student model.
 
-#         student = ad.Exam.objects.filter(email = email, password = password).first()
+from django.shortcuts import render, redirect
+# from .models import student   # <-- change "Student" if your model has a different name
 
-#         if student:
-#             req.session['user_email'] = email
-#             req.session['is_login'] = True
-#             req.session.set_expiry(1800)
 
-#             response = redirect('/admin/')
-#             response.set_cookie('user_email', email, max_age=3600)
-#             return response
-#         else:
-#             return render(req,'student/login.html',{"error":"Invalid User"})
-#     return render(req,"student/login.html")
+def student_login(request):
+
+    if request.method == "POST":
+
+        email = request.POST.get("email", "").strip()
+        password = request.POST.get("password", "").strip()
+
+        print("LOGIN EMAIL:", email)
+        print("LOGIN PASSWORD:", password)
+
+        student = Registration.objects.filter(email=email).first()
+
+        print("DATABASE STUDENT:", student)
+
+        if student is None:
+
+            messages.error(request, "Email is not registered.")
+
+        else:
+
+            print("DB PASSWORD:", student.password)
+
+            if student.password == password:
+
+                request.session["student_login"] = student.email
+
+                return redirect("student_dashboard")
+
+            else:
+
+                messages.error(
+                    request,
+                    "Incorrect password. Please try again."
+                )
+
+
+    return render(request,"student/login.html")
+
+
+
+# def index(req):
+#     return render(req,"student/index.html")
+
+# IMPORTANT — check these two things in your actual models.py:
+#
+# 1. Model name: I assumed "Student". If your registration view saves
+#    to a different model (e.g. "StudentRegistration"), change the
+#    import line and the Student.objects.filter(...) line to match.
+#
+# 2. Password storage: your registration log shows password saved as
+#    plain text ('password': ['12345']). If that's really how it's
+#    stored, `student.password == password` above works as-is. But
+#    storing plain-text passwords is a real security risk — if you'd
+#    like, I can show you how to hash it with Django's
+#    make_password / check_password with minimal changes to your
+#    registration view too.
 
 def logout(req):
     req.session.clear()
@@ -454,3 +639,50 @@ def save_exam_order(request):
         return JsonResponse({"status": "success"})
 
     return JsonResponse({"status": "error"})
+
+
+
+def reset_password(request):
+
+    email = request.session.get("forgot_email")
+
+    if not email:
+        return redirect("forgot_password")
+
+    if request.method == "POST":
+
+        password = request.POST.get("password")
+        confirm = request.POST.get("confirm_password")
+
+        if password != confirm:
+            messages.error(request,"Passwords do not match")
+            return redirect("reset_password")
+
+
+        student = Registration.objects.filter(email=email).first()
+
+        print("EMAIL:", email)
+        print("STUDENT:", student)
+
+        if student:
+
+            student.password = password
+            student.save(update_fields=["password"])
+
+            print("PASSWORD UPDATED:", student.password)
+
+        else:
+            print("STUDENT NOT FOUND")
+
+
+        request.session.flush()
+
+        messages.success(
+            request,
+            "Password Changed Successfully"
+        )
+
+        return redirect("password_success")
+
+
+    return render(request,"student/reset_password.html")

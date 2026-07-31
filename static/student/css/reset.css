@@ -1,0 +1,351 @@
+/* RESET PASSWORD PAGE */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+/* BODY */
+
+body {
+
+    min-height: 100vh;
+
+    background: linear-gradient(
+        135deg,
+        #0a1128 0%,
+        #102a43 50%,
+        #1e4e8c 100%
+    );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    color: #e2e8f0;
+
+}
+
+
+
+/* MAIN CONTAINER */
+
+.reset-container {
+
+    width: 100%;
+
+    min-height: 100vh;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+}
+
+
+
+/* RESET CARD */
+
+.reset-card {
+
+    width: 420px;
+
+    background: #ffffff;
+
+    padding: 35px 35px;
+
+    border-radius: 18px;
+
+    box-shadow: 
+    0 10px 30px rgba(0,0,0,0.25);
+
+    border: 1px solid #e2e8f0;
+
+}
+
+
+
+/* LOCK ICON */
+
+.icon {
+
+    width: 70px;
+
+    height: 70px;
+
+    margin: 0 auto 20px;
+
+    background: #176F8E;
+
+    color: #ffffff;
+
+    border-radius: 50%;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    font-size: 30px;
+
+    box-shadow:
+    0 0 15px rgba(23,111,142,0.5);
+
+}
+
+
+
+/* HEADING */
+
+.reset-card h2 {
+
+    text-align: center;
+
+    color: #0f172a;
+
+    font-size: 28px;
+
+    font-weight: 700;
+
+    margin-bottom: 8px;
+
+}
+
+
+
+.reset-card p {
+
+    text-align: center;
+
+    color: #64748b;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+/* MESSAGE */
+
+.message {
+
+    background: #dcfce7;
+
+    color: #166534;
+
+    border-radius: 8px;
+
+    padding: 12px;
+
+    text-align: center;
+
+    font-size: 14px;
+
+    margin-bottom: 20px;
+
+}
+
+
+
+/* INPUT BOX */
+
+.input-box {
+
+    margin-bottom: 20px;
+
+}
+
+
+
+.input-box label {
+
+    display: block;
+
+    color: #334155;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+    margin-bottom: 8px;
+
+}
+
+
+
+/* PASSWORD FIELD */
+
+.password-box {
+
+    position: relative;
+
+}
+
+
+
+.password-box input {
+
+    width: 100%;
+
+    height: 48px;
+
+    padding: 0 45px 0 15px;
+
+    border-radius: 10px;
+
+    border: 1px solid #cbd5e1;
+
+    outline: none;
+
+    font-size: 15px;
+
+    color: #0f172a;
+
+}
+
+
+
+.password-box input:focus {
+
+    border-color: #176F8E;
+
+    box-shadow:
+    0 0 0 3px rgba(23,111,142,0.15);
+
+}
+
+
+
+/* SHOW PASSWORD ICON */
+
+.password-box span {
+
+    position: absolute;
+
+    right: 15px;
+
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    color: #64748b;
+
+    cursor: pointer;
+
+}
+
+
+
+.password-box span:hover {
+
+    color: #176F8E;
+
+}
+
+
+
+/* BUTTON */
+
+button {
+
+    width: 100%;
+
+    height: 50px;
+
+    background: #176F8E;
+
+    color: white;
+
+    border: none;
+
+    border-radius: 10px;
+
+    font-size: 16px;
+
+    font-weight: 600;
+
+    cursor: pointer;
+
+    margin-top: 10px;
+
+    transition: 0.3s;
+
+}
+
+
+
+button:hover {
+
+    background: #125770;
+
+}
+
+
+
+/* BACK TO LOGIN */
+
+.back {
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    gap: 8px;
+
+    margin-top: 20px;
+
+    color: #176F8E;
+
+    text-decoration: none;
+
+    font-size: 14px;
+
+    font-weight: 600;
+
+}
+
+
+
+.back:hover {
+
+    color: #0f172a;
+
+}
+
+
+
+/* RESPONSIVE */
+
+@media(max-width:500px) {
+
+
+    .reset-card {
+
+        width: 100%;
+
+        padding: 30px 20px;
+
+    }
+
+
+    .reset-card h2 {
+
+        font-size: 24px;
+
+    }
+
+}
